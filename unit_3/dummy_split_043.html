@@ -1,0 +1,1904 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<title>Fundamentals of Database Systems</title>
+	<meta content="http://www.w3.org/1999/xhtml; charset=utf-8" http-equiv="Content-Type" />
+	<link href="../stylesheet.css" type="text/css" rel="stylesheet" />
+	<style type="text/css">
+		@page {
+			margin-bottom: 5.000000pt;
+			margin-top: 5.000000pt;
+		}
+	</style>
+</head>
+
+<body class="calibre">
+	<h3 id="filepos2333007" class="calibre55"><span class="calibre47"><span class="bold"><a class="calibre35"></a><a
+					id="filepos2333088" class="calibre35"></a>chapter 21<br class="calibre54" /><br
+					class="calibre54" />Introduction to Transaction Processing Concepts and Theory</span></span></h3>
+	<div class="calibre56"> </div>
+	<p class="calibre37">The concept of transaction provides a mechanism for describing logical units of database
+		processing. <strong class="calibre6">Transaction processing systems</strong> are systems with large databases
+		and hundreds of concurrent users executing database transactions. Examples of such systems include airline
+		reservations, banking, credit card processing, online retail purchasing, stock markets, supermarket checkouts,
+		and many other applications. These systems require high availability and fast response time for hundreds of
+		concurrent users. In this chapter we present the concepts that are needed in transaction processing systems. We
+		define the concept of a transaction, which is used to represent a logical unit of database processing that must
+		be completed in its entirety to ensure correctness. A transaction is typically implemented by a computer
+		program, which includes database commands such as retrievals, insertions, deletions, and updates. We introduced
+		some of the basic techniques for database programming in <a href="dummy_split_031.html#filepos1417305"
+			class="calibre41">Chapters 13</a> and <a href="dummy_split_032.html#filepos1523831"
+			class="calibre41">14</a>.</p>
+	<p class="calibre18">In this chapter, we focus on the basic concepts and theory that are needed to ensure the
+		correct executions of transactions. We discuss the concurrency control problem, which occurs when multiple
+		transactions submitted by various users interfere with one another in a way that produces incorrect results. We
+		also discuss the problems that can occur when transactions fail, and how the database system can recover from
+		various types of failures.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">This chapter is organized as follows. Section 21.1 informally discusses why concurrency control
+		and recovery are necessary in a database system. Section 21.2 defines the term <em
+			class="calibre13">transaction</em> and discusses additional concepts related to transaction processing in
+		database systems. Section 21.3 presents the important properties of atomicity, consistency preservation,
+		isolation, and durability or permanency—called the <a id="filepos2335308" class="calibre3"></a>ACID
+		properties—that are considered desirable in transaction processing systems. Section 21.4 introduces the concept
+		of schedules (or histories) of executing transactions and characterizes the <em
+			class="calibre13">recoverability</em> of schedules. Section 21.5 discusses the notion of <em
+			class="calibre13">serializability</em> of concurrent transaction execution, which can be used to define
+		correct execution sequences (or schedules) of concurrent transactions. In Section 21.6, we present some of the
+		commands that support the transaction concept in SQL. Section 21.7 summarizes the chapter.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">The two following chapters continue with more details on the actual methods and techniques used
+		to support transaction processing. <a href="dummy_split_044.html#filepos2454172" class="calibre41">Chapter
+			22</a> gives an overview of the basic concurrency control protocols and <a
+			href="dummy_split_045.html#filepos2555705" class="calibre41">Chapter 23</a> introduces recovery techniques.
+	</p>
+	<div class="calibre31"> </div>
+	<h4 id="filepos2336269" class="calibre57">
+		<blockquote class="calibre30"><span class="calibre11"><span class="bold1">21.1 Introduction to Transaction
+					Processing</span></span></blockquote>
+	</h4>
+	<div class="calibre31"> </div>
+	<p class="calibre18">In this section we discuss the concepts of concurrent execution of transactions and recovery
+		from transaction failures. Section 21.1.1 compares single-user and multiuser database systems and demonstrates
+		how concurrent execution of transactions can take place in multiuser systems. Section 21.1.2 defines the concept
+		of transaction and presents a simple model of transaction execution based on read and write database operations.
+		This model is used as the basis for defining and formalizing concurrency control and recovery concepts. Section
+		21.1.3 uses informal examples to show why concurrency control techniques are needed in multiuser systems.
+		Finally, Section 21.1.4 discusses why techniques are needed to handle recovery from system and transaction
+		failures by discussing the different ways in which transactions can fail while executing.</p>
+	<div class="calibre31"> </div>
+	<h5 class="calibre62">
+		<blockquote class="calibre30"><span class="calibre60"><span class="bold1">21.1.1 Single-User versus Multiuser
+					Systems</span></span></blockquote>
+	</h5>
+	<p class="calibre18">One criterion for classifying a database system is according to the number of users who can use
+		the system <strong class="calibre6">concurrently</strong>. A DBMS is <strong
+			class="calibre6">single-user</strong> if at most one user at a time can use the system, and it is <strong
+			class="calibre6">multiuser</strong> if many users can use the system—and hence access the
+		database—concurrently. Single-user DBMSs are mostly restricted to personal computer systems; most other DBMSs
+		are multiuser. For example, an airline reservations system is used by hundreds of travel agents and reservation
+		clerks concurrently. Database systems used in banks, insurance agencies, stock exchanges, supermarkets, and many
+		other applications are multiuser systems. In these systems, hundreds or thousands of users are typically
+		operating on the database by submitting transactions concurrently to the system.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">Multiple users can access databases—and use computer systems—simultaneously because of the
+		concept of <strong class="calibre6">multiprogramming</strong>, which allows the operating system of the computer
+		to execute multiple programs—or <strong class="calibre6">processes</strong>—at the same time. A single central
+		processing unit (CPU) can only execute at most one process at a time. However, <strong
+			class="calibre6">multiprogramming operating systems</strong> execute some commands from one process, then
+		suspend that process and execute some commands from the next <a id="filepos2339009"
+			class="calibre3"></a>process, and so on. A process is resumed at the point where it was suspended whenever
+		it gets its turn to use the CPU again. Hence, concurrent execution of processes is actually <strong
+			class="calibre6">interleaved</strong>, as illustrated in <a href="#filepos2339718" class="calibre41">Figure
+			21.1</a>, which shows two processes, A and B, executing concurrently in an interleaved fashion. Interleaving
+		keeps the CPU busy when a process requires an input or output (I/O) operation, such as reading a block from
+		disk. The CPU is switched to execute another process rather than remaining idle during I/O time. Interleaving
+		also prevents a long process from delaying other processes.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre7"><a id="filepos2339718" class="calibre3"></a><img alt="image" src="../images/00498.jpg"
+			class="calibre16" /></p>
+	<p class="calibre58"><strong class="calibre6">Figure 21.1</strong><br class="calibre1" />Interleaved processing
+		versus parallel processing of concurrent transactions.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">If the computer system has multiple hardware processors (CPUs), <strong
+			class="calibre6">parallel processing</strong> of multiple processes is possible, as illustrated by processes
+		C and D in <a href="#filepos2339718" class="calibre41">Figure 21.1</a>. Most of the theory concerning
+		concurrency control in databases is developed in terms of <strong class="calibre6">interleaved
+			concurrency</strong>, so for the remainder of this chapter we assume this model. In a multiuser DBMS, the
+		stored data items are the primary resources that may be accessed concurrently by interactive users or
+		application programs, which are constantly retrieving information from and modifying the database.</p>
+	<div class="calibre31"> </div>
+	<h5 class="calibre62">
+		<blockquote class="calibre30"><span class="calibre60"><span class="bold1">21.1.2 Transactions, Database Items,
+					Read and Write Operations, and DBMS Buffers</span></span></blockquote>
+	</h5>
+	<p class="calibre18">A <strong class="calibre6">transaction</strong> is an executing program that forms a logical
+		unit of database processing. A transaction includes one or more database access operations—these can include
+		insertion, deletion, modification, or retrieval operations. The database operations that form a transaction can
+		either be embedded within an application program or they can be specified interactively via a high-level query
+		language such as SQL. One way of specifying the transaction boundaries is by specifying explicit <strong
+			class="calibre6">begin transaction</strong> and <strong class="calibre6">end transaction</strong> statements
+		in an application program; in this case, all database access operations between the two are considered as
+		forming one transaction. A single application program may contain more than one transaction if it contains
+		several transaction boundaries. If the database operations in a transaction do not update the database but only
+		retrieve data, the transaction is called a <strong class="calibre6">read-only transaction</strong>; otherwise it
+		is known as a <strong class="calibre6">read-write transaction</strong>.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18"><a id="filepos2342007" class="calibre3"></a>The <em class="calibre13">database model</em> that
+		is used to present transaction processing concepts is quite simple when compared to the data models that we
+		discussed earlier in the book, such as the relational model or the object model. A <strong
+			class="calibre6">database</strong> is basically represented as a collection of <em class="calibre13">named
+			data items</em>. The size of a data item is called its <strong class="calibre6">granularity</strong>. A
+		<strong class="calibre6">data item</strong> can be a <em class="calibre13">database record</em>, but it can also
+		be a larger unit such as a whole <em class="calibre13">disk block</em>, or even a smaller unit such as an
+		individual <em class="calibre13">field (attribute) value</em> of some record in the database. The transaction
+		processing concepts we discuss are independent of the data item granularity (size) and apply to data items in
+		general. Each data item has a <em class="calibre13">unique name</em>, but this name is not typically used by the
+		programmer; rather, it is just a means to <em class="calibre13">uniquely identify each data item</em>. For
+		example, if the data item granularity is one disk block, then the disk block address can be used as the data
+		item name. Using this simplified database model, the basic database access operations that a transaction can
+		include are as follows:</p>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre40"><img alt="image" src="../images/00003.jpg" class="calibre16" /><strong
+				class="calibre6">read_item</strong> (<strong class="calibre6"><em class="calibre13">X</em>)</strong>.
+			Reads a database item named <em class="calibre13">X</em> into a program variable. To simplify our notation,
+			we assume that <em class="calibre13">the program variable is also named X</em>.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><img alt="image" src="../images/00003.jpg" class="calibre16" /><strong
+				class="calibre6">write_item</strong> (<strong class="calibre6"><em class="calibre13">X</em>)</strong>.
+			Writes the value of program variable <em class="calibre13">X</em> into the database item named <em
+				class="calibre13">X</em>.</p>
+	</blockquote>
+	<p class="calibre18">As we discussed in <a href="dummy_split_037.html#filepos1840823" class="calibre41">Chapter
+			17</a>, the basic unit of data transfer from disk to main memory is one block. Executing a read_item(<em
+			class="calibre13">X</em>) command includes the following steps:</p>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">1</strong>. Find the address of the disk block that contains item
+			<em class="calibre13">X</em>.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">2</strong>. Copy that disk block into a buffer in main memory (if
+			that disk block is not already in some main memory buffer).</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">3</strong>. Copy item <em class="calibre13">X</em> from the buffer
+			to the program variable named <em class="calibre13">X</em>.</p>
+	</blockquote>
+	<p class="calibre18">Executing a write_item(<em class="calibre13">X</em>) command includes the following steps:</p>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">1</strong>. Find the address of the disk block that contains item
+			<em class="calibre13">X</em>.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">2</strong>. Copy that disk block into a buffer in main memory (if
+			that disk block is not already in some main memory buffer).</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">3</strong>. Copy item <em class="calibre13">X</em> from the
+			program variable named <em class="calibre13">X</em> into its correct location in the buffer.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">4</strong>. Store the updated block from the buffer back to disk
+			(either immediately or at some later point in time).</p>
+	</blockquote>
+	<p class="calibre18">It is step 4 that actually updates the database on disk. In some cases the buffer is not
+		immediately stored to disk, in case additional changes are to be made to the buffer. Usually, the decision about
+		when to store a modified disk block whose contents are in a main memory buffer is handled by the recovery
+		manager of the DBMS in cooperation with the underlying operating system. The DBMS will maintain in the <strong
+			class="calibre6">database cache</strong> a number of <strong class="calibre6">data buffers</strong> in main
+		memory. Each buffer typically holds the contents of one database disk block, which contains some of the database
+		items being processed. When these buffers are all occupied, and additional database disk blocks must be copied
+		into memory, some buffer replacement policy is used to <a id="filepos2346381" class="calibre3"></a>choose which
+		of the current buffers is to be replaced. If the chosen buffer has been modified, it must be written back to
+		disk before it is reused.<a id="filepos2346535" class="calibre3"></a><sup class="calibre43"><a
+				href="dummy_split_325.html#filepos4409114" class="calibre41">1</a></sup></p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">A transaction includes read_item and write_item operations to access and update the database.
+		<a href="#filepos2349190" class="calibre41">Figure 21.2</a> shows examples of two very simple transactions. The
+		<strong class="calibre6">read-set</strong> of a transaction is the set of all items that the transaction reads,
+		and the <strong class="calibre6">write-set</strong> is the set of all items that the transaction writes. For
+		example, the read-set of <em class="calibre13">T</em><sub class="calibre65">1</sub> in <a href="#filepos2349190"
+			class="calibre41">Figure 21.2</a> is {<em class="calibre13">X</em>, <em class="calibre13">Y</em>} and its
+		write-set is also {<em class="calibre13">X</em>, <em class="calibre13">Y</em>}.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">Concurrency control and recovery mechanisms are mainly concerned with the database commands in
+		a transaction. Transactions submitted by the various users may execute concurrently and may access and update
+		the same database items. If this concurrent execution is <em class="calibre13">uncontrolled</em>, it may lead to
+		problems, such as an inconsistent database. In the next section we informally introduce some of the problems
+		that may occur.</p>
+	<div class="calibre31"> </div>
+	<h5 class="calibre62">
+		<blockquote class="calibre30"><span class="calibre60"><span class="bold1">21.1.3 Why Concurrency Control Is
+					Needed</span></span></blockquote>
+	</h5>
+	<p class="calibre18">Several problems can occur when concurrent transactions execute in an uncontrolled manner. We
+		illustrate some of these problems by referring to a much simplified airline reservations database in which a
+		record is stored for each airline flight. Each record includes the <em class="calibre13">number of reserved
+			seats</em> on that flight as a <em class="calibre13">named (uniquely identifiable) data item</em>, among
+		other information. <a href="#filepos2349190" class="calibre41">Figure 21.2(a)</a> shows a transaction <em
+			class="calibre13">T</em><sub class="calibre65">1</sub> that <em class="calibre13">transfers N</em>
+		reservations from one flight whose number of reserved seats is stored in the database item named <em
+			class="calibre13">X</em> to another flight whose number of reserved seats is stored in the database item
+		named <em class="calibre13">Y</em>. <a href="#filepos2349190" class="calibre41">Figure 21.2(b)</a> shows a
+		simpler transaction <em class="calibre13">T</em><sub class="calibre65">2</sub> that just <em
+			class="calibre13">reserves M</em> seats on the first flight (<em class="calibre13">X</em>) referenced in
+		transaction <em class="calibre13">T</em><sub class="calibre65">1</sub>.<a id="filepos2348822"
+			class="calibre3"></a><sup class="calibre43"><a href="dummy_split_326.html#filepos4409366"
+				class="calibre41">2</a></sup> To simplify our example, we do not show additional portions of the
+		transactions, such as checking whether a flight has enough seats available before reserving additional seats.
+	</p>
+	<div class="calibre31"> </div>
+	<p class="calibre7"><img alt="image" src="../images/00499.jpg" class="calibre16" /></p>
+	<p class="calibre58"><a id="filepos2349190" class="calibre3"></a><strong class="calibre6">Figure 21.2</strong><br
+			class="calibre1" />Two sample transactions. (a) Transaction<br class="calibre1" /><em
+			class="calibre13">T</em><sub class="calibre65">1</sub>. (b) Transaction <em class="calibre13">T</em><sub
+			class="calibre65">2</sub>.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18"><a id="filepos2349395" class="calibre3"></a>When a database access program is written, it has
+		the flight number, flight date, and the number of seats to be booked as parameters; hence, the same program can
+		be used to execute <em class="calibre13">many different transactions</em>, each with a different flight number,
+		date, and number of seats to be booked. For concurrency control purposes, a transaction is a <em
+			class="calibre13">particular execution</em> of a program on a specific date, flight, and number of seats. In
+		<a href="#filepos2349190" class="calibre41">Figure 21.2(a)</a> and <a href="#filepos2349190"
+			class="calibre41">(b)</a>, the transactions <em class="calibre13">T</em><sub class="calibre65">1</sub> and
+		<em class="calibre13">T</em><sub class="calibre65">2</sub> are <em class="calibre13">specific executions</em> of
+		the programs that refer to the specific flights whose numbers of seats are stored in data items <em
+			class="calibre13">X</em> and <em class="calibre13">Y</em> in the database. Next we discuss the types of
+		problems we may encounter with these two simple transactions if they run concurrently.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18"><strong class="calibre6">The Lost Update Problem</strong>. This problem occurs when two
+		transactions that access the same database items have their operations interleaved in a way that makes the value
+		of some database items incorrect. Suppose that transactions <em class="calibre13">T</em><sub
+			class="calibre65">1</sub> and <em class="calibre13">T</em><sub class="calibre65">2</sub> are submitted at
+		approximately the same time, and suppose that their operations are interleaved as shown in <a
+			href="#filepos2349190" class="calibre41">Figure 21.3(a)</a>; then the final value of item <em
+			class="calibre13">X</em> is incorrect because <em class="calibre13">T</em><sub class="calibre65">2</sub>
+		reads the value of <em class="calibre13">X before T</em><sub class="calibre65">1</sub> changes it in the
+		database, and hence the updated value resulting from <em class="calibre13">T</em><sub class="calibre65">1</sub>
+		is lost. For example, if <em class="calibre13">X</em> = 80 at the start (originally there were 80 reservations
+		on the flight), <em class="calibre13">N</em> = 5 (<em class="calibre13">T</em><sub class="calibre65">1</sub>
+		transfers 5 seat reservations from the flight corresponding to <em class="calibre13">X</em> to the flight
+		corresponding to <em class="calibre13">Y</em>), and <em class="calibre13">M</em> = 4 (<em
+			class="calibre13">T</em><sub class="calibre65">2</sub> reserves 4 seats on <em class="calibre13">X</em>),
+		the final result should be <em class="calibre13">X</em> = 79. However, in the interleaving of operations shown
+		in <a href="#filepos2349190" class="calibre41">Figure 21.3(a)</a>, it is <em class="calibre13">X</em> = 84
+		because the update in <em class="calibre13">T</em><sub class="calibre65">1</sub> that removed the five seats
+		from <em class="calibre13">X</em> was <em class="calibre13">lost</em>.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18"><strong class="calibre6">The Temporary Update (or Dirty Read) Problem</strong>. This problem
+		occurs when one transaction updates a database item and then the transaction fails for some reason (see Section
+		21.1.4). Meanwhile, the updated item is accessed (read) by another transaction before it is changed back to its
+		original value. <a href="#filepos2349190" class="calibre41">Figure 21.3(b)</a> shows an example where <em
+			class="calibre13">T</em><sub class="calibre65">1</sub> updates item <em class="calibre13">X</em> and then
+		fails before completion, so the system must change <em class="calibre13">X</em> back to its original value.
+		Before it can do so, however, transaction <em class="calibre13">T</em><sub class="calibre65">2</sub> reads the
+		<em class="calibre13">temporary</em> value of <em class="calibre13">X</em>, which will not be recorded
+		permanently in the database because of the failure of <em class="calibre13">T</em><sub
+			class="calibre65">1</sub>. The value of item <em class="calibre13">X</em> that is read by <em
+			class="calibre13">T</em><sub class="calibre65">2</sub> is called <em class="calibre13">dirty data</em>
+		because it has been created by a transaction that has not completed and committed yet; hence, this problem is
+		also known as the <em class="calibre13">dirty read problem</em>.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18"><strong class="calibre6">The Incorrect Summary Problem</strong>. If one transaction is
+		calculating an aggregate summary function on a number of database items while other transactions are updating
+		some of these items, the aggregate function may calculate some values before they are updated and others after
+		they are updated. For example, suppose that a transaction <em class="calibre13">T</em><sub
+			class="calibre65">3</sub> is calculating the total number of reservations on all the flights; meanwhile,
+		transaction <em class="calibre13">T</em><sub class="calibre65">1</sub> is executing. If the interleaving of
+		operations shown in <a href="#filepos2353660" class="calibre41">Figure 21.3(c)</a> occurs, the result of <em
+			class="calibre13">T</em><sub class="calibre65">3</sub> will be off by an amount <em class="calibre13">N</em>
+		because <em class="calibre13">T</em><sub class="calibre65">3</sub> reads the value of <em class="calibre13">X
+			after N</em> seats have been subtracted from it but reads the value of <em class="calibre13">Y before</em>
+		those <em class="calibre13">N</em> seats have been added to it.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre7"><a class="calibre3"></a><a id="filepos2353660" class="calibre3"></a><img alt="image"
+			src="../images/00500.jpg" class="calibre16" /></p>
+	<p class="calibre7"><img alt="image" src="../images/00501.jpg" class="calibre16" /></p>
+	<p class="calibre58"><strong class="calibre6">Figure 21.3</strong><br class="calibre1" />Some problems that occur
+		when concurrent execution is uncontrolled. (a) The lost update problem. (b) The temporary update problem. (c)
+		The incorrect summary problem.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18"><a id="filepos2354107" class="calibre3"></a><strong class="calibre6">The Unrepeatable Read
+			Problem</strong>. Another problem that may occur is called <em class="calibre13">unrepeatable read</em>,
+		where a transaction <em class="calibre13">T</em> reads the same item twice and the item is changed by another
+		transaction <em class="calibre13">T</em>’ between the two reads. Hence, <em class="calibre13">T</em> receives
+		<em class="calibre13">different values</em> for its two reads of the same item. This may occur, for example, if
+		during an airline reservation transaction, a customer inquires about seat availability on several flights. When
+		the customer decides on a particular flight, the transaction then reads the number of seats on that flight a
+		second time before completing the reservation, and it may end up reading a different value for the item.</p>
+	<div class="calibre31"> </div>
+	<h5 class="calibre62">
+		<blockquote class="calibre30"><span class="calibre60"><span class="bold1">21.1.4 Why Recovery Is
+					Needed</span></span></blockquote>
+	</h5>
+	<p class="calibre18">Whenever a transaction is submitted to a DBMS for execution, the system is responsible for
+		making sure that either all the operations in the transaction are completed successfully and their effect is
+		recorded permanently in the database, or that the transaction does not have any effect on the database or any
+		other transactions. In the first case, the transaction is said to be <strong
+			class="calibre6">committed</strong>, whereas in the second case, the transaction is <strong
+			class="calibre6">aborted</strong>. The DBMS must not permit some operations of a transaction <em
+			class="calibre13">T</em> to be applied to the database while other operations of <em
+			class="calibre13">T</em> are not, because <em class="calibre13">the whole transaction</em> is a logical unit
+		of database processing. If a transaction <strong class="calibre6">fails</strong> after executing some of its
+		operations but before executing all of them, the operations already executed must be undone and have no lasting
+		effect.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18"><strong class="calibre6">Types of Failures</strong>. Failures are generally classified as
+		transaction, system, and media failures. There are several possible reasons for a transaction to fail in the
+		middle of execution:</p>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">1. A computer failure (system crash)</strong>. A hardware,
+			software, or network error occurs in the computer system during transaction execution. Hardware crashes are
+			usually media failures—for example, main memory failure.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">2. A transaction or system error</strong>. Some operation in the
+			transaction may cause it to fail, such as integer overflow or division by zero. Transaction failure may also
+			occur because of erroneous parameter values or because of a logical programming error.<a id="filepos2356856"
+				class="calibre3"></a><sup class="calibre43"><a href="dummy_split_327.html#filepos4409717"
+					class="calibre41">3</a></sup> Additionally, the user may interrupt the transaction during its
+			execution.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">3. Local errors or exception conditions detected by the
+				transaction</strong>. During transaction execution, certain conditions may occur that necessitate
+			cancellation of the transaction. For example, data for the transaction may not be found. An exception
+			condition,<a id="filepos2357334" class="calibre3"></a><sup class="calibre43"><a
+					href="dummy_split_328.html#filepos4409972" class="calibre41">4</a></sup> such as insufficient
+			account balance in a banking database, may cause a transaction, such as a fund withdrawal, to be canceled.
+			This exception could be programmed in the transaction itself, and in such a case would not be considered as
+			a transaction failure.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><a id="filepos2357722" class="calibre3"></a><strong class="calibre6">4. Concurrency control
+				enforcement</strong>. The concurrency control method (see <a href="dummy_split_044.html#filepos2454172"
+				class="calibre41">Chapter 22</a>) may decide to abort a transaction because it violates serializability
+			(see Section 21.5), or it may abort one or more transactions to resolve a state of deadlock among several
+			transactions (see Section 22.1.3). Transactions aborted because of serializability violations or deadlocks
+			are typically restarted automatically at a later time.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">5. Disk failure</strong>. Some disk blocks may lose their data
+			because of a read or write malfunction or because of a disk read/write head crash. This may happen during a
+			read or a write operation of the transaction.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">6. Physical problems and catastrophes</strong>. This refers to an
+			endless list of problems that includes power or air-conditioning failure, fire, theft, sabotage, overwriting
+			disks or tapes by mistake, and mounting of a wrong tape by the operator.</p>
+	</blockquote>
+	<p class="calibre18">Failures of types 1, 2, 3, and 4 are more common than those of types 5 or 6. Whenever a failure
+		of type 1 through 4 occurs, the system must keep sufficient information to quickly recover from the failure.
+		Disk failure or other catastrophic failures of type 5 or 6 do not happen frequently; if they do occur, recovery
+		is a major task. We discuss recovery from failure in <a href="dummy_split_045.html#filepos2555705"
+			class="calibre41">Chapter 23</a>.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">The concept of transaction is fundamental to many techniques for concurrency control and
+		recovery from failures.</p>
+	<div class="calibre31"> </div>
+	<h4 id="filepos2359515" class="calibre57">
+		<blockquote class="calibre30"><span class="calibre11"><span class="bold1">21.2 Transaction and System
+					Concepts</span></span></blockquote>
+	</h4>
+	<div class="calibre31"> </div>
+	<p class="calibre18">In this section we discuss additional concepts relevant to transaction processing. Section
+		21.2.1 describes the various states a transaction can be in, and discusses other operations needed in
+		transaction processing. Section 21.2.2 discusses the system log, which keeps information about transactions and
+		data items that will be needed for recovery. Section 21.2.3 describes the concept of commit points of
+		transactions, and why they are important in transaction processing.</p>
+	<div class="calibre31"> </div>
+	<h5 class="calibre62">
+		<blockquote class="calibre30"><span class="calibre60"><span class="bold1">21.2.1 Transaction States and
+					Additional Operations</span></span></blockquote>
+	</h5>
+	<p class="calibre18">A transaction is an atomic unit of work that should either be completed in its entirety or not
+		done at all. For recovery purposes, the system needs to keep track of when each transaction starts, terminates,
+		and commits or aborts (see Section 21.2.3). Therefore, the recovery manager of the DBMS needs to keep track of
+		the following operations:</p>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre40"><img alt="image" src="../images/00003.jpg" class="calibre16" /> BEGIN_TRANSACTION. This marks
+			the beginning of transaction execution.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><img alt="image" src="../images/00003.jpg" class="calibre16" /> READ or WRITE. These specify
+			read or write operations on the database items that are executed as part of a transaction.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><img alt="image" src="../images/00003.jpg" class="calibre16" /> END_TRANSACTION. This
+			specifies that READ and WRITE transaction operations have ended and marks the end of transaction execution.
+			However, at this point it may be necessary to check whether the changes introduced by <a id="filepos2361543"
+				class="calibre3"></a>the transaction can be permanently applied to the database (committed) or whether
+			the transaction has to be aborted because it violates serializability (see Section 21.5) or for some other
+			reason.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><img alt="image" src="../images/00003.jpg" class="calibre16" /> COMMIT_TRANSACTION. This
+			signals a <em class="calibre13">successful end</em> of the transaction so that any changes (updates)
+			executed by the transaction can be safely <strong class="calibre6">committed</strong> to the database and
+			will not be undone.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><img alt="image" src="../images/00003.jpg" class="calibre16" /> ROLLBACK (or ABORT). This
+			signals that the transaction has <em class="calibre13">ended unsuccessfully</em>, so that any changes or
+			effects that the transaction may have applied to the database must be <strong
+				class="calibre6">undone</strong>.</p>
+	</blockquote>
+	<p class="calibre18"><a href="#filepos2364386" class="calibre41">Figure 21.4</a> shows a state transition diagram
+		that illustrates how a transaction moves through its execution states. A transaction goes into an <strong
+			class="calibre6">active state</strong> immediately after it starts execution, where it can execute its READ
+		and WRITE operations. When the transaction ends, it moves to the <strong class="calibre6">partially committed
+			state</strong>. At this point, some recovery protocols need to ensure that a system failure will not result
+		in an inability to record the changes of the transaction permanently (usually by recording changes in the system
+		log, discussed in the next section).<a id="filepos2363106" class="calibre3"></a><sup class="calibre43"><a
+				href="dummy_split_329.html#filepos4410189" class="calibre41">5</a></sup> Once this check is successful,
+		the transaction is said to have reached its commit point and enters the <strong class="calibre6">committed
+			state</strong>. Commit points are discussed in more detail in Section 21.2.3. When a transaction is
+		committed, it has concluded its execution successfully and all its changes must be recorded permanently in the
+		database, even if a system failure occurs.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">However, a transaction can go to the <strong class="calibre6">failed state</strong> if one of
+		the checks fails or if the transaction is aborted during its active state. The transaction may then have to be
+		rolled back to undo the effect of its WRITE operations on the database. The <strong class="calibre6">terminated
+			state</strong> corresponds to the transaction leaving the system. The transaction information that is
+		maintained in system tables while the transaction has been running is removed when the transaction terminates.
+		Failed or aborted transactions may be <em class="calibre13">restarted</em> later—either automatically or after
+		being resubmitted by the user—as brand new transactions.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre7"><img alt="image" src="../images/00502.jpg" class="calibre16" /></p>
+	<p class="calibre58"><a id="filepos2364386" class="calibre3"></a><strong class="calibre6">Figure 21.4</strong><br
+			class="calibre1" />State transition diagram illustrating the states for transaction execution.</p>
+	<div class="calibre31"> </div>
+	<h5 class="calibre62">
+		<blockquote class="calibre30"><span class="calibre60"><span class="bold1"><a id="filepos2364614"
+						class="calibre3"></a>21.2.2 The System Log</span></span></blockquote>
+	</h5>
+	<p class="calibre18">To be able to recover from failures that affect transactions, the system maintains a <strong
+			class="calibre6">log</strong><a id="filepos2364829" class="calibre3"></a><sup class="calibre43"><a
+				href="dummy_split_330.html#filepos4410510" class="calibre41">6</a></sup> to keep track of all
+		transaction operations that affect the values of database items, as well as other transaction information that
+		may be needed to permit recovery from failures. The log is a sequential, append-only file that is kept on disk,
+		so it is not affected by any type of failure except for disk or catastrophic failure. Typically, one (or more)
+		main memory buffers hold the last part of the log file, so that log entries are first added to the main memory
+		buffer. When the <strong class="calibre6">log buffer</strong> is filled, or when certain other conditions occur,
+		the log buffer is <em class="calibre13">appended to the end of the log file on disk</em>. In addition, the log
+		file from disk is periodically backed up to archival storage (tape) to guard against catastrophic failures. The
+		following are the types of entries—called <strong class="calibre6">log records</strong>—that are written to the
+		log file and the corresponding action for each log record. In these entries, <em class="calibre13">T</em> refers
+		to a unique <strong class="calibre6">transaction-id</strong> that is generated automatically by the system for
+		each transaction and that is used to identify each transaction:</p>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">1. [start_transaction, <em class="calibre13">T</em>]</strong>.
+			Indicates that transaction <em class="calibre13">T</em> has started execution.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">2. [write_item, <em class="calibre13">T</em></strong>, <strong
+				class="calibre6"><em class="calibre13">X</em>, <em class="calibre13">old_value</em>, <em
+					class="calibre13">new_value</em>]</strong>. Indicates that transaction <em class="calibre13">T</em>
+			has changed the value of database item <em class="calibre13">X</em> from <em
+				class="calibre13">old_value</em> to <em class="calibre13">new_value</em>.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">3. [read_item, <em class="calibre13">T</em>, <em
+					class="calibre13">X</em>]</strong>. Indicates that transaction <em class="calibre13">T</em> has read
+			the value of database item <em class="calibre13">X</em>.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">4. [commit, <em class="calibre13">T</em>]</strong>. Indicates that
+			transaction <em class="calibre13">T</em> has completed successfully, and affirms that its effect can be
+			committed (recorded permanently) to the database.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">5. [abort, <em class="calibre13">T</em>]</strong>. Indicates that
+			transaction <em class="calibre13">T</em> has been aborted.</p>
+	</blockquote>
+	<p class="calibre18">Protocols for recovery that avoid cascading rollbacks (see Section 21.4.2)—which include nearly
+		all practical protocols—<em class="calibre13">do not require</em> that READ operations are written to the system
+		log. However, if the log is also used for other purposes—such as auditing (keeping track of all database
+		operations)—then such entries can be included. Additionally, some recovery protocols require simpler WRITE
+		entries only include one of new_value and old_value instead of including both (see Section 21.4.2).</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">Notice that we are assuming that all permanent changes to the database occur within
+		transactions, so the notion of recovery from a transaction failure amounts to either undoing or redoing
+		transaction operations individually from the log. If the system crashes, we can recover to a consistent database
+		state by examining the log and using one of the techniques described in <a
+			href="dummy_split_045.html#filepos2555705" class="calibre41">Chapter 23</a>. Because the log contains a
+		record of every WRITE operation that changes the value of some database item, it is possible to <strong
+			class="calibre6">undo</strong> the effect of these WRITE operations of a transaction <em
+			class="calibre13">T</em> by tracing backward through the log and resetting all items changed by a WRITE
+		operation of <em class="calibre13">T</em> to their old_values. <strong class="calibre6">Redo</strong> of an
+		operation may also be necessary if a transaction has its updates recorded in the log but a failure occurs before
+		the system can be sure that <a id="filepos2368764" class="calibre3"></a>all these new_values have been written
+		to the actual database on disk from the main memory buffers.<a id="filepos2368870" class="calibre3"></a><sup
+			class="calibre43"><a href="dummy_split_331.html#filepos4410701" class="calibre41">7</a></sup></p>
+	<div class="calibre31"> </div>
+	<h5 class="calibre62">
+		<blockquote class="calibre30"><span class="calibre60"><span class="bold1">21.2.3 Commit Point of a
+					Transaction</span></span></blockquote>
+	</h5>
+	<p class="calibre18">A transaction <em class="calibre13">T</em> reaches its <strong class="calibre6">commit
+			point</strong> when all its operations that access the database have been executed successfully <em
+			class="calibre13">and</em> the effect of all the transaction operations on the database have been recorded
+		in the log. Beyond the commit point, the transaction is said to be <strong class="calibre6">committed</strong>,
+		and its effect must be <em class="calibre13">permanently recorded</em> in the database. The transaction then
+		writes a commit record [commit, <em class="calibre13">T</em>] into the log. If a system failure occurs, we can
+		search back in the log for all transactions <em class="calibre13">T</em> that have written a [start_transaction,
+		<em class="calibre13">T</em>] record into the log but have not written their [commit, <em
+			class="calibre13">T</em>] record yet; these transactions may have to be <em class="calibre13">rolled
+			back</em> to <em class="calibre13">undo their effect</em> on the database during the recovery process.
+		Transactions that have written their commit record in the log must also have recorded all their WRITE operations
+		in the log, so their effect on the database can be <em class="calibre13">redone</em> from the log records.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">Notice that the log file must be kept on disk. As discussed in <a
+			href="dummy_split_037.html#filepos1840823" class="calibre41">Chapter 17</a>, updating a disk file involves
+		copying the appropriate block of the file from disk to a buffer in main memory, updating the buffer in main
+		memory, and copying the buffer to disk. It is common to keep one or more blocks of the log file in main memory
+		buffers, called the <strong class="calibre6">log buffer</strong>, until they are filled with log entries and
+		then to write them back to disk only once, rather than writing to disk every time a log entry is added. This
+		saves the overhead of multiple disk writes of the same log file buffer. At the time of a system crash, only the
+		log entries that have been <em class="calibre13">written back to disk</em> are considered in the recovery
+		process because the contents of main memory may be lost. Hence, <em class="calibre13">before</em> a transaction
+		reaches its commit point, any portion of the log that has not been written to the disk yet must now be written
+		to the disk. This process is called <strong class="calibre6">force-writing</strong> the log buffer before
+		committing a transaction.</p>
+	<div class="calibre31"> </div>
+	<h4 id="filepos2371342" class="calibre57">
+		<blockquote class="calibre30"><span class="calibre11"><span class="bold1">21.3 Desirable Properties of
+					Transactions</span></span></blockquote>
+	</h4>
+	<div class="calibre31"> </div>
+	<p class="calibre18">Transactions should possess several properties, often called the <strong
+			class="calibre6">ACID</strong> properties; they should be enforced by the concurrency control and recovery
+		methods of the DBMS. The following are the ACID properties:</p>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre40"><img alt="image" src="../images/00003.jpg" class="calibre16" /><strong
+				class="calibre6">Atomicity</strong>. A transaction is an atomic unit of processing; it should either be
+			performed in its entirety or not performed at all.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><img alt="image" src="../images/00003.jpg" class="calibre16" /><strong
+				class="calibre6">Consistency preservation</strong>. A transaction should be consistency preserving,
+			meaning that if it is completely executed from beginning to end without interference from other
+			transactions, it should take the database from one consistent state to another.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><img alt="image" src="../images/00003.jpg" class="calibre16" /><strong
+				class="calibre6">Isolation</strong>. A transaction should appear as though it is being executed in
+			isolation from other transactions, even though many transactions are executing <a id="filepos2372710"
+				class="calibre3"></a>concurrently. That is, the execution of a transaction should not be interfered with
+			by any other transactions executing concurrently.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><img alt="image" src="../images/00003.jpg" class="calibre16" /><strong
+				class="calibre6">Durability or permanency</strong>. The changes applied to the database by a committed
+			transaction must persist in the database. These changes must not be lost because of any failure.</p>
+	</blockquote>
+	<p class="calibre18">The <em class="calibre13">atomicity property</em> requires that we execute a transaction to
+		completion. It is the responsibility of the <em class="calibre13">transaction recovery subsystem</em> of a DBMS
+		to ensure atomicity. If a transaction fails to complete for some reason, such as a system crash in the midst of
+		transaction execution, the recovery technique must undo any effects of the transaction on the database. On the
+		other hand, write operations of a committed transaction must be eventually written to disk.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">The preservation of <em class="calibre13">consistency</em> is generally considered to be the
+		responsibility of the programmers who write the database programs or of the DBMS module that enforces integrity
+		constraints. Recall that a <strong class="calibre6">database state</strong> is a collection of all the stored
+		data items (values) in the database at a given point in time. A <strong class="calibre6">consistent
+			state</strong> of the database satisfies the constraints specified in the schema as well as any other
+		constraints on the database that should hold. A database program should be written in a way that guarantees
+		that, if the database is in a consistent state before executing the transaction, it will be in a consistent
+		state after the <em class="calibre13">complete</em> execution of the transaction, assuming that <em
+			class="calibre13">no interference with other transactions</em> occurs.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">The <em class="calibre13">isolation property</em> is enforced by the <em
+			class="calibre13">concurrency control subsystem</em> of the DBMS.<a id="filepos2374747"
+			class="calibre3"></a><sup class="calibre43"><a href="dummy_split_332.html#filepos4410912"
+				class="calibre41">8</a></sup> If every transaction does not make its updates (write operations) visible
+		to other transactions until it is committed, one form of isolation is enforced that solves the temporary update
+		problem and eliminates cascading rollbacks (see <a href="dummy_split_045.html#filepos2555705"
+			class="calibre41">Chapter 23</a>) but does not eliminate all other problems. There have been attempts to
+		define the <strong class="calibre6">level of isolation</strong> of a transaction. A transaction is said to have
+		level 0 (zero) isolation if it does not overwrite the dirty reads of higher-level transactions. Level 1 (one)
+		isolation has no lost updates, and level 2 isolation has no lost updates and no dirty reads. Finally, level 3
+		isolation (also called <em class="calibre13">true isolation</em>) has, in addition to level 2 properties,
+		repeatable reads.<a id="filepos2375558" class="calibre3"></a><sup class="calibre43"><a
+				href="dummy_split_333.html#filepos4411130" class="calibre41">9</a></sup></p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">And last, the <em class="calibre13">durability property</em> is the responsibility of the <em
+			class="calibre13">recovery subsystem</em> of the DBMS. We will introduce how recovery protocols enforce
+		durability and atomicity in the next section and then discuss this in more detail in <a
+			href="dummy_split_045.html#filepos2555705" class="calibre41">Chapter 23</a>.</p>
+	<div class="calibre31"> </div>
+	<h4 id="filepos2375975" class="calibre57">
+		<blockquote class="calibre30"><span class="calibre11"><span class="bold1">21.4 Characterizing Schedules Based on
+					Recoverability</span></span></blockquote>
+	</h4>
+	<div class="calibre31"> </div>
+	<p class="calibre18">When transactions are executing concurrently in an interleaved fashion, then the order of
+		execution of operations from all the various transactions is known as a <strong
+			class="calibre6">schedule</strong> (or <strong class="calibre6">history</strong>). In this section, first we
+		define the concept of schedules, and <a id="filepos2376476" class="calibre3"></a>then we characterize the types
+		of schedules that facilitate recovery when failures occur. In Section 21.5, we characterize schedules in terms
+		of the interference of participating transactions, leading to the concepts of serializability and serializable
+		schedules.</p>
+	<div class="calibre31"> </div>
+	<h5 class="calibre62">
+		<blockquote class="calibre30"><span class="calibre60"><span class="bold1">21.4.1 Schedules (Histories) of
+					Transactions</span></span></blockquote>
+	</h5>
+	<p class="calibre18">A <strong class="calibre6">schedule</strong> (or <strong class="calibre6">history</strong>) <em
+			class="calibre13">S</em> of <em class="calibre13">n</em> transactions <em class="calibre13">T</em><sub
+			class="calibre65">1</sub>, <em class="calibre13">T</em><sub class="calibre65">2</sub>, ..., <em
+			class="calibre13">T<sub class="calibre65">n</sub></em> is an ordering of the operations of the transactions.
+		Operations from different transactions can be interleaved in the schedule <em class="calibre13">S</em>. However,
+		for each transaction <em class="calibre13">T<sub class="calibre65">i</sub></em> that participates in the
+		schedule <em class="calibre13">S</em>, the operations of <em class="calibre13">T<sub
+				class="calibre65">i</sub></em> in <em class="calibre13">S</em> must appear in the same order in which
+		they occur in <em class="calibre13">T<sub class="calibre65">i</sub></em>. The order of operations in <em
+			class="calibre13">S</em> is considered to be a <em class="calibre13">total ordering</em>, meaning <em
+			class="calibre13">that for any two operations</em> in the schedule, one must occur before the other. It is
+		possible theoretically to deal with schedules whose operations form <em class="calibre13">partial orders</em>
+		(as we discuss later), but we will assume for now total ordering of the operations in a schedule.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">For the purpose of recovery and concurrency control, we are mainly interested in the read_item
+		and write_item operations of the transactions, as well as the commit and abort operations. A shorthand notation
+		for describing a schedule uses the symbols <em class="calibre13">b</em>, <em class="calibre13">r</em>, <em
+			class="calibre13">w</em>, <em class="calibre13">e</em>, <em class="calibre13">c</em>, and <em
+			class="calibre13">a</em> for the operations begin_transaction, read_item, write_item, end_transaction,
+		commit, and abort, respectively, and appends as a <em class="calibre13">subscript</em> the transaction id
+		(transaction number) to each operation in the schedule. In this notation, the database item <em
+			class="calibre13">X</em> that is read or written follows the <em class="calibre13">r</em> and <em
+			class="calibre13">w</em> operations in parentheses. In some schedules, we will only show the <em
+			class="calibre13">read</em> and <em class="calibre13">write</em> operations, whereas in other schedules, we
+		will show all the operations. For example, the schedule in <a href="#filepos2353660" class="calibre41">Figure
+			21.3(a)</a>, which we shall call <em class="calibre13">S<sub class="calibre65">a</sub></em>, can be written
+		as follows in this notation:</p>
+	<div class="calibre31"> </div>
+	<p class="calibre20"><em class="calibre13">S<sub class="calibre65">a</sub></em>: <em class="calibre13">r</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">X</em>); <em class="calibre13">r</em><sub
+			class="calibre65">2</sub>(<em class="calibre13">X</em>); <em class="calibre13">w</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">X</em>); <em class="calibre13">r</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">Y</em>); <em class="calibre13">w</em><sub
+			class="calibre65">2</sub>(<em class="calibre13">X</em>); <em class="calibre13">w</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">Y</em>);</p>
+	<p class="calibre18">Similarly, the schedule for <a href="#filepos2353660" class="calibre41">Figure 21.3(b)</a>,
+		which we call <em class="calibre13">S<sub class="calibre65">b</sub></em>, can be written as follows, if we
+		assume that transaction <em class="calibre13">T</em><sub class="calibre65">1</sub> aborted after its
+		read_item(<em class="calibre13">Y</em>) operation:</p>
+	<div class="calibre31"> </div>
+	<p class="calibre20">S<sub class="calibre65">b</sub>: <em class="calibre13">r</em><sub class="calibre65">1</sub>(<em
+			class="calibre13">X</em>); <em class="calibre13">w</em><sub class="calibre65">1</sub>(<em
+			class="calibre13">X</em>); <em class="calibre13">r</em><sub class="calibre65">2</sub>(<em
+			class="calibre13">X</em>); <em class="calibre13">w</em><sub class="calibre65">2</sub>(<em
+			class="calibre13">X</em>); <em class="calibre13">r</em><sub class="calibre65">1</sub>(<em
+			class="calibre13">Y</em>); <em class="calibre13">a</em><sub class="calibre65">1</sub>;</p>
+	<p class="calibre18">Two operations in a schedule are said to <strong class="calibre6">conflict</strong> if they
+		satisfy all three of the following conditions: (1) they belong to <em class="calibre13">different
+			transactions</em>; (2) they access the <em class="calibre13">same item X</em>; and (3) <em
+			class="calibre13">at least one</em> of the operations is a write_item(<em class="calibre13">X</em>). For
+		example, in schedule S<sub class="calibre65">a</sub>, the operations <em class="calibre13">r</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">X</em>) and <em class="calibre13">w</em><sub
+			class="calibre65">2</sub>(<em class="calibre13">X</em>) conflict, as do the operations <em
+			class="calibre13">r</em><sub class="calibre65">2</sub>(<em class="calibre13">X</em>) and <em
+			class="calibre13">w</em><sub class="calibre65">1</sub>(<em class="calibre13">X</em>), and the operations <em
+			class="calibre13">w</em><sub class="calibre65">1</sub>(<em class="calibre13">X</em>) and <em
+			class="calibre13">w</em><sub class="calibre65">2</sub>(<em class="calibre13">X</em>). However, the
+		operations <em class="calibre13">r</em><sub class="calibre65">1</sub>(<em class="calibre13">X</em>) and <em
+			class="calibre13">r</em><sub class="calibre65">2</sub>(<em class="calibre13">X</em>) do not conflict, since
+		they are both read operations; the operations <em class="calibre13">w</em><sub class="calibre65">2</sub>(<em
+			class="calibre13">X</em>) and <em class="calibre13">w</em><sub class="calibre65">1</sub>(<em
+			class="calibre13">Y</em>) do not conflict because they operate on distinct data items <em
+			class="calibre13">X</em> and <em class="calibre13">Y</em>; and the operations <em
+			class="calibre13">r</em><sub class="calibre65">1</sub>(<em class="calibre13">X</em>) and <em
+			class="calibre13">w</em><sub class="calibre65">1</sub>(<em class="calibre13">X</em>) do not conflict because
+		they belong to the same transaction.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">Intuitively, two operations are conflicting if changing their order can result in a different
+		outcome. For example, if we change the order of the two operations <em class="calibre13">r</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">X</em>); <em class="calibre13">w</em><sub
+			class="calibre65">2</sub>(<em class="calibre13">X</em>) to <em class="calibre13">w</em><sub
+			class="calibre65">2</sub>(<em class="calibre13">X</em>); <em class="calibre13">r</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">X</em>), then the value of <em class="calibre13">X</em> that
+		is read by transaction <em class="calibre13">T</em><sub class="calibre65">1</sub> changes, because in the second
+		order the value of <em class="calibre13">X</em> is changed by <em class="calibre13">w</em><sub
+			class="calibre65">2</sub>(<em class="calibre13">X</em>) before it is read by <a id="filepos2381551"
+			class="calibre3"></a><em class="calibre13">r</em><sub class="calibre65">1</sub>(<em
+			class="calibre13">X</em>), whereas in the first order the value is read before it is changed. This is called
+		a <strong class="calibre6">read-write conflict</strong>. The other type is called a <strong
+			class="calibre6">write-write conflict</strong>, and is illustrated by the case where we change the order of
+		two operations such as <em class="calibre13">w</em><sub class="calibre65">1</sub>(<em class="calibre13">X</em>);
+		<em class="calibre13">w</em><sub class="calibre65">2</sub>(<em class="calibre13">X</em>) to <em
+			class="calibre13">w</em><sub class="calibre65">2</sub>(<em class="calibre13">X</em>); <em
+			class="calibre13">w</em><sub class="calibre65">1</sub>(<em class="calibre13">X</em>). For a write-write
+		conflict, the <em class="calibre13">last value</em> of <em class="calibre13">X</em> will differ because in one
+		case it is written by <em class="calibre13">T</em><sub class="calibre65">2</sub> and in the other case by <em
+			class="calibre13">T</em><sub class="calibre65">1</sub>. Notice that two read operations are not conflicting
+		because changing their order makes no difference in outcome.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">The rest of this section covers some theoretical definitions concerning schedules. A schedule
+		<em class="calibre13">S</em> of <em class="calibre13">n</em> transactions <em class="calibre13">T</em><sub
+			class="calibre65">1</sub>, <em class="calibre13">T</em><sub class="calibre65">2</sub>, ..., <em
+			class="calibre13">T<sub class="calibre65">n</sub></em> is said to be a <strong class="calibre6">complete
+			schedule</strong> if the following conditions hold:</p>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">1</strong>. The operations in <em class="calibre13">S</em> are
+			exactly those operations in <em class="calibre13">T</em><sub class="calibre65">1</sub>, <em
+				class="calibre13">T</em><sub class="calibre65">2</sub>, ..., <em class="calibre13">T<sub
+					class="calibre65">n</sub></em>, including a commit or abort operation as the last operation for each
+			transaction in the schedule.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">2</strong>. For any pair of operations from the same transaction
+			<em class="calibre13">T<sub class="calibre65">i</sub></em>, their relative order of appearance in <em
+				class="calibre13">S</em> is the same as their order of appearance in <em class="calibre13">T<sub
+					class="calibre65">i</sub></em>.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">3</strong>. For any two conflicting operations, one of the two
+			must occur before the other in the schedule.<a id="filepos2383478" class="calibre3"></a><sup
+				class="calibre43"><a href="dummy_split_334.html#filepos4411363" class="calibre41">10</a></sup></p>
+	</blockquote>
+	<p class="calibre18">The preceding condition (3) allows for two <em class="calibre13">nonconflicting operations</em>
+		to occur in the schedule without defining which occurs first, thus leading to the definition of a schedule as a
+		<strong class="calibre6">partial order</strong> of the operations in the <em class="calibre13">n</em>
+		transactions.<a id="filepos2383865" class="calibre3"></a><sup class="calibre43"><a
+				href="dummy_split_335.html#filepos4411604" class="calibre41">11</a></sup> However, a total order must be
+		specified in the schedule for any pair of conflicting operations (condition 3) and for any pair of operations
+		from the same transaction (condition 2). Condition 1 simply states that all operations in the transactions must
+		appear in the complete schedule. Since every transaction has either committed or aborted, a complete schedule
+		will <em class="calibre13">not contain any active transactions</em> at the end of the schedule.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">In general, it is difficult to encounter complete schedules in a transaction processing system
+		because new transactions are continually being submitted to the system. Hence, it is useful to define the
+		concept of the <strong class="calibre6">committed projection</strong>
+		<em class="calibre13">C</em>(<em class="calibre13">S</em>) of a schedule <em class="calibre13">S</em>, which
+		includes only the operations in <em class="calibre13">S</em> that belong to committed transactions—that is,
+		transactions <em class="calibre13">T<sub class="calibre65">i</sub></em> whose commit operation <em
+			class="calibre13">c<sub class="calibre65">i</sub></em> is in <em class="calibre13">S</em>.
+	</p>
+	<div class="calibre31"> </div>
+	<h5 class="calibre62">
+		<blockquote class="calibre30"><span class="calibre60"><span class="bold1">21.4.2 Characterizing Schedules Based
+					on Recoverability</span></span></blockquote>
+	</h5>
+	<p class="calibre18">For some schedules it is easy to recover from transaction and system failures, whereas for
+		other schedules the recovery process can be quite involved. In some cases, it is even not possible to recover
+		correctly after a failure. Hence, it is important to characterize the types of schedules for which <em
+			class="calibre13">recovery is possible</em>, as well as those for which <em class="calibre13">recovery is
+			relatively simple</em>. These characterizations do not actually provide the recovery algorithm; they only
+		attempt to theoretically characterize the different types of schedules.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18"><a id="filepos2385772" class="calibre3"></a>First, we would like to ensure that, once a
+		transaction <em class="calibre13">T</em> is committed, it should <em class="calibre13">never</em> be necessary
+		to roll back <em class="calibre13">T</em>. This ensures that the durability property of transactions is not
+		violated (see Section 21.3). The schedules that theoretically meet this criterion are called <em
+			class="calibre13">recoverable schedules;</em> those that do not are called <strong
+			class="calibre6">nonrecoverable</strong> and hence should not be permitted by the DBMS. The definition of
+		<strong class="calibre6">recoverable schedule</strong> is as follows: A schedule <em class="calibre13">S</em> is
+		recoverable if no transaction <em class="calibre13">T</em> in <em class="calibre13">S</em> commits until all
+		transactions <em class="calibre13">T</em>’ that have written some item <em class="calibre13">X</em> that <em
+			class="calibre13">T</em> reads have committed. A transaction <em class="calibre13">T</em>
+		<strong class="calibre6">reads</strong> from transaction <em class="calibre13">T</em>′ in a schedule <em
+			class="calibre13">S</em> if some item <em class="calibre13">X</em> is first written by <em
+			class="calibre13">T</em>′ and later read by <em class="calibre13">T</em>′. In addition, <em
+			class="calibre13">T</em>′ should not have been aborted before <em class="calibre13">T</em> reads item <em
+			class="calibre13">X</em>, and there should be no transactions that write <em class="calibre13">X</em> after
+		<em class="calibre13">T</em>′ writes it and before <em class="calibre13">T</em> reads it (unless those
+		transactions, if any, have aborted before <em class="calibre13">T</em> reads <em class="calibre13">X</em>).
+	</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">Some recoverable schedules may require a complex recovery process as we shall see, but if
+		sufficient information is kept (in the log), a recovery algorithm can be devised for any recoverable schedule.
+		The (partial) schedules <em class="calibre13">S<sub class="calibre65">a</sub></em> and <em
+			class="calibre13">S<sub class="calibre65">b</sub></em> from the preceding section are both recoverable,
+		since they satisfy the above definition. Consider the schedule <em class="calibre13">S<sub
+				class="calibre65">a</sub></em>′ given below, which is the same as schedule <em class="calibre13">S<sub
+				class="calibre65">a</sub></em> except that two commit operations have been added to <em
+			class="calibre13">S<sub class="calibre65">a</sub></em>:</p>
+	<div class="calibre31"> </div>
+	<p class="calibre20"><em class="calibre13">S<sub class="calibre65">a</sub></em>’: <em class="calibre13">r</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">X</em>); <em class="calibre13">r</em><sub
+			class="calibre65">2</sub>(<em class="calibre13">X</em>); <em class="calibre13">w</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">X</em>); <em class="calibre13">r</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">Y</em>); <em class="calibre13">w</em><sub
+			class="calibre65">2</sub>(<em class="calibre13">X</em>); <em class="calibre13">c</em><sub
+			class="calibre65">2</sub>; <em class="calibre13">w</em><sub class="calibre65">1</sub>(<em
+			class="calibre13">Y</em>); <em class="calibre13">c</em><sub class="calibre65">1</sub>;</p>
+	<p class="calibre18"><em class="calibre13">S<sub class="calibre65">a</sub></em>′ is recoverable, even though it
+		suffers from the lost update problem; this problem is handled by serializability theory (see Section 21.5).
+		However, consider the two (partial) schedules <em class="calibre13">S<sub class="calibre65">c</sub></em> and <em
+			class="calibre13">S<sub class="calibre65">d</sub></em> that follow:</p>
+	<div class="calibre31"> </div>
+	<p class="calibre20"><em class="calibre13">S<sub class="calibre65">c</sub></em>: <em class="calibre13">r</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">X</em>); <em class="calibre13">w</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">X</em>); <em class="calibre13">r</em><sub
+			class="calibre65">2</sub>(<em class="calibre13">X</em>); <em class="calibre13">r</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">Y</em>); <em class="calibre13">w</em><sub
+			class="calibre65">2</sub>(<em class="calibre13">X</em>); <em class="calibre13">c</em><sub
+			class="calibre65">2</sub>; <em class="calibre13">a</em><sub class="calibre65">1</sub>;</p>
+	<p class="calibre20"><em class="calibre13">S<sub class="calibre65">d</sub></em>: <em class="calibre13">r</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">X</em>); <em class="calibre13">w</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">X</em>); <em class="calibre13">r</em><sub
+			class="calibre65">2</sub>(<em class="calibre13">X</em>); <em class="calibre13">r</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">Y</em>); <em class="calibre13">w</em><sub
+			class="calibre65">2</sub>(<em class="calibre13">X</em>); <em class="calibre13">w</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">Y</em>); <em class="calibre13">c</em><sub
+			class="calibre65">1</sub>; <em class="calibre13">c</em><sub class="calibre65">2</sub>;</p>
+	<p class="calibre20"><em class="calibre13">S<sub class="calibre65">e</sub></em>: <em class="calibre13">r</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">X</em>); <em class="calibre13">w</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">X</em>); <em class="calibre13">r</em><sub
+			class="calibre65">2</sub>(<em class="calibre13">X</em>); <em class="calibre13">r</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">Y</em>); <em class="calibre13">w</em><sub
+			class="calibre65">2</sub>(<em class="calibre13">X</em>); <em class="calibre13">w</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">Y</em>); <em class="calibre13">a</em><sub
+			class="calibre65">1</sub>; <em class="calibre13">a</em><sub class="calibre65">2</sub>;</p>
+	<p class="calibre18"><em class="calibre13">S<sub class="calibre65">c</sub></em> is not recoverable because <em
+			class="calibre13">T</em><sub class="calibre65">2</sub> reads item <em class="calibre13">X</em> from <em
+			class="calibre13">T</em><sub class="calibre65">1</sub>, but <em class="calibre13">T</em><sub
+			class="calibre65">2</sub> commits before <em class="calibre13">T</em><sub class="calibre65">1</sub> commits.
+		The problem occurs if <em class="calibre13">T</em><sub class="calibre65">1</sub> aborts after the <em
+			class="calibre13">c</em><sub class="calibre65">2</sub> operation in <em class="calibre13">S<sub
+				class="calibre65">c</sub></em>, then the value of <em class="calibre13">X</em> that <em
+			class="calibre13">T</em><sub class="calibre65">2</sub> read is no longer valid and <em
+			class="calibre13">T</em><sub class="calibre65">2</sub> must be aborted <em class="calibre13">after</em> it
+		is committed, leading to a schedule that is <em class="calibre13">not recoverable</em>. For the schedule to be
+		recoverable, the <em class="calibre13">c</em><sub class="calibre65">2</sub> operation in <em
+			class="calibre13">S<sub class="calibre65">c</sub></em> must be postponed until after <em
+			class="calibre13">T</em><sub class="calibre65">1</sub> commits, as shown in <em class="calibre13">S<sub
+				class="calibre65">d</sub></em>. If <em class="calibre13">T</em><sub class="calibre65">1</sub> aborts
+		instead of committing, then <em class="calibre13">T</em><sub class="calibre65">2</sub> should also abort as
+		shown in <em class="calibre13">S<sub class="calibre65">e</sub></em>, because the value of <em
+			class="calibre13">X</em> it read is no longer valid. In <em class="calibre13">S<sub
+				class="calibre65">e</sub></em>, aborting <em class="calibre13">T</em><sub class="calibre65">2</sub> is
+		acceptable since it has not committed yet, which is not the case for the nonrecoverable schedule <em
+			class="calibre13">S<sub class="calibre65">c</sub></em>.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">In a recoverable schedule, no committed transaction ever needs to be rolled back, and so the
+		definition of committed transaction as durable is not violated. However, it is possible for a phenomenon known
+		as <strong class="calibre6">cascading rollback</strong> (or <strong class="calibre6">cascading abort</strong>)
+		to occur in some recoverable schedules, where an <em class="calibre13">uncommitted</em> transaction has to be
+		rolled back because it read an item from a transaction that failed. This is illustrated in schedule <em
+			class="calibre13">S<sub class="calibre65">e</sub></em>, where transaction <em class="calibre13">T</em><sub
+			class="calibre65">2</sub> has to be rolled back because it read item <em class="calibre13">X</em> from <em
+			class="calibre13">T</em><sub class="calibre65">1</sub>, and <em class="calibre13">T</em><sub
+			class="calibre65">1</sub> then aborted.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">Because cascading rollback can be quite time-consuming—since numerous transactions can be
+		rolled back (see <a href="dummy_split_045.html#filepos2555705" class="calibre41">Chapter 23</a>)—it is important
+		to characterize the schedules <a id="filepos2391456" class="calibre3"></a>where this phenomenon is guaranteed
+		not to occur. A schedule is said to be <strong class="calibre6">cascadeless</strong>, or to <strong
+			class="calibre6">avoid cascading rollback</strong>, if every transaction in the schedule reads only items
+		that were written by committed transactions. In this case, all items read will not be discarded, so no cascading
+		rollback will occur. To satisfy this criterion, the <em class="calibre13">r</em><sub
+			class="calibre65">2</sub>(<em class="calibre13">X</em>) command in schedules <em class="calibre13">S<sub
+				class="calibre65">d</sub></em> and <em class="calibre13">S<sub class="calibre65">e</sub></em> must be
+		postponed until after <em class="calibre13">T</em><sub class="calibre65">1</sub> has committed (or aborted),
+		thus delaying <em class="calibre13">T</em><sub class="calibre65">2</sub> but ensuring no cascading rollback if
+		<em class="calibre13">T</em><sub class="calibre65">1</sub> aborts.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">Finally, there is a third, more restrictive type of schedule, called a <strong
+			class="calibre6">strict schedule</strong>, in which transactions can <em class="calibre13">neither read nor
+			write</em> an item <em class="calibre13">X</em> until the last transaction that wrote <em
+			class="calibre13">X</em> has committed (or aborted). Strict schedules simplify the recovery process. In a
+		strict schedule, the process of undoing a write_item(<em class="calibre13">X</em>) operation of an aborted
+		transaction is simply to restore the <strong class="calibre6">before image</strong> (old_value or BFIM) of data
+		item <em class="calibre13">X</em>. This simple procedure always works correctly for strict schedules, but it may
+		not work for recoverable or cascadeless schedules. For example, consider schedule <em class="calibre13">S<sub
+				class="calibre65">f</sub></em>:</p>
+	<div class="calibre31"> </div>
+	<p class="calibre20"><em class="calibre13">S<sub class="calibre65">f</sub></em>: <em class="calibre13">w</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">X</em>, 5); <em class="calibre13">w</em><sub
+			class="calibre65">2</sub>(<em class="calibre13">X</em>, 8); <em class="calibre13">a</em><sub
+			class="calibre65">1</sub>;</p>
+	<p class="calibre18">Suppose that the value of <em class="calibre13">X</em> was originally 9, which is the before
+		image stored in the system log along with the <em class="calibre13">w</em><sub class="calibre65">1</sub>(<em
+			class="calibre13">X</em>, 5) operation. If <em class="calibre13">T</em><sub class="calibre65">1</sub>
+		aborts, as in <em class="calibre13">S<sub class="calibre65">f</sub></em>, the recovery procedure that restores
+		the before image of an aborted write operation will restore the value of <em class="calibre13">X</em> to 9, even
+		though it has already been changed to 8 by transaction <em class="calibre13">T</em><sub
+			class="calibre65">2</sub>, thus leading to potentially incorrect results. Although schedule <em
+			class="calibre13">S<sub class="calibre65">f</sub></em> is cascadeless, it is not a strict schedule, since it
+		permits <em class="calibre13">T</em><sub class="calibre65">2</sub> to write item <em class="calibre13">X</em>
+		even though the transaction <em class="calibre13">T</em><sub class="calibre65">1</sub> that last wrote <em
+			class="calibre13">X</em> had not yet committed (or aborted). A strict schedule does not have this problem.
+	</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">It is important to note that any strict schedule is also cascadeless, and any cascadeless
+		schedule is also recoverable. Suppose we have <em class="calibre13">i</em> transactions <em
+			class="calibre13">T</em><sub class="calibre65">1</sub>, <em class="calibre13">T</em><sub
+			class="calibre65">2</sub>, ..., <em class="calibre13">T<sub class="calibre65">i</sub></em>, and their number
+		of operations are <em class="calibre13">n</em><sub class="calibre65">1</sub>, <em class="calibre13">n</em><sub
+			class="calibre65">2</sub>, ..., <em class="calibre13">n<sub class="calibre65">i</sub></em>, respectively. If
+		we make a set of all possible schedules of these transactions, we can divide the schedules into two disjoint
+		subsets: recoverable and nonrecoverable. The cascadeless schedules will be a subset of the recoverable
+		schedules, and the strict schedules will be a subset of the cascadeless schedules. Thus, all strict schedules
+		are cascadeless, and all cascadeless schedules are recoverable.</p>
+	<div class="calibre31"> </div>
+	<h4 id="filepos2394759" class="calibre57">
+		<blockquote class="calibre30"><span class="calibre11"><span class="bold1">21.5 Characterizing Schedules Based on
+					Serializability</span></span></blockquote>
+	</h4>
+	<div class="calibre31"> </div>
+	<p class="calibre18">In the previous section, we characterized schedules based on their recoverability properties.
+		Now we characterize the types of schedules that are always considered to be <em class="calibre13">correct</em>
+		when concurrent transactions are executing. Such schedules are known as <em class="calibre13">serializable
+			schedules</em>. Suppose that two users—for example, two airline reservations agents—submit to the DBMS
+		transactions <em class="calibre13">T</em><sub class="calibre65">1</sub> and <em class="calibre13">T</em><sub
+			class="calibre65">2</sub> in <a href="#filepos2349190" class="calibre41">Figure 21.2</a> at approximately
+		the same time. If no interleaving of operations is permitted, there are only two possible outcomes:</p>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">1</strong>. Execute all the operations of transaction <em
+				class="calibre13">T</em><sub class="calibre65">1</sub> (in sequence) followed by all the operations of
+			transaction <em class="calibre13">T</em><sub class="calibre65">2</sub> (in sequence).</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><a class="calibre3"></a><strong class="calibre6">2</strong>. Execute all the operations of
+			transaction <em class="calibre13">T</em><sub class="calibre65">2</sub> (in sequence) followed by all the
+			operations of transaction <em class="calibre13">T</em><sub class="calibre65">1</sub> (in sequence).</p>
+	</blockquote>
+	<p class="calibre18">These two schedules—called <em class="calibre13">serial schedules</em>—are shown in <a
+			href="#filepos2397010" class="calibre41">Figure 21.5(a)</a> and <a href="#filepos2397010"
+			class="calibre41">(b)</a>, respectively. If interleaving of operations is allowed, there will be many
+		possible orders in which the system can execute the individual operations of the transactions. Two possible
+		schedules are shown in <a href="#filepos2397010" class="calibre41">Figure 21.5(c)</a>. The concept of <strong
+			class="calibre6">serializability of schedules</strong> is used to identify which schedules are correct when
+		transaction executions have interleaving of their operations in the schedules. This section defines
+		serializability and discusses how it may be used in practice.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre7"><img alt="image" src="../images/00503.jpg" class="calibre16" /></p>
+	<p class="calibre58"><a id="filepos2397010" class="calibre3"></a><strong class="calibre6">Figure 21.5</strong><br
+			class="calibre1" />Examples of serial and nonserial schedules involving transactions <em
+			class="calibre13">T</em><sub class="calibre65">1</sub> and <em class="calibre13">T</em><sub
+			class="calibre65">2</sub>. (a) Serial schedule A: <em class="calibre13">T</em><sub class="calibre65">1</sub>
+		followed by <em class="calibre13">T</em><sub class="calibre65">2</sub>. (b) Serial schedule B: <em
+			class="calibre13">T</em><sub class="calibre65">2</sub> followed by <em class="calibre13">T</em><sub
+			class="calibre65">1</sub>. (c) Two nonserial schedules C and D with interleaving of operations.</p>
+	<div class="calibre31"> </div>
+	<h5 class="calibre62">
+		<blockquote class="calibre30"><span class="calibre60"><span class="bold1"><a id="filepos2397512"
+						class="calibre3"></a>21.5.1 Serial, Nonserial, and Conflict-Serializable Schedules</span></span>
+		</blockquote>
+	</h5>
+	<p class="calibre18">Schedules A and B in <a href="#filepos2397010" class="calibre41">Figure 21.5(a)</a> and <a
+			href="#filepos2397010" class="calibre41">(b)</a> are called <em class="calibre13">serial</em> because the
+		operations of each transaction are executed consecutively, without any interleaved operations from the other
+		transaction. In a serial schedule, entire transactions are performed in serial order: <em
+			class="calibre13">T</em><sub class="calibre65">1</sub> and then <em class="calibre13">T</em><sub
+			class="calibre65">2</sub> in <a href="#filepos2397010" class="calibre41">Figure 21.5(a)</a>, and <em
+			class="calibre13">T</em><sub class="calibre65">2</sub> and then <em class="calibre13">T</em><sub
+			class="calibre65">1</sub> in <a href="#filepos2397010" class="calibre41">Figure 21.5(b)</a>. Schedules C and
+		D in <a href="#filepos2397010" class="calibre41">Figure 21.5(c)</a> are called <em
+			class="calibre13">nonserial</em> because each sequence interleaves operations from the two transactions.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">Formally, a schedule <em class="calibre13">S</em> is <strong class="calibre6">serial</strong>
+		if, for every transaction <em class="calibre13">T</em> participating in the schedule, all the operations of <em
+			class="calibre13">T</em> are executed consecutively in the schedule; otherwise, the schedule is called
+		<strong class="calibre6">nonserial</strong>. Therefore, in a serial schedule, only one transaction at a time is
+		active—the commit (or abort) of the active transaction initiates execution of the next transaction. No
+		interleaving occurs in a serial schedule. One reasonable assumption we can make, if we consider the transactions
+		to be <em class="calibre13">independent</em>, is that <em class="calibre13">every serial schedule is considered
+			correct</em>. We can assume this because every transaction is assumed to be correct if executed on its own
+		(according to the <em class="calibre13">consistency preservation</em> property of Section 21.3). Hence, it does
+		not matter which transaction is executed first. As long as every transaction is executed from beginning to end
+		in isolation from the operations of other transactions, we get a correct end result on the database.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">The problem with serial schedules is that they limit concurrency by prohibiting interleaving of
+		operations. In a serial schedule, if a transaction waits for an I/O operation to complete, we cannot switch the
+		CPU processor to another transaction, thus wasting valuable CPU processing time. Additionally, if some
+		transaction <em class="calibre13">T</em> is quite long, the other transactions must wait for <em
+			class="calibre13">T</em> to complete all its operations before starting. Hence, serial schedules are <em
+			class="calibre13">considered unacceptable</em> in practice. However, if we can determine which other
+		schedules are <em class="calibre13">equivalent</em> to a serial schedule, we can allow these schedules to occur.
+	</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">To illustrate our discussion, consider the schedules in <a href="#filepos2397010"
+			class="calibre41">Figure 21.5</a>, and assume that the initial values of database items are <em
+			class="calibre13">X</em> = 90 and <em class="calibre13">Y</em> = 90 and that <em class="calibre13">N</em> =
+		3 and <em class="calibre13">M</em> = 2. After executing transactions <em class="calibre13">T</em><sub
+			class="calibre65">1</sub> and <em class="calibre13">T</em><sub class="calibre65">2</sub>, we would expect
+		the database values to be <em class="calibre13">X</em>= 89 and <em class="calibre13">Y</em> = 93, according to
+		the meaning of the transactions. Sure enough, executing either of the serial schedules A or B gives the correct
+		results. Now consider the nonserial schedules C and D. Schedule C (which is the same as <a
+			href="#filepos2353660" class="calibre41">Figure 21.3(a)</a>) gives the results <em class="calibre13">X</em>
+		= 92 and <em class="calibre13">Y</em> = 93, in which the <em class="calibre13">X</em> value is erroneous,
+		whereas schedule D gives the correct results.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">Schedule C gives an erroneous result because of the <em class="calibre13">lost update
+			problem</em> discussed in Section 21.1.3; transaction <em class="calibre13">T</em><sub
+			class="calibre65">2</sub> reads the value of <em class="calibre13">X</em> before it is changed by
+		transaction <em class="calibre13">T</em><sub class="calibre65">1</sub>, so only the effect of <em
+			class="calibre13">T</em><sub class="calibre65">2</sub> on <em class="calibre13">X</em> is reflected in the
+		database. The effect of <em class="calibre13">T</em><sub class="calibre65">1</sub> on <em
+			class="calibre13">X</em> is <em class="calibre13">lost</em>, overwritten by <em class="calibre13">T</em><sub
+			class="calibre65">2</sub>, leading to the incorrect result for item <em class="calibre13">X</em>. However,
+		some nonserial schedules give the correct expected result, such as schedule D. We would like to determine which
+		of the nonserial schedules <em class="calibre13">always</em> give a correct result and which may give erroneous
+		results. The concept used to characterize schedules in this manner is that of serializability of a schedule.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18"><a id="filepos2401945" class="calibre3"></a>The definition of <em
+			class="calibre13">serializable schedule</em> is as follows: A schedule <em class="calibre13">S</em> of <em
+			class="calibre13">n</em> transactions is <strong class="calibre6">serializable</strong> if it is <em
+			class="calibre13">equivalent to some serial schedule</em> of the same <em class="calibre13">n</em>
+		transactions. We will define the concept of <em class="calibre13">equivalence of schedules</em> shortly. Notice
+		that there are <em class="calibre13">n</em>! possible serial schedules of <em class="calibre13">n</em>
+		transactions and many more possible nonserial schedules. We can form two disjoint groups of the nonserial
+		schedules—those that are equivalent to one (or more) of the serial schedules and hence are serializable, and
+		those that are not equivalent to <em class="calibre13">any</em> serial schedule and hence are not serializable.
+	</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">Saying that a nonserial schedule <em class="calibre13">S</em> is serializable is equivalent to
+		saying that it is correct, because it is equivalent to a serial schedule, which is considered correct. The
+		remaining question is: When are two schedules considered <em class="calibre13">equivalent</em>?</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">There are several ways to define schedule equivalence. The simplest but least satisfactory
+		definition involves comparing the effects of the schedules on the database. Two schedules are called <strong
+			class="calibre6">result equivalent</strong> if they produce the same final state of the database. However,
+		two different schedules may accidentally produce the same final state. For example, in <a href="#filepos2406330"
+			class="calibre41">Figure 21.6</a>, schedules <em class="calibre13">S</em><sub class="calibre65">1</sub> and
+		<em class="calibre13">S</em><sub class="calibre65">2</sub> will produce the same final database state if they
+		execute on a database with an initial value of <em class="calibre13">X</em> = 100; however, for other initial
+		values of <em class="calibre13">X</em>, the schedules are <em class="calibre13">not</em> result equivalent.
+		Additionally, these schedules execute different transactions, so they definitely should not be considered
+		equivalent. Hence, result equivalence alone cannot be used to define equivalence of schedules. The safest and
+		most general approach to defining schedule equivalence is not to make any assumptions about the types of
+		operations included in the transactions. For two schedules to be equivalent, the operations applied to each data
+		item affected by the schedules should be applied to that item in both schedules <em class="calibre13">in the
+			same order</em>. Two definitions of equivalence of schedules are generally used: <em
+			class="calibre13">conflict equivalence</em> and <em class="calibre13">view equivalence</em>. We discuss
+		conflict equivalence next, which is the more commonly used definition.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">The definition of <em class="calibre13">conflict equivalence</em> of schedules is as follows:
+		Two schedules are said to be <strong class="calibre6">conflict equivalent</strong> if the order of any two <em
+			class="calibre13">conflicting operations</em> is the same in both schedules. Recall from Section 21.4.1 that
+		two operations in a schedule are said to <em class="calibre13">conflict</em> if they belong to different
+		transactions, access the same database item, and either both are write_item operations or one is a write_item
+		and the other a read_item. If two conflicting operations are applied in <em class="calibre13">different
+			orders</em> in two schedules, the effect can be different on the database or on the transactions in the
+		schedule, and hence the schedules are not conflict equivalent. For example, as we discussed in Section 21.4.1,
+		if a read and write operation occur in the order <em class="calibre13">r</em><sub class="calibre65">1</sub>(<em
+			class="calibre13">X</em>), <em class="calibre13">w</em><sub class="calibre65">2</sub>(<em
+			class="calibre13">X</em>) in schedule <em class="calibre13">S</em><sub class="calibre65">1</sub>, and in the
+		reverse order <em class="calibre13">w</em><sub class="calibre65">2</sub>(<em class="calibre13">X</em>), <em
+			class="calibre13">r</em><sub class="calibre65">1</sub>(<em class="calibre13">X</em>) in schedule <em
+			class="calibre13">S</em><sub class="calibre65">2</sub>, the value read by <em class="calibre13">r</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">X</em>) can be different in the two schedules. Similarly, if
+		two write operations occur in the order <em class="calibre13">w</em><sub class="calibre65">1</sub>(<em
+			class="calibre13">X</em>), <em class="calibre13">w</em><sub class="calibre65">2</sub>(<em
+			class="calibre13">X</em>) in <em class="calibre13">S</em><sub class="calibre65">1</sub>, and in the reverse
+		order <em class="calibre13">w</em><sub class="calibre65">2</sub>(<em class="calibre13">X</em>), <em
+			class="calibre13">w</em><sub class="calibre65">1</sub>(<em class="calibre13">X</em>) in <em
+			class="calibre13">S</em><sub class="calibre65">2</sub>, the next <em class="calibre13">r</em>(<em
+			class="calibre13">X</em>) operation in the two schedules will read potentially different values; or if these
+		are the last operations writing item <em class="calibre13">X</em> in the schedules, the final value of item <em
+			class="calibre13">X</em> in the database will be different.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre7"><img alt="image" src="../images/00504.jpg" class="calibre16" /></p>
+	<p class="calibre58"><a id="filepos2406330" class="calibre3"></a><strong class="calibre6">Figure 21.6</strong><br
+			class="calibre1" />Two schedules that are result equivalent for the initial value of <em
+			class="calibre13">X</em> = 100 but are not result equivalent in general.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18"><a id="filepos2406551" class="calibre3"></a>Using the notion of conflict equivalence, we define
+		a schedule <em class="calibre13">S</em> to be <strong class="calibre6">conflict serializable</strong><a
+			id="filepos2406676" class="calibre3"></a><sup class="calibre43"><a
+				href="dummy_split_336.html#filepos4411930" class="calibre41">12</a></sup> if it is (conflict) equivalent
+		to some serial schedule <em class="calibre13">S</em>′. In such a case, we can reorder the <em
+			class="calibre13">nonconflicting</em> operations in <em class="calibre13">S</em> until we form the
+		equivalent serial schedule <em class="calibre13">S</em>′. According to this definition, schedule D in <a
+			href="#filepos2397010" class="calibre41">Figure 21.5(c)</a> is equivalent to the serial schedule A in <a
+			href="#filepos2397010" class="calibre41">Figure 21.5(a)</a>. In both schedules, the read_item(<em
+			class="calibre13">X</em>) of <em class="calibre13">T</em><sub class="calibre65">2</sub> reads the value of
+		<em class="calibre13">X</em> written by <em class="calibre13">T</em><sub class="calibre65">1</sub>, while the
+		other read_item operations read the database values from the initial database state. Additionally, <em
+			class="calibre13">T</em><sub class="calibre65">1</sub> is the last transaction to write <em
+			class="calibre13">Y</em>, and <em class="calibre13">T</em><sub class="calibre65">2</sub> is the last
+		transaction to write <em class="calibre13">X</em> in both schedules. Because A is a serial schedule and schedule
+		D is equivalent to A, D is a serializable schedule. Notice that the operations <em class="calibre13">r</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">Y</em>) and <em class="calibre13">w</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">Y</em>) of schedule D do not conflict with the operations
+		<em class="calibre13">r</em><sub class="calibre65">2</sub>(<em class="calibre13">X</em>) and <em
+			class="calibre13">w</em><sub class="calibre65">2</sub>(<em class="calibre13">X</em>), since they access
+		different data items. Therefore, we can move <em class="calibre13">r</em><sub class="calibre65">1</sub>(<em
+			class="calibre13">Y</em>), <em class="calibre13">w</em><sub class="calibre65">1</sub>(<em
+			class="calibre13">Y</em>) before <em class="calibre13">r</em><sub class="calibre65">2</sub>(<em
+			class="calibre13">X</em>), <em class="calibre13">w</em><sub class="calibre65">2</sub>(<em
+			class="calibre13">X</em>), leading to the equivalent serial schedule <em class="calibre13">T</em><sub
+			class="calibre65">1</sub>, <em class="calibre13">T</em><sub class="calibre65">2</sub>.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">Schedule C in <a href="#filepos2397010" class="calibre41">Figure 21.5(c)</a> is not equivalent
+		to either of the two possible serial schedules A and B, and hence is <em class="calibre13">not
+			serializable</em>. Trying to reorder the operations of schedule C to find an equivalent serial schedule
+		fails because <em class="calibre13">r</em><sub class="calibre65">2</sub>(<em class="calibre13">X</em>) and <em
+			class="calibre13">w</em><sub class="calibre65">1</sub>(<em class="calibre13">X</em>) conflict, which means
+		that we cannot move <em class="calibre13">r</em><sub class="calibre65">2</sub>(<em class="calibre13">X</em>)
+		down to get the equivalent serial schedule <em class="calibre13">T</em><sub class="calibre65">1</sub>, <em
+			class="calibre13">T</em><sub class="calibre65">2</sub>. Similarly, because <em class="calibre13">w</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">X</em>) and <em class="calibre13">w</em><sub
+			class="calibre65">2</sub>(<em class="calibre13">X</em>) conflict, we cannot move <em
+			class="calibre13">w</em><sub class="calibre65">1</sub>(<em class="calibre13">X</em>) down to get the
+		equivalent serial schedule <em class="calibre13">T</em><sub class="calibre65">2</sub>, <em
+			class="calibre13">T</em><sub class="calibre65">1</sub>.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">Another, more complex definition of equivalence—called <em class="calibre13">view
+			equivalence</em>, which leads to the concept of view serializability—is discussed in Section 21.5.4.</p>
+	<div class="calibre31"> </div>
+	<h5 class="calibre62">
+		<blockquote class="calibre30"><span class="calibre60"><span class="bold1">21.5.2 Testing for Conflict
+					Serializability of a Schedule</span></span></blockquote>
+	</h5>
+	<p class="calibre18">There is a simple algorithm for determining whether a particular schedule is conflict
+		serializable or not. Most concurrency control methods do <em class="calibre13">not</em> actually test for
+		serializability. Rather protocols, or rules, are developed that guarantee that any schedule that follows these
+		rules will be serializable. We discuss the algorithm for testing conflict serializability of schedules here to
+		gain a better understanding of these concurrency control protocols, which are discussed in <a
+			href="dummy_split_044.html#filepos2454172" class="calibre41">Chapter 22</a>.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">Algorithm 21.1 can be used to test a schedule for conflict serializability. The algorithm looks
+		at only the read_item and write_item operations in a schedule to construct a <strong class="calibre6">precedence
+			graph</strong> (or <strong class="calibre6">serialization graph</strong>), which is a <strong
+			class="calibre6">directed graph</strong>
+		<em class="calibre13">G</em> = (<em class="calibre13">N, E</em>) that consists of a set of nodes <em
+			class="calibre13">N</em> = {<em class="calibre13">T</em><sub class="calibre65">1</sub>, <em
+			class="calibre13">T</em><sub class="calibre65">2</sub>, …, T<sub class="calibre65"><em
+				class="calibre13">n</em></sub>} and a set of directed edges <em class="calibre13">E</em> = {<em
+			class="calibre13">e</em><sub class="calibre65">1</sub>, <em class="calibre13">e</em><sub
+			class="calibre65">2</sub>, …, e<sub class="calibre65"><em class="calibre13">m</em></sub>}. There is one node
+		in the graph for each transaction <em class="calibre13">T<sub class="calibre65">i</sub></em> in the schedule.
+		Each edge e<sub class="calibre65"><em class="calibre13">i</em></sub> in the graph is of the form (<em
+			class="calibre13">T<sub class="calibre65">j</sub></em> → <em class="calibre13">T<sub
+				class="calibre65">k</sub></em>), 1 ≤ <em class="calibre13">j</em> ≤ <em class="calibre13">n</em>, 1 ≤
+		<em class="calibre13">k</em> ≤ <em class="calibre13">n</em>, where <em class="calibre13">T<sub
+				class="calibre65">j</sub></em> is the <strong class="calibre6">starting node</strong> of <em
+			class="calibre13">e<sub class="calibre65">i</sub></em> and <em class="calibre13">T<sub
+				class="calibre65">k</sub></em> is the <strong class="calibre6">ending node</strong> of <em
+			class="calibre13">e<sub class="calibre65">i</sub></em>. Such an edge from node <em class="calibre13">T<sub
+				class="calibre65">j</sub></em> to <a class="calibre3"></a>node <em class="calibre13">T<sub
+				class="calibre65">k</sub></em> is created by the algorithm if one of the operations in <em
+			class="calibre13">T<sub class="calibre65">j</sub></em> appears in the schedule before some <em
+			class="calibre13">conflicting operation</em> in <em class="calibre13">T<sub class="calibre65">k</sub></em>.
+	</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18"><strong class="calibre6">Algorithm 21.1.</strong> Testing Conflict Serializability of a
+		Schedule <em class="calibre13">S</em></p>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">1.</strong> For each transaction <em class="calibre13">T<sub
+					class="calibre65">i</sub></em> participating in schedule <em class="calibre13">S</em>, create a node
+			labeled <em class="calibre13">T<sub class="calibre65">i</sub></em> in the precedence graph.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">2.</strong> For each case in <em class="calibre13">S</em> where
+			<em class="calibre13">T<sub class="calibre65">j</sub></em> executes a read_item(<em
+				class="calibre13">X</em>) after <em class="calibre13">T<sub class="calibre65">i</sub></em> executes a
+			write_item(<em class="calibre13">X</em>), create an edge (<em class="calibre13">T<sub
+					class="calibre65">i</sub></em> → <em class="calibre13">T<sub class="calibre65">j</sub></em>) in the
+			precedence graph.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">3.</strong> For each case in <em class="calibre13">S</em> where
+			<em class="calibre13">T<sub class="calibre65">j</sub></em> executes a write_item(<em
+				class="calibre13">X</em>) after <em class="calibre13">T<sub class="calibre65">i</sub></em> executes a
+			read_item(<em class="calibre13">X</em>), create an edge (<em class="calibre13">T<sub
+					class="calibre65">i</sub></em> → <em class="calibre13">T<sub class="calibre65">j</sub></em>) in the
+			precedence graph.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">4.</strong> For each case in <em class="calibre13">S</em> where
+			<em class="calibre13">T<sub class="calibre65">j</sub></em> executes a write_item(<em
+				class="calibre13">X</em>) after <em class="calibre13">T<sub class="calibre65">i</sub></em> executes a
+			write_item(<em class="calibre13">X</em>), create an edge (<em class="calibre13">T<sub
+					class="calibre65">i</sub></em> → <em class="calibre13">T<sub class="calibre65">j</sub></em>) in the
+			precedence graph.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">5.</strong> The schedule <em class="calibre13">S</em> is
+			serializable if and only if the precedence graph has no cycles.</p>
+	</blockquote>
+	<p class="calibre58">The precedence graph is constructed as described in Algorithm 21.1. If there is a cycle in the
+		precedence graph, schedule <em class="calibre13">S</em> is not (conflict) serializable; if there is no cycle,
+		<em class="calibre13">S</em> is serializable. A <strong class="calibre6">cycle</strong> in a directed graph is a
+		<strong class="calibre6">sequence of edges</strong>
+		<em class="calibre13">C</em> = ((<em class="calibre13">T<sub class="calibre65">j</sub></em> → <em
+			class="calibre13">T<sub class="calibre65">k</sub></em>), (<em class="calibre13">T<sub
+				class="calibre65">k</sub></em> → <em class="calibre13">T<sub class="calibre65">p</sub></em>), …, (<em
+			class="calibre13">T<sub class="calibre65">i</sub></em> → <em class="calibre13">T<sub
+				class="calibre65">j</sub></em>)) with the property that the starting node of each edge—except the first
+		edge—is the same as the ending node of the previous edge, and the starting node of the first edge is the same as
+		the ending node of the last edge (the sequence starts and ends at the same node).
+	</p>
+	<p class="calibre18">In the precedence graph, an edge from <em class="calibre13">T<sub
+				class="calibre65">i</sub></em> to <em class="calibre13">T<sub class="calibre65">j</sub></em> means that
+		transaction <em class="calibre13">T<sub class="calibre65">i</sub></em> must come before transaction <em
+			class="calibre13">T<sub class="calibre65">j</sub></em> in any serial schedule that is equivalent to <em
+			class="calibre13">S</em>, because two conflicting operations appear in the schedule in that order. If there
+		is no cycle in the precedence graph, we can create an <strong class="calibre6">equivalent serial
+			schedule</strong>
+		<em class="calibre13">S</em>′ that is equivalent to <em class="calibre13">S</em>, by ordering the transactions
+		that participate in <em class="calibre13">S</em> as follows: Whenever an edge exists in the precedence graph
+		from <em class="calibre13">T<sub class="calibre65">i</sub></em> to <em class="calibre13">T<sub
+				class="calibre65">j</sub></em>, <em class="calibre13">T<sub class="calibre65">i</sub></em> must appear
+		before <em class="calibre13">T<sub class="calibre65">j</sub></em> in the equivalent serial schedule <em
+			class="calibre13">S</em>′.<a id="filepos2414616" class="calibre3"></a><sup class="calibre43"><a
+				href="dummy_split_337.html#filepos4412316" class="calibre41">13</a></sup> Notice that the edges (<em
+			class="calibre13">T<sub class="calibre65">i</sub></em> → <em class="calibre13">T<sub
+				class="calibre65">j</sub></em>) in a precedence graph can optionally be labeled by the name(s) of the
+		data item(s) that led to creating the edge. <a href="#filepos2417066" class="calibre41">Figure 21.7</a> shows
+		such labels on the edges.
+	</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">In general, several serial schedules can be equivalent to <em class="calibre13">S</em> if the
+		precedence graph for <em class="calibre13">S</em> has no cycle. However, if the precedence graph has a cycle, it
+		is easy to show that we cannot create any equivalent serial schedule, so <em class="calibre13">S</em> is not
+		serializable. The precedence graphs created for schedules A to D, respectively, in <a href="#filepos2397010"
+			class="calibre41">Figure 21.5</a> appear in <a href="#filepos2417066" class="calibre41">Figure 21.7(a)</a>
+		to <a href="#filepos2417066" class="calibre41">(d)</a>. The graph for schedule C has a cycle, so it is not
+		serializable. The graph for schedule D has no cycle, so it is serializable, and the equivalent serial schedule
+		is <em class="calibre13">T</em><sub class="calibre65">1</sub> followed by <em class="calibre13">T</em><sub
+			class="calibre65">2</sub>. The graphs for schedules A and B have no cycles, as expected, because the
+		schedules are serial and hence serializable.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">Another example, in which three transactions participate, is shown in <a href="#filepos2419150"
+			class="calibre41">Figure 21.8</a>. <a href="#filepos2419150" class="calibre41">Figure 21.8(a)</a> shows the
+		read_item and write_item operations in each transaction. Two schedules <em class="calibre13">E</em> and <em
+			class="calibre13">F</em> for these transactions are shown in <a href="#filepos2419150"
+			class="calibre41">Figure 21.8(b)</a> and <a href="#filepos2419150" class="calibre41">(c)</a>, <a
+			id="filepos2416226" class="calibre3"></a>respectively, and the precedence graphs for schedules E and F are
+		shown in parts (d) and (e). Schedule E is not serializable because the corresponding precedence graph has
+		cycles. Schedule F is serializable, and the serial schedule equivalent to <em class="calibre13">F</em> is shown
+		in <a href="#filepos2419150" class="calibre41">Figure 21.8(e)</a>. Although only one equivalent serial schedule
+		exists for <em class="calibre13">F</em>, in general there may be more than one equivalent serial schedule for a
+		serializable schedule. <a href="#filepos2419150" class="calibre41">Figure 21.8(f)</a> shows a precedence graph
+		representing a schedule that has two equivalent serial schedules. To find an equivalent serial schedule, start
+		with a node that does not have any incoming edges, and then make sure that the node order for every edge is not
+		violated.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre7"><a id="filepos2417066" class="calibre3"></a><img alt="image" src="../images/00505.jpg"
+			class="calibre16" /></p>
+	<p class="calibre58"><strong class="calibre6">Figure 21.7</strong><br class="calibre1" />Constructing the precedence
+		graphs for schedules A to D from <a href="#filepos2397010" class="calibre41">Figure 21.5</a> to test for
+		conflict serializability. (a) Precedence graph for serial schedule A. (b) Precedence graph for serial schedule
+		B. (c) Precedence graph for schedule C (not serializable). (d) Precedence graph for schedule D (serializable,
+		equivalent to schedule A).</p>
+	<div class="calibre31"> </div>
+	<h5 class="calibre62">
+		<blockquote class="calibre30"><span class="calibre60"><span class="bold1">21.5.3 How Serializability Is Used for
+					Concurrency Control</span></span></blockquote>
+	</h5>
+	<p class="calibre18">As we discussed earlier, saying that a schedule <em class="calibre13">S</em> is (conflict)
+		serializable—that is, <em class="calibre13">S</em> is (conflict) equivalent to a serial schedule—is tantamount
+		to saying that <em class="calibre13">S</em> is correct. Being <em class="calibre13">serializable</em> is
+		distinct from being <em class="calibre13">serial</em>, however. A serial schedule represents inefficient
+		processing because no interleaving of operations from different transactions is permitted. This can lead to low
+		CPU utilization while a transaction waits for disk I/O, or for another transaction to terminate, thus slowing
+		down processing considerably. A serializable schedule gives the benefits of concurrent execution without giving
+		up any correctness. In practice, it is quite difficult to test for the serializability of a schedule. The
+		interleaving of operations from concurrent transactions—which are usually executed as processes by the operating
+		system—is typically determined by the operating system scheduler, which allocates resources to <a
+			class="calibre3"></a>all processes. Factors such as system load, time of transaction submission, and
+		priorities of processes contribute to the ordering of operations in a schedule. Hence, it is difficult to
+		determine how the operations of a schedule will be interleaved beforehand to ensure serializability.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre7"><a id="filepos2419150" class="calibre3"></a><img alt="image" src="../images/00506.jpg"
+			class="calibre16" /></p>
+	<p class="calibre7"><img alt="image" src="../images/00507.jpg" class="calibre16" /></p>
+	<p class="calibre7"><a id="filepos2419357" class="calibre3"></a><img alt="image" src="../images/00508.jpg"
+			class="calibre16" /></p>
+	<p class="calibre58"><strong class="calibre6">Figure 21.8</strong><br class="calibre1" />Another example of
+		serializability testing. (a) The read and write operations of three transactions <em
+			class="calibre13">T</em><sub class="calibre65">1</sub>, <em class="calibre13">T</em><sub
+			class="calibre65">2</sub>, and <em class="calibre13">T</em><sub class="calibre65">3</sub>. (b) Schedule E.
+		(c) Schedule F. Another example of serializability testing. (d) Precedence graph for schedule E. (e) Precedence
+		graph for schedule F. (f) Precedence graph with two equivalent serial schedules.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">If transactions are executed at will and then the resulting schedule is tested for
+		serializability, we must cancel the effect of the schedule if it turns out not to be serializable. This is a
+		serious problem that makes this approach impractical. Hence, the approach taken in most practical systems is to
+		determine methods or protocols that ensure serializability, without having to test the schedules themselves. The
+		approach taken in most commercial DBMSs is to design <strong class="calibre6">protocols</strong> (sets of rules)
+		that—if followed by <em class="calibre13">every</em> individual transaction or if enforced by a DBMS concurrency
+		control subsystem—will ensure serializability of <em class="calibre13">all schedules in which the transactions
+			participate</em>.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">Another problem appears here: When transactions are submitted continuously to the system, it is
+		difficult to determine when a schedule begins and when it ends. Serializability theory can be adapted to deal
+		with this problem by considering only the committed projection of a schedule <em class="calibre13">S</em>.
+		Recall from Section 21.4.1 that the <em class="calibre13">committed projection C</em>(<em
+			class="calibre13">S</em>) of a schedule <em class="calibre13">S</em> includes only the operations in <em
+			class="calibre13">S</em> that belong to committed transactions. We can theoretically define a schedule <em
+			class="calibre13">S</em> to be serializable if its committed projection <em class="calibre13">C</em>(<em
+			class="calibre13">S</em>) is equivalent to some serial schedule, since only committed transactions are
+		guaranteed by the DBMS.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18"><a id="filepos2421469" class="calibre3"></a>In <a href="dummy_split_044.html#filepos2454172"
+			class="calibre41">Chapter 22</a>, we discuss a number of different concurrency control protocols that
+		guarantee serializability. The most common technique, called <em class="calibre13">two-phase locking</em>, is
+		based on locking data items to prevent concurrent transactions from interfering with one another, and enforcing
+		an additional condition that guarantees serializability. This is used in the majority of commercial DBMSs. Other
+		protocols have been proposed;<a id="filepos2421932" class="calibre3"></a><sup class="calibre43"><a
+				href="dummy_split_338.html#filepos4412544" class="calibre41">14</a></sup> these include <em
+			class="calibre13">timestamp ordering</em>, where each transaction is assigned a unique timestamp and the
+		protocol ensures that any conflicting operations are executed in the order of the transaction timestamps; <em
+			class="calibre13">multiversion protocols</em>, which are based on maintaining multiple versions of data
+		items; and <em class="calibre13">optimistic</em> (also called <em class="calibre13">certification</em> or <em
+			class="calibre13">validation</em>) <em class="calibre13">protocols</em>, which check for possible
+		serializability violations after the transactions terminate but before they are permitted to commit.</p>
+	<div class="calibre31"> </div>
+	<h5 class="calibre62">
+		<blockquote class="calibre30"><span class="calibre60"><span class="bold1">21.5.4 View Equivalence and View
+					Serializability</span></span></blockquote>
+	</h5>
+	<p class="calibre18">In Section 21.5.1 we defined the concepts of conflict equivalence of schedules and conflict
+		serializability. Another less restrictive definition of equivalence of schedules is called <em
+			class="calibre13">view equivalence</em>. This leads to another definition of serializability called <em
+			class="calibre13">view serializability</em>. Two schedules <em class="calibre13">S</em> and <em
+			class="calibre13">S</em>′ are said to be <strong class="calibre6">view equivalent</strong> if the following
+		three conditions hold:</p>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">1.</strong> The same set of transactions participates in <em
+				class="calibre13">S</em> and <em class="calibre13">S</em>′, and <em class="calibre13">S</em> and <em
+				class="calibre13">S</em>′ include the same operations of those transactions.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">2.</strong> For any operation <em class="calibre13">r<sub
+					class="calibre65">i</sub></em>(<em class="calibre13">X</em>) of <em class="calibre13">T<sub
+					class="calibre65">i</sub></em> in <em class="calibre13">S</em>, if the value of <em
+				class="calibre13">X</em> read by the operation has been written by an operation <em
+				class="calibre13">w<sub class="calibre65">j</sub></em>(<em class="calibre13">X</em>) of <em
+				class="calibre13">T<sub class="calibre65">j</sub></em> (or if it is the original value of <em
+				class="calibre13">X</em> before the schedule started), the same condition must hold for the value of <em
+				class="calibre13">X</em> read by operation <em class="calibre13">r<sub
+					class="calibre65">i</sub></em>(<em class="calibre13">X</em>) of <em class="calibre13">T<sub
+					class="calibre65">i</sub></em> in <em class="calibre13">S</em>′.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">3.</strong> If the operation <em class="calibre13">w<sub
+					class="calibre65">k</sub></em> (<em class="calibre13">Y</em>) of T<sub class="calibre65"><em
+					class="calibre13">k</em></sub> is the last operation to write item <em class="calibre13">Y</em> in
+			<em class="calibre13">S</em>, then <em class="calibre13">w<sub class="calibre65">k</sub></em>(<em
+				class="calibre13">Y</em>) of <em class="calibre13">T<sub class="calibre65">k</sub></em> must also be the
+			last operation to write item <em class="calibre13">Y</em> in <em class="calibre13">S</em>′.</p>
+	</blockquote>
+	<p class="calibre58">The idea behind view equivalence is that, as long as each read operation of a transaction reads
+		the result of the same write operation in both schedules, the write operations of each transaction must produce
+		the same results. The read operations are hence said to <em class="calibre13">see the same view</em> in both
+		schedules. Condition 3 ensures that the final write operation on each data item is the same in both schedules,
+		so the database state should be the same at the end of both schedules. A schedule <em class="calibre13">S</em>
+		is said to be <strong class="calibre6">view serializable</strong> if it is view equivalent to a serial schedule.
+	</p>
+	<p class="calibre18">The definitions of conflict serializability and view serializability are similar if a condition
+		known as the <strong class="calibre6">constrained write assumption</strong> (or <strong class="calibre6">no
+			blind writes</strong>) holds on all transactions in the schedule. This condition states that any write
+		operation <em class="calibre13">w<sub class="calibre65">i</sub></em>(<em class="calibre13">X</em>) in <em
+			class="calibre13">T<sub class="calibre65">i</sub></em> is preceded by a <em class="calibre13">r<sub
+				class="calibre65">i</sub></em>(<em class="calibre13">X</em>) in <em class="calibre13">T<sub
+				class="calibre65">i</sub></em> and that the value written by <em class="calibre13">w<sub
+				class="calibre65">i</sub></em>(<em class="calibre13">X</em>) in <em class="calibre13">T<sub
+				class="calibre65">i</sub></em> depends only on the value of <em class="calibre13">X</em> read by <em
+			class="calibre13">r<sub class="calibre65">i</sub></em>(<em class="calibre13">X</em>). This assumes that
+		computation of the new value of <em class="calibre13">X</em> is a function <em class="calibre13">f</em>(<em
+			class="calibre13">X</em>) based on the old value of <em class="calibre13">X</em> read from the database. A
+		<strong class="calibre6">blind write</strong> is a write operation in a transaction <em class="calibre13">T</em>
+		on an item <em class="calibre13">X</em> that is not dependent on the value of <em class="calibre13">X</em>, so
+		it is not preceded by a read of <em class="calibre13">X</em> in the transaction <em class="calibre13">T</em>.
+	</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18"><a id="filepos2426165" class="calibre3"></a>The definition of view serializability is less
+		restrictive than that of conflict serializability under the <strong class="calibre6">unconstrained write
+			assumption</strong>, where the value written by an operation <em class="calibre13">w<sub
+				class="calibre65">i</sub></em>(<em class="calibre13">X</em>) in <em class="calibre13">T<sub
+				class="calibre65">i</sub></em> can be independent of its old value from the database. This is possible
+		when <em class="calibre13">blind writes</em> are allowed, and it is illustrated by the following schedule <em
+			class="calibre13">S<sub class="calibre65">g</sub></em> of three transactions <em
+			class="calibre13">T</em><sub class="calibre65">1</sub>: <em class="calibre13">r</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">X</em>); <em class="calibre13">w</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">X</em>); <em class="calibre13">T</em><sub
+			class="calibre65">2</sub>: <em class="calibre13">w</em><sub class="calibre65">2</sub>(<em
+			class="calibre13">X</em>); and <em class="calibre13">T</em><sub class="calibre65">3</sub>: <em
+			class="calibre13">w</em><sub class="calibre65">3</sub>(<em class="calibre13">X</em>):</p>
+	<div class="calibre31"> </div>
+	<p class="calibre20"><em class="calibre13">S<sub class="calibre65">g</sub></em>: <em class="calibre13">r</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">X</em>); <em class="calibre13">w</em><sub
+			class="calibre65">2</sub>(<em class="calibre13">X</em>); <em class="calibre13">w</em><sub
+			class="calibre65">1</sub>(<em class="calibre13">X</em>); <em class="calibre13">w</em><sub
+			class="calibre65">3</sub>(<em class="calibre13">X</em>); <em class="calibre13">c</em><sub
+			class="calibre65">1</sub>; <em class="calibre13">c</em><sub class="calibre65">2</sub>; <em
+			class="calibre13">c</em><sub class="calibre65">3</sub>;</p>
+	<p class="calibre18">In <em class="calibre13">S<sub class="calibre65">g</sub></em> the operations <em
+			class="calibre13">w</em><sub class="calibre65">2</sub>(<em class="calibre13">X</em>) and <em
+			class="calibre13">w</em><sub class="calibre65">3</sub>(<em class="calibre13">X</em>) are blind writes, since
+		<em class="calibre13">T</em><sub class="calibre65">2</sub> and <em class="calibre13">T</em><sub
+			class="calibre65">3</sub> do not read the value of <em class="calibre13">X</em>. The schedule <em
+			class="calibre13">S<sub class="calibre65">g</sub></em> is view serializable, since it is view equivalent to
+		the serial schedule <em class="calibre13">T</em><sub class="calibre65">1</sub>, <em class="calibre13">T</em><sub
+			class="calibre65">2</sub>, <em class="calibre13">T</em><sub class="calibre65">3</sub>. However, <em
+			class="calibre13">S<sub class="calibre65">g</sub></em> is not conflict serializable, since it is not
+		conflict equivalent to any serial schedule. It has been shown that any conflict-serializable schedule is also
+		view serializable but not vice versa, as illustrated by the preceding example. There is an algorithm to test
+		whether a schedule <em class="calibre13">S</em> is view serializable or not. However, the problem of testing for
+		view serializability has been shown to be NP-hard, meaning that finding an efficient polynomial time algorithm
+		for this problem is highly unlikely.</p>
+	<div class="calibre31"> </div>
+	<h5 class="calibre62">
+		<blockquote class="calibre30"><span class="calibre60"><span class="bold1">21.5.5 Other Types of Equivalence of
+					Schedules</span></span></blockquote>
+	</h5>
+	<p class="calibre18">Serializability of schedules is sometimes considered to be too restrictive as a condition for
+		ensuring the correctness of concurrent executions. Some applications can produce schedules that are correct by
+		satisfying conditions less stringent than either conflict serializability or view serializability. An example is
+		the type of transactions known as <strong class="calibre6">debit-credit transactions</strong>—for example, those
+		that apply deposits and withdrawals to a data item whose value is the current balance of a bank account. The
+		semantics of debit-credit operations is that they update the value of a data item <em class="calibre13">X</em>
+		by either subtracting from or adding to the value of the data item. Because addition and subtraction operations
+		are commutative—that is, they can be applied in any order—it is possible to produce correct schedules that are
+		not serializable. For example, consider the following transactions, each of which may be used to transfer an
+		amount of money between two bank accounts:</p>
+	<div class="calibre31"> </div>
+	<p class="calibre7"><img alt="image" src="../images/00509.jpg" class="calibre16" /></p>
+	<p class="calibre18">Consider the following nonserializable schedule <em class="calibre13">S<sub
+				class="calibre65">h</sub></em> for the two transactions:</p>
+	<div class="calibre31"> </div>
+	<p class="calibre7"><img alt="image" src="../images/00510.jpg" class="calibre16" /></p>
+	<p class="calibre18">With the additional knowledge, or <strong class="calibre6">semantics</strong>, that the
+		operations between each <em class="calibre13">r<sub class="calibre65">i</sub></em>(<em class="calibre13">I</em>)
+		and <em class="calibre13">w<sub class="calibre65">i</sub></em>(<em class="calibre13">I</em>) are commutative, we
+		know that the order of executing the sequences consisting of (read, update, write) is not important as long as
+		each (read, update, write) sequence by a particular transaction <em class="calibre13">T<sub
+				class="calibre65">i</sub></em> on a particular item <em class="calibre13">I</em> is not interrupted by
+		conflicting operations. Hence, the schedule <em class="calibre13">S<sub class="calibre65">h</sub></em> is
+		considered to be correct even though it is not serializable. Researchers have been working on extending
+		concurrency control theory to deal with cases where serializability is considered to be too restrictive as a
+		condition for correctness of schedules. Also, in certain domains of applications such as computer aided design
+		(CAD) of complex systems like aircraft, <a id="filepos2430686" class="calibre3"></a>design transactions last
+		over a long time period. In such applications, more relaxed schemes of concurrency control have been proposed to
+		maintain consistency of the database.</p>
+	<div class="calibre31"> </div>
+	<h4 id="filepos2430897" class="calibre57">
+		<blockquote class="calibre30"><span class="calibre11"><span class="bold1">21.6 Transaction Support in
+					SQL</span></span></blockquote>
+	</h4>
+	<div class="calibre31"> </div>
+	<p class="calibre18">In this section, we give a brief introduction to transaction support in SQL. There are many
+		more details, and the newer standards have more commands for transaction processing. The basic definition of an
+		SQL transaction is similar to our already defined concept of a transaction. That is, it is a logical unit of
+		work and is guaranteed to be atomic. A single SQL statement is always considered to be atomic—either it
+		completes execution without an error or it fails and leaves the database unchanged.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">With SQL, there is no explicit Begin_Transaction statement. Transaction initiation is done
+		implicitly when particular SQL statements are encountered. However, every transaction must have an explicit end
+		statement, which is either a COMMIT or a ROLLBACK. Every transaction has certain characteristics attributed to
+		it. These characteristics are specified by a SET TRANSACTION statement in SQL. The characteristics are the <em
+			class="calibre13">access mode</em>, the <em class="calibre13">diagnostic area size</em>, and the <em
+			class="calibre13">isolation level</em>.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">The <strong class="calibre6">access mode</strong> can be specified as READ ONLY or READ WRITE.
+		The default is READ WRITE, unless the isolation level of READ UNCOMMITTED is specified (see below), in which
+		case READ ONLY is assumed. A mode of READ WRITE allows select, update, insert, delete, and create commands to be
+		executed. A mode of READ ONLY, as the name implies, is simply for data retrieval.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">The <strong class="calibre6">diagnostic area size</strong> option, DIAGNOSTIC SIZE <em
+			class="calibre13">n</em>, specifies an integer value <em class="calibre13">n</em>, which indicates the
+		number of conditions that can be held simultaneously in the diagnostic area. These conditions supply feedback
+		information (errors or exceptions) to the user or program on the <em class="calibre13">n</em> most recently
+		executed SQL statement.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">The <strong class="calibre6">isolation level</strong> option is specified using the statement
+		ISOLATION LEVEL &lt;isolation&gt;, where the value for &lt;isolation&gt; can be READ UNCOMMITTED, READ
+		COMMITTED, REPEATABLE READ, or SERIALIZABLE.<a id="filepos2433308" class="calibre3"></a><sup
+			class="calibre43"><a href="dummy_split_339.html#filepos4412830" class="calibre41">15</a></sup> The default
+		isolation level is SERIALIZABLE, although some systems use READ COMMITTED as their default. The use of the term
+		SERIALIZABLE here is based on not allowing violations that cause dirty read, unrepeatable read, and phantoms,<a
+			id="filepos2433589" class="calibre3"></a><sup class="calibre43"><a
+				href="dummy_split_340.html#filepos4413058" class="calibre41">16</a></sup> and it is thus not identical
+		to the way serializability was defined earlier in Section 21.5. If a transaction executes at a lower isolation
+		level than SERIALIZABLE, then one or more of the following three violations may occur:</p>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">1. Dirty read</strong>. A transaction <em
+				class="calibre13">T</em><sub class="calibre65">1</sub> may read the update of a transaction <em
+				class="calibre13">T</em><sub class="calibre65">2</sub>, which has not yet committed. If <em
+				class="calibre13">T</em><sub class="calibre65">2</sub> fails and is aborted, then <em
+				class="calibre13">T</em><sub class="calibre65">1</sub> would have read a value that does not exist and
+			is incorrect.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><a id="filepos2434312" class="calibre3"></a><strong class="calibre6">2. Nonrepeatable
+				read</strong>. A transaction <em class="calibre13">T</em><sub class="calibre65">1</sub> may read a given
+			value from a table. If another transaction <em class="calibre13">T</em><sub class="calibre65">2</sub> later
+			updates that value and <em class="calibre13">T</em><sub class="calibre65">1</sub> reads that value again,
+			<em class="calibre13">T</em><sub class="calibre65">1</sub> will see a different value.</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><strong class="calibre6">3. Phantoms</strong>. A transaction <em
+				class="calibre13">T</em><sub class="calibre65">1</sub> may read a set of rows from a table, perhaps
+			based on some condition specified in the SQL WHERE-clause. Now suppose that a transaction <em
+				class="calibre13">T</em><sub class="calibre65">2</sub> inserts a new row that also satisfies the
+			WHERE-clause condition used in <em class="calibre13">T</em><sub class="calibre65">1</sub>, into the table
+			used by <em class="calibre13">T</em><sub class="calibre65">1</sub>. If <em class="calibre13">T</em><sub
+				class="calibre65">1</sub> is repeated, then <em class="calibre13">T</em><sub class="calibre65">1</sub>
+			will see a phantom, a row that previously did not exist.</p>
+	</blockquote>
+	<p class="calibre58"><a href="#filepos2437826" class="calibre41">Table 21.1</a> summarizes the possible violations
+		for the different isolation levels. An entry of <em class="calibre13">Yes</em> indicates that a violation is
+		possible and an entry of <em class="calibre13">No</em> indicates that it is not possible. READ UNCOMMITTED is
+		the most forgiving, and SERIALIZABLE is the most restrictive in that it avoids all three of the problems
+		mentioned above.</p>
+	<p class="calibre18">A sample SQL transaction might look like the following:</p>
+	<div class="calibre31"> </div>
+	<p class="calibre17"><tt class="calibre68"><span class="calibre66">         EXEC SQL WHENEVER SQLERROR GOTO UNDO;<br
+					class="calibre1" />         EXEC SQL SET TRANSACTION<br class="calibre1" />            READ WRITE<br
+					class="calibre1" />            DIAGNOSTIC SIZE 5<br class="calibre1" />            ISOLATION LEVEL
+				SERIALIZABLE;<br class="calibre1" />         EXEC SQL INSERT INTO EMPLOYEE (Fname, Lname, Ssn, Dno,
+				Salary)<br class="calibre1" />            VALUES (‘Robert’, ‘Smith’, ‘991004321’, 2, 35000);<br
+					class="calibre1" />         EXEC SQL UPDATE EMPLOYEE<br class="calibre1" />            SET Salary =
+				Salary * 1.1 WHERE Dno = 2;<br class="calibre1" />         EXEC SQL COMMIT;<br
+					class="calibre1" />         GOTO THE_END;<br class="calibre1" />         UNDO: EXEC SQL ROLLBACK;<br
+					class="calibre1" />         THE_END: … ;</span></tt></p>
+	<p class="calibre58">The above transaction consists of first inserting a new row in the EMPLOYEE table and then
+		updating the salary of all employees who work in department 2. If an error occurs on any of the SQL statements,
+		the entire transaction is rolled back. This implies that any updated salary (by this transaction) would be
+		restored to its previous value and that the newly inserted row would be removed.</p>
+	<p class="calibre18">As we have seen, SQL provides a number of transaction-oriented features. The DBA or database
+		programmers can take advantage of these options to try improving transaction performance by relaxing
+		serializability if that is acceptable for their applications.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre58"><a id="filepos2437826" class="calibre3"></a><strong class="calibre6">Table 21.1</strong>
+		Possible Violations Based on Isolation Levels as Defined in SQL</p>
+	<div class="calibre31"> </div>
+	<p class="calibre7"><img alt="image" src="../images/00511.jpg" class="calibre16" /></p>
+	<h4 id="filepos2438053" class="calibre57">
+		<blockquote class="calibre30"><span class="calibre11"><span class="bold1"><a id="filepos2438137"
+						class="calibre3"></a>21.7 Summary</span></span></blockquote>
+	</h4>
+	<div class="calibre31"> </div>
+	<p class="calibre18">In this chapter we discussed DBMS concepts for transaction processing. We introduced the
+		concept of a database transaction and the operations relevant to transaction processing. We compared single-user
+		systems to multiuser systems and then presented examples of how uncontrolled execution of concurrent
+		transactions in a multiuser system can lead to incorrect results and database values. We also discussed the
+		various types of failures that may occur during transaction execution.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">Next we introduced the typical states that a transaction passes through during execution, and
+		discussed several concepts that are used in recovery and concurrency control methods. The system log keeps track
+		of database accesses, and the system uses this information to recover from failures. A transaction either
+		succeeds and reaches its commit point or it fails and has to be rolled back. A committed transaction has its
+		changes permanently recorded in the database. We presented an overview of the desirable properties of
+		transactions—atomicity, consistency preservation, isolation, and durability—which are often referred to as the
+		ACID properties.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">Then we defined a schedule (or history) as an execution sequence of the operations of several
+		transactions with possible interleaving. We characterized schedules in terms of their recoverability.
+		Recoverable schedules ensure that, once a transaction commits, it never needs to be undone. Cascadeless
+		schedules add an additional condition to ensure that no aborted transaction requires the cascading abort of
+		other transactions. Strict schedules provide an even stronger condition that allows a simple recovery scheme
+		consisting of restoring the old values of items that have been changed by an aborted transaction.</p>
+	<div class="calibre31"> </div>
+	<p class="calibre18">We defined equivalence of schedules and saw that a serializable schedule is equivalent to some
+		serial schedule. We defined the concepts of conflict equivalence and view equivalence, which led to definitions
+		for conflict serializability and view serializability. A serializable schedule is considered correct. We
+		presented an algorithm for testing the (conflict) serializability of a schedule. We discussed why testing for
+		serializability is impractical in a real system, although it can be used to define and verify concurrency
+		control protocols, and we briefly mentioned less restrictive definitions of schedule equivalence. Finally, we
+		gave a brief overview of how transaction concepts are used in practice within SQL.</p>
+	<div class="calibre31"> </div>
+	<h4 id="filepos2440916" class="calibre57">
+		<blockquote class="calibre30"><span class="calibre11"><span class="bold1">Review Questions</span></span>
+		</blockquote>
+	</h4>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre63"><strong class="calibre6">21.1.</strong> What is meant by the concurrent execution of
+			database transactions in a multiuser system? Discuss why concurrency control is needed, and give informal
+			examples.</p>
+	</blockquote>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre63"><a class="calibre3"></a><strong class="calibre6">21.2.</strong> Discuss the different types
+			of failures. What is meant by catastrophic failure?</p>
+	</blockquote>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre63"><strong class="calibre6">21.3.</strong> Discuss the actions taken by the read_item and
+			write_item operations on a database.</p>
+	</blockquote>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre63"><strong class="calibre6">21.4.</strong> Draw a state diagram and discuss the typical states
+			that a transaction goes through during execution.</p>
+	</blockquote>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre63"><strong class="calibre6">21.5.</strong> What is the system log used for? What are the
+			typical kinds of records in a system log? What are transaction commit points, and why are they important?
+		</p>
+	</blockquote>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre63"><strong class="calibre6">21.6.</strong> Discuss the atomicity, durability, isolation, and
+			consistency preservation properties of a database transaction.</p>
+	</blockquote>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre63"><strong class="calibre6">21.7.</strong> What is a schedule (history)? Define the concepts
+			of recoverable, cascadeless, and strict schedules, and compare them in terms of their recoverability.</p>
+	</blockquote>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre63"><strong class="calibre6">21.8.</strong> Discuss the different measures of transaction
+			equivalence. What is the difference between conflict equivalence and view equivalence?</p>
+	</blockquote>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre63"><strong class="calibre6">21.9.</strong> What is a serial schedule? What is a serializable
+			schedule? Why is a serial schedule considered correct? Why is a serializable schedule considered correct?
+		</p>
+	</blockquote>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre72"><strong class="calibre6">21.10.</strong> What is the difference between the constrained
+			write and the unconstrained write assumptions? Which is more realistic?</p>
+	</blockquote>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre72"><strong class="calibre6">21.11.</strong> Discuss how serializability is used to enforce
+			concurrency control in a database system. Why is serializability sometimes considered too restrictive as a
+			measure of correctness for schedules?</p>
+	</blockquote>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre72"><strong class="calibre6">21.12.</strong> Describe the four levels of isolation in SQL.</p>
+	</blockquote>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre72"><strong class="calibre6">21.13.</strong> Define the violations caused by each of the
+			following: dirty read, nonrepeatable read, and phantoms.</p>
+	</blockquote>
+	<div class="calibre31"> </div>
+	<h4 id="filepos2444037" class="calibre57">
+		<blockquote class="calibre30"><span class="calibre11"><span class="bold1">Exercises</span></span></blockquote>
+	</h4>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre72"><strong class="calibre6">21.14.</strong> Change transaction <em
+				class="calibre13">T</em><sub class="calibre65">2</sub> in <a href="#filepos2349190"
+				class="calibre41">Figure 21.2(b)</a> to read</p>
+	</blockquote>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre40">read_item(<em class="calibre13">X</em>);</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><em class="calibre13">X</em> :=<em class="calibre13">X</em> + <em class="calibre13">M</em>;
+		</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40">if <em class="calibre13">X</em> &gt; 90 then exit</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40">else write_item(<em class="calibre13">X</em>);</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre17">Discuss the final result of the different schedules in <a href="#filepos2353660"
+				class="calibre41">Figure 21.3(a)</a> and <a href="#filepos2353660" class="calibre41">(b)</a>, where <em
+				class="calibre13">M</em> = 2 and <em class="calibre13">N</em> = 2, with respect to the following
+			questions: Does adding the above condition change the final outcome? Does the outcome obey the implied
+			consistency rule (that the capacity of <em class="calibre13">X</em> is 90)?</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre72"><strong class="calibre6">21.15.</strong> Repeat Exercise 21.14, adding a check in <em
+				class="calibre13">T</em><sub class="calibre65">1</sub> so that <em class="calibre13">Y</em> does not
+			exceed 90.</p>
+	</blockquote>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre72"><a class="calibre3"></a><strong class="calibre6">21.16.</strong> Add the operation commit
+			at the end of each of the transactions <em class="calibre13">T</em><sub class="calibre65">1</sub> and <em
+				class="calibre13">T</em><sub class="calibre65">2</sub> in <a href="#filepos2349190"
+				class="calibre41">Figure 21.2</a>, and then list all possible schedules for the modified transactions.
+			Determine which of the schedules are recoverable, which are cascadeless, and which are strict.</p>
+	</blockquote>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre72"><strong class="calibre6">21.17.</strong> List all possible schedules for transactions <em
+				class="calibre13">T</em><sub class="calibre65">1</sub> and <em class="calibre13">T</em><sub
+				class="calibre65">2</sub> in <a href="#filepos2349190" class="calibre41">Figure 21.2</a>, and determine
+			which are conflict serializable (correct) and which are not.</p>
+	</blockquote>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre72"><strong class="calibre6">21.18.</strong> How many <em class="calibre13">serial</em>
+			schedules exist for the three transactions in <a href="#filepos2419150" class="calibre41">Figure
+				21.8(a)</a>? What are they? What is the total number of possible schedules?</p>
+	</blockquote>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre72"><strong class="calibre6">21.19.</strong> Write a program to create all possible schedules
+			for the three transactions in <a href="#filepos2419150" class="calibre41">Figure 21.8(a)</a>, and to
+			determine which of those schedules are conflict serializable and which are not. For each
+			conflict-serializable schedule, your program should print the schedule and list all equivalent serial
+			schedules.</p>
+	</blockquote>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre72"><strong class="calibre6">21.20.</strong> Why is an explicit transaction end statement
+			needed in SQL but not an explicit begin statement?</p>
+	</blockquote>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre72"><strong class="calibre6">21.21.</strong> Describe situations where each of the different
+			isolation levels would be useful for transaction processing.</p>
+	</blockquote>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre72"><strong class="calibre6">21.22.</strong> Which of the following schedules is (conflict)
+			serializable? For each serializable schedule, determine the equivalent serial schedules.</p>
+	</blockquote>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre40">a. <em class="calibre13">r</em><sub class="calibre65">1</sub>(<em
+				class="calibre13">X</em>); <em class="calibre13">r</em><sub class="calibre65">3</sub>(<em
+				class="calibre13">X</em>); <em class="calibre13">w</em><sub class="calibre65">1</sub>(<em
+				class="calibre13">X</em>); <em class="calibre13">r</em><sub class="calibre65">2</sub>(<em
+				class="calibre13">X</em>); <em class="calibre13">w</em><sub class="calibre65">3</sub>(<em
+				class="calibre13">X</em>);</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40">b. <em class="calibre13">r</em><sub class="calibre65">1</sub>(<em
+				class="calibre13">X</em>); <em class="calibre13">r</em><sub class="calibre65">3</sub>(<em
+				class="calibre13">X</em>); <em class="calibre13">w</em><sub class="calibre65">3</sub>(<em
+				class="calibre13">X</em>); <em class="calibre13">w</em><sub class="calibre65">1</sub>(<em
+				class="calibre13">X</em>); <em class="calibre13">r</em><sub class="calibre65">2</sub>(<em
+				class="calibre13">X</em>);</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40">c. <em class="calibre13">r</em><sub class="calibre65">3</sub>(<em
+				class="calibre13">X</em>); <em class="calibre13">r</em><sub class="calibre65">2</sub>(<em
+				class="calibre13">X</em>); <em class="calibre13">w</em><sub class="calibre65">3</sub>(<em
+				class="calibre13">X</em>); <em class="calibre13">r</em><sub class="calibre65">1</sub>(<em
+				class="calibre13">X</em>); <em class="calibre13">w</em><sub class="calibre65">1</sub>(<em
+				class="calibre13">X</em>);</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40">d. <em class="calibre13">r</em><sub class="calibre65">3</sub>(<em
+				class="calibre13">X</em>); <em class="calibre13">r</em><sub class="calibre65">2</sub>(<em
+				class="calibre13">X</em>); <em class="calibre13">r</em><sub class="calibre65">1</sub>(<em
+				class="calibre13">X</em>); <em class="calibre13">w</em><sub class="calibre65">3</sub>(<em
+				class="calibre13">X</em>); <em class="calibre13">w</em><sub class="calibre65">1</sub>(<em
+				class="calibre13">X</em>);</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre72"><strong class="calibre6">21.23.</strong> Consider the three transactions <em
+				class="calibre13">T</em><sub class="calibre65">1</sub>, <em class="calibre13">T</em><sub
+				class="calibre65">2</sub>, and <em class="calibre13">T</em><sub class="calibre65">3</sub>, and the
+			schedules <em class="calibre13">S</em><sub class="calibre65">1</sub> and <em class="calibre13">S</em><sub
+				class="calibre65">2</sub> given below. Draw the serializability (precedence) graphs for <em
+				class="calibre13">S</em><sub class="calibre65">1</sub> and <em class="calibre13">S</em><sub
+				class="calibre65">2</sub>, and state whether each schedule is serializable or not. If a schedule is
+			serializable, write down the equivalent serial schedule(s).</p>
+	</blockquote>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre40"><em class="calibre13">T</em><sub class="calibre65">1</sub>: <em
+				class="calibre13">r</em><sub class="calibre65">1</sub> (<em class="calibre13">X</em>); <em
+				class="calibre13">r</em><sub class="calibre65">1</sub> (<em class="calibre13">Z</em>); <em
+				class="calibre13">w</em><sub class="calibre65">1</sub> (<em class="calibre13">X</em>);</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><em class="calibre13">T</em><sub class="calibre65">2</sub>: <em
+				class="calibre13">r</em><sub class="calibre65">2</sub> (<em class="calibre13">Z</em>); <em
+				class="calibre13">r</em><sub class="calibre65">2</sub> (<em class="calibre13">Y</em>); <em
+				class="calibre13">w</em><sub class="calibre65">2</sub> (<em class="calibre13">Z</em>); <em
+				class="calibre13">w</em><sub class="calibre65">2</sub> (<em class="calibre13">Y</em>);</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><em class="calibre13">T</em><sub class="calibre65">3</sub>: <em
+				class="calibre13">r</em><sub class="calibre65">3</sub> (<em class="calibre13">X</em>); <em
+				class="calibre13">r</em><sub class="calibre65">3</sub> (<em class="calibre13">Y</em>); <em
+				class="calibre13">w</em><sub class="calibre65">3</sub> (<em class="calibre13">Y</em>);</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><em class="calibre13">S</em><sub class="calibre65">1</sub>: <em
+				class="calibre13">r</em><sub class="calibre65">1</sub> (<em class="calibre13">X</em>); <em
+				class="calibre13">r</em><sub class="calibre65">2</sub> (<em class="calibre13">Z</em>); <em
+				class="calibre13">r</em><sub class="calibre65">1</sub> (<em class="calibre13">Z</em>); <em
+				class="calibre13">r</em><sub class="calibre65">3</sub> (<em class="calibre13">X</em>); <em
+				class="calibre13">r</em><sub class="calibre65">3</sub> (<em class="calibre13">Y</em>); <em
+				class="calibre13">w</em><sub class="calibre65">1</sub> (<em class="calibre13">X</em>); <em
+				class="calibre13">w</em><sub class="calibre65">3</sub> (<em class="calibre13">Y</em>); <em
+				class="calibre13">r</em><sub class="calibre65">2</sub> (<em class="calibre13">Y</em>); <em
+				class="calibre13">w</em><sub class="calibre65">2</sub> (<em class="calibre13">Z</em>); <em
+				class="calibre13">w</em><sub class="calibre65">2</sub> (<em class="calibre13">Y</em>);</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><em class="calibre13">S</em><sub class="calibre65">2</sub>: <em
+				class="calibre13">r</em><sub class="calibre65">1</sub> (<em class="calibre13">X</em>); <em
+				class="calibre13">r</em><sub class="calibre65">2</sub> (<em class="calibre13">Z</em>); <em
+				class="calibre13">r</em><sub class="calibre65">3</sub> (<em class="calibre13">X</em>); <em
+				class="calibre13">r</em><sub class="calibre65">1</sub> (<em class="calibre13">Z</em>); <em
+				class="calibre13">r</em><sub class="calibre65">2</sub> (<em class="calibre13">Y</em>); <em
+				class="calibre13">r</em><sub class="calibre65">3</sub> (<em class="calibre13">Y</em>); <em
+				class="calibre13">w</em><sub class="calibre65">1</sub> (<em class="calibre13">X</em>); <em
+				class="calibre13">w</em><sub class="calibre65">2</sub> (<em class="calibre13">Z</em>); <em
+				class="calibre13">w</em><sub class="calibre65">3</sub> (<em class="calibre13">Y</em>); <em
+				class="calibre13">w</em><sub class="calibre65">2</sub> (<em class="calibre13">Y</em>);</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre72"><strong class="calibre6">21.24.</strong> Consider schedules <em
+				class="calibre13">S</em><sub class="calibre65">3</sub>, <em class="calibre13">S</em><sub
+				class="calibre65">4</sub>, and <em class="calibre13">S</em><sub class="calibre65">5</sub> below.
+			Determine whether each schedule is strict, cascadeless, recoverable, or nonrecoverable. (Determine the
+			strictest recoverability condition that each schedule satisfies.)</p>
+	</blockquote>
+	<div class="calibre31"> </div>
+	<blockquote class="calibre30">
+		<p class="calibre40"><em class="calibre13">S</em><sub class="calibre65">3</sub>: <em
+				class="calibre13">r</em><sub class="calibre65">1</sub> (<em class="calibre13">X</em>); <em
+				class="calibre13">r</em><sub class="calibre65">2</sub> (<em class="calibre13">Z</em>); <em
+				class="calibre13">r</em><sub class="calibre65">1</sub> (<em class="calibre13">Z</em>); <em
+				class="calibre13">r</em><sub class="calibre65">3</sub> (<em class="calibre13">X</em>); <em
+				class="calibre13">r</em><sub class="calibre65">3</sub> (<em class="calibre13">Y</em>); <em
+				class="calibre13">w</em><sub class="calibre65">1</sub> (<em class="calibre13">X</em>); <em
+				class="calibre13">c</em><sub class="calibre65">1</sub>; <em class="calibre13">w</em><sub
+				class="calibre65">3</sub> (<em class="calibre13">Y</em>); <em class="calibre13">c</em><sub
+				class="calibre65">3</sub>; <em class="calibre13">r</em><sub class="calibre65">2</sub> (<em
+				class="calibre13">Y</em>); <em class="calibre13">w</em><sub class="calibre65">2</sub> (<em
+				class="calibre13">Z</em>); <em class="calibre13">w</em><sub class="calibre65">2</sub> (<em
+				class="calibre13">Y</em>); <em class="calibre13">c</em><sub class="calibre65">2</sub>;</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><em class="calibre13">S</em><sub class="calibre65">4</sub>: <em
+				class="calibre13">r</em><sub class="calibre65">1</sub> (<em class="calibre13">X</em>); <em
+				class="calibre13">r</em><sub class="calibre65">2</sub> (<em class="calibre13">Z</em>); <em
+				class="calibre13">r</em><sub class="calibre65">1</sub> (<em class="calibre13">Z</em>); <em
+				class="calibre13">r</em><sub class="calibre65">3</sub> (<em class="calibre13">X</em>); <em
+				class="calibre13">r</em><sub class="calibre65">3</sub> (<em class="calibre13">Y</em>); <em
+				class="calibre13">w</em><sub class="calibre65">1</sub> (<em class="calibre13">X</em>); <em
+				class="calibre13">w</em><sub class="calibre65">3</sub> (<em class="calibre13">Y</em>); <em
+				class="calibre13">r</em><sub class="calibre65">2</sub> (<em class="calibre13">Y</em>); <em
+				class="calibre13">w</em><sub class="calibre65">2</sub> (<em class="calibre13">Z</em>); <em
+				class="calibre13">w</em><sub class="calibre65">2</sub> (<em class="calibre13">Y</em>); <em
+				class="calibre13">c</em><sub class="calibre65">1</sub>; <em class="calibre13">c</em><sub
+				class="calibre65">2</sub>; <em class="calibre13">c</em><sub class="calibre65">3</sub>;</p>
+	</blockquote>
+	<blockquote class="calibre30">
+		<p class="calibre40"><em class="calibre13">S</em><sub class="calibre65">5</sub>: <em
+				class="calibre13">r</em><sub class="calibre65">1</sub> (<em class="calibre13">X</em>); <em
+				class="calibre13">r</em><sub class="calibre65">2</sub> (<em class="calibre13">Z</em>); <em
+				class="calibre13">r</em><sub class="calibre65">3</sub> (<em class="calibre13">X</em>); <em
+				class="calibre13">r</em><sub class="calibre65">1</sub> (<em class="calibre13">Z</em>); <em
+				class="calibre13">r</em><sub class="calibre65">2</sub> (<em class="calibre13">Y</em>); <em
+				class="calibre13">r</em><sub class="calibre65">3</sub> (<em class="calibre13">Y</em>); <em
+				class="calibre13">w</em><sub class="calibre65">1</sub> (<em class="calibre13">X</em>); <em
+				class="calibre13">c</em><sub class="calibre65">1</sub>; <em class="calibre13">w</em><sub
+				class="calibre65">2</sub> (<em class="calibre13">Z</em>); <em class="calibre13">w</em><sub
+				class="calibre65">3</sub> (<em class="calibre13">Y</em>); <em class="calibre13">w</em><sub
+				class="calibre65">2</sub> (<em class="calibre13">Y</em>); <em class="calibre13">c</em><sub
+				class="calibre65">3</sub>; <em class="calibre13">c</em><sub class="calibre65">2</sub>;</p>
+	</blockquote>
+	<h4 id="filepos2452858" class="calibre57">
+		<blockquote class="calibre30"><span class="calibre11"><span class="bold1"><a id="filepos2452942"
+						class="calibre3"></a>Selected Bibliography</span></span></blockquote>
+	</h4>
+	<div class="calibre31"> </div>
+	<p class="calibre18">The concept of serializability and related ideas to maintain consistency in a database were
+		introduced in Gray et al. (1975). The concept of the database transaction was first discussed in Gray (1981).
+		Gray won the coveted ACM Turing Award in 1998 for his work on database transactions and implementation of
+		transactions in relational DBMSs. Bernstein, Hadzilacos, and Goodman (1988) focus on concurrency control and
+		recovery techniques in both centralized and distributed database systems; it is an excellent reference.
+		Papadimitriou (1986) offers a more theoretical perspective. A large reference book of more than a thousand pages
+		by Gray and Reuter (1993) offers a more practical perspective of transaction processing concepts and techniques.
+		Elmagarmid (1992) offers collections of research papers on transaction processing for advanced applications.
+		Transaction support in SQL is described in Date and Darwen (1997). View serializability is defined in Yannakakis
+		(1984). Recoverability of schedules and reliability in databases is discussed in Hadzilacos (1983, 1988).</p>
+	<div class="calibre31"> </div>
+	<div class="mbppagebreak" id="calibre_pb_65"></div>
+</body>
+
+</html>

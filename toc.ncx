@@ -1,0 +1,2181 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="eng">
+  <head>
+    <meta content="7590593b-5124-481f-ac20-dd1edd232af1" name="dtb:uid"/>
+    <meta content="3" name="dtb:depth"/>
+    <meta content="calibre (0.8.15)" name="dtb:generator"/>
+    <meta content="0" name="dtb:totalPageCount"/>
+    <meta content="0" name="dtb:maxPageNumber"/>
+  </head>
+  <docTitle>
+    <text>Fundamentals of Database Systems</text>
+  </docTitle>
+  <navMap>
+    <navPoint class="chapter" id="8217bafd-b4d8-48c4-864a-43d446dbb9af" playOrder="1">
+      <navLabel>
+        <text>part 1</text>
+      </navLabel>
+      <content src="dummy_split_014.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="636df9c9-90cf-4b85-91da-096f9dc6de62" playOrder="1">
+      <navLabel>
+        <text>Introduction to Databases</text>
+      </navLabel>
+      <content src="dummy_split_014.html"/>
+      <navPoint class="chapter" id="3886dbce-c4f3-4de7-be84-b424d6635b06" playOrder="2">
+        <navLabel>
+          <text>chapter 1 Databases and Database Users</text>
+        </navLabel>
+        <content src="dummy_split_015.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="7c1e0a0d-a4c8-4b8c-9c71-40b114f38a05" playOrder="3">
+        <navLabel>
+          <text>1.1 Introduction</text>
+        </navLabel>
+        <content src="dummy_split_015.html#filepos95244"/>
+      </navPoint>
+      <navPoint class="chapter" id="84a5ee3a-275b-443d-8bf4-63add2f7958e" playOrder="4">
+        <navLabel>
+          <text>1.2 An Example</text>
+        </navLabel>
+        <content src="dummy_split_015.html#filepos103778"/>
+      </navPoint>
+      <navPoint class="chapter" id="db1b39f3-5d92-47ec-9fcc-0f9788cc8a1f" playOrder="5">
+        <navLabel>
+          <text>1.3 Characteristics of the Database Approach</text>
+        </navLabel>
+        <content src="dummy_split_015.html#filepos110736"/>
+      </navPoint>
+      <navPoint class="chapter" id="4e27516a-8ce1-4d80-af6c-f9c332cb65c4" playOrder="6">
+        <navLabel>
+          <text>1.4 Actors on the Scene</text>
+        </navLabel>
+        <content src="dummy_split_015.html#filepos126284"/>
+      </navPoint>
+      <navPoint class="chapter" id="b9ba7d01-2694-451d-97bd-477741b05f6a" playOrder="7">
+        <navLabel>
+          <text>1.5 Workers behind the Scene</text>
+        </navLabel>
+        <content src="dummy_split_015.html#filepos133735"/>
+      </navPoint>
+      <navPoint class="chapter" id="34be9849-ad43-4b9e-be36-b969ae738de2" playOrder="8">
+        <navLabel>
+          <text>1.6 Advantages of Using the DBMS Approach</text>
+        </navLabel>
+        <content src="dummy_split_015.html#filepos136209"/>
+      </navPoint>
+      <navPoint class="chapter" id="e91920f9-fc15-4fe9-9854-03c347a03c84" playOrder="9">
+        <navLabel>
+          <text>1.7 A Brief History of Database Applications</text>
+        </navLabel>
+        <content src="dummy_split_015.html#filepos157154"/>
+      </navPoint>
+      <navPoint class="chapter" id="8f9889fd-8b60-41f0-b101-35993b013275" playOrder="10">
+        <navLabel>
+          <text>1.8 When Not to Use a DBMS</text>
+        </navLabel>
+        <content src="dummy_split_015.html#filepos171148"/>
+      </navPoint>
+      <navPoint class="chapter" id="bbe72fb2-ff18-4e9c-963c-edfcd6c0ce37" playOrder="11">
+        <navLabel>
+          <text>1.9 Summary</text>
+        </navLabel>
+        <content src="dummy_split_015.html#filepos174004"/>
+      </navPoint>
+      <navPoint class="chapter" id="8881204f-71ae-486b-b668-6376deb5e453" playOrder="12">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_015.html#filepos175600"/>
+      </navPoint>
+      <navPoint class="chapter" id="d587bbd2-8f31-40dd-b17d-7ab09ced6942" playOrder="13">
+        <navLabel>
+          <text>Exercises</text>
+        </navLabel>
+        <content src="dummy_split_015.html#filepos177353"/>
+      </navPoint>
+      <navPoint class="chapter" id="c17657c5-0119-420b-b60e-5a9f77c0778a" playOrder="14">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_015.html#filepos179605"/>
+      </navPoint>
+      <navPoint class="chapter" id="fcbdbf8e-9150-4633-9be5-1ed6a79549ce" playOrder="15">
+        <navLabel>
+          <text>chapter 2 Database System Concepts and Architecture</text>
+        </navLabel>
+        <content src="dummy_split_016.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="d8546687-bbbb-493c-a84d-6fef97aad60f" playOrder="16">
+        <navLabel>
+          <text>2.1 Data Models, Schemas, and Instances</text>
+        </navLabel>
+        <content src="dummy_split_016.html#filepos183058"/>
+      </navPoint>
+      <navPoint class="chapter" id="96e3f106-9a30-42dd-9596-03acab1fc75e" playOrder="17">
+        <navLabel>
+          <text>2.2 Three-Schema Architecture and Data Independence</text>
+        </navLabel>
+        <content src="dummy_split_016.html#filepos194887"/>
+      </navPoint>
+      <navPoint class="chapter" id="25ee21dd-772d-4b93-8721-bfa8f3f51bbf" playOrder="18">
+        <navLabel>
+          <text>2.3 Database Languages and Interfaces</text>
+        </navLabel>
+        <content src="dummy_split_016.html#filepos204556"/>
+      </navPoint>
+      <navPoint class="chapter" id="509466fa-0431-4431-9290-65dbf3480b0e" playOrder="19">
+        <navLabel>
+          <text>2.4 The Database System Environment</text>
+        </navLabel>
+        <content src="dummy_split_016.html#filepos217086"/>
+      </navPoint>
+      <navPoint class="chapter" id="3c2bef92-a36a-4b80-b1b7-4c2f4463a657" playOrder="20">
+        <navLabel>
+          <text>2.5 Centralized and Client/Server Architectures for DBMSs</text>
+        </navLabel>
+        <content src="dummy_split_016.html#filepos230267"/>
+      </navPoint>
+      <navPoint class="chapter" id="1b70964a-b468-4af4-ac4f-096638441dc6" playOrder="21">
+        <navLabel>
+          <text>2.6 Classification of Database Management Systems</text>
+        </navLabel>
+        <content src="dummy_split_016.html#filepos244010"/>
+      </navPoint>
+      <navPoint class="chapter" id="1c2376e0-5f4c-4cfa-bef9-5d93996025c4" playOrder="22">
+        <navLabel>
+          <text>2.7 Summary</text>
+        </navLabel>
+        <content src="dummy_split_016.html#filepos255595"/>
+      </navPoint>
+      <navPoint class="chapter" id="7785afef-e638-4bae-a569-3d88fa77dc24" playOrder="23">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_016.html#filepos260210"/>
+      </navPoint>
+      <navPoint class="chapter" id="f9737e77-b5ae-4813-8339-1891723b8c95" playOrder="24">
+        <navLabel>
+          <text>Exercises</text>
+        </navLabel>
+        <content src="dummy_split_016.html#filepos262848"/>
+      </navPoint>
+      <navPoint class="chapter" id="46d2fd49-fa88-4868-9501-a922ade4ed3b" playOrder="25">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_016.html#filepos264881"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="ac22bbf3-53b9-4cdc-ba04-ca498548eb46" playOrder="26">
+      <navLabel>
+        <text>part 2</text>
+      </navLabel>
+      <content src="dummy_split_017.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="b701aaed-9ec3-47cf-96cd-37e9d3300380" playOrder="26">
+      <navLabel>
+        <text>The Relational Data Model and SQL</text>
+      </navLabel>
+      <content src="dummy_split_017.html"/>
+      <navPoint class="chapter" id="26d47585-b41c-4cb8-8dff-8398ab47263c" playOrder="27">
+        <navLabel>
+          <text>chapter 3 The Relational Data Model and Relational Database Constraints</text>
+        </navLabel>
+        <content src="dummy_split_018.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="765ea3d2-44d0-4c3d-87fb-13aaf668d8cf" playOrder="28">
+        <navLabel>
+          <text>3.1 Relational Model Concepts</text>
+        </navLabel>
+        <content src="dummy_split_018.html#filepos271534"/>
+      </navPoint>
+      <navPoint class="chapter" id="8aa387d2-cae4-488b-ae2e-3fa596e8b443" playOrder="29">
+        <navLabel>
+          <text>3.2 Relational Model Constraints and Relational Database Schemas</text>
+        </navLabel>
+        <content src="dummy_split_018.html#filepos299182"/>
+      </navPoint>
+      <navPoint class="chapter" id="d1bfa47b-e42f-432c-8533-fb1108b9d116" playOrder="30">
+        <navLabel>
+          <text>3.3 Update Operations, Transactions, and Dealing with Constraint Violations</text>
+        </navLabel>
+        <content src="dummy_split_018.html#filepos324187"/>
+      </navPoint>
+      <navPoint class="chapter" id="c10bf4cf-f622-443f-b4d7-2316e9d25374" playOrder="31">
+        <navLabel>
+          <text>3.4 Summary</text>
+        </navLabel>
+        <content src="dummy_split_018.html#filepos340655"/>
+      </navPoint>
+      <navPoint class="chapter" id="abd9cb9d-61c4-4747-b847-5f70cab3c624" playOrder="32">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_018.html#filepos343397"/>
+      </navPoint>
+      <navPoint class="chapter" id="41f5b1b4-8f54-45c1-a1db-db20cf511eb9" playOrder="33">
+        <navLabel>
+          <text>Exercises</text>
+        </navLabel>
+        <content src="dummy_split_018.html#filepos345523"/>
+      </navPoint>
+      <navPoint class="chapter" id="93d8742f-5d5f-4fef-985e-e6e00425928f" playOrder="34">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_018.html#filepos359493"/>
+      </navPoint>
+      <navPoint class="chapter" id="a61e88af-7e33-49ce-be9f-e7e5eff50b27" playOrder="35">
+        <navLabel>
+          <text>chapter 4 Basic SQL</text>
+        </navLabel>
+        <content src="dummy_split_019.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="d2bb415d-c31f-4f6f-aa5a-e669f490500d" playOrder="36">
+        <navLabel>
+          <text>4.1 SQL Data Definition and Data Types</text>
+        </navLabel>
+        <content src="dummy_split_019.html#filepos369356"/>
+      </navPoint>
+      <navPoint class="chapter" id="dd8d9d1a-4f17-4c3b-9c21-51ed450afb1b" playOrder="37">
+        <navLabel>
+          <text>4.2 Specifying Constraints in SQL</text>
+        </navLabel>
+        <content src="dummy_split_019.html#filepos385536"/>
+      </navPoint>
+      <navPoint class="chapter" id="e75e3eb2-0ccb-4432-a7d4-46643cda558e" playOrder="38">
+        <navLabel>
+          <text>4.3 Basic Retrieval Queries in SQL</text>
+        </navLabel>
+        <content src="dummy_split_019.html#filepos395597"/>
+      </navPoint>
+      <navPoint class="chapter" id="4914ffe4-a0e9-4165-baa7-fabf49ac4621" playOrder="39">
+        <navLabel>
+          <text>4.4 INSERT, DELETE, and UPDATE Statements in SQL</text>
+        </navLabel>
+        <content src="dummy_split_019.html#filepos425284"/>
+      </navPoint>
+      <navPoint class="chapter" id="893392d9-2c22-4766-bd41-bd88a10d6620" playOrder="40">
+        <navLabel>
+          <text>4.5 Additional Features of SQL</text>
+        </navLabel>
+        <content src="dummy_split_019.html#filepos433064"/>
+      </navPoint>
+      <navPoint class="chapter" id="46ef130e-04ed-4630-96a9-848fab726b7d" playOrder="41">
+        <navLabel>
+          <text>4.6 Summary</text>
+        </navLabel>
+        <content src="dummy_split_019.html#filepos437829"/>
+      </navPoint>
+      <navPoint class="chapter" id="93a4c83b-ddd4-400f-91fe-f754b068b5b4" playOrder="42">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_019.html#filepos439118"/>
+      </navPoint>
+      <navPoint class="chapter" id="ae8c69e1-3309-4493-bc2a-56f7b77570c9" playOrder="43">
+        <navLabel>
+          <text>Exercises</text>
+        </navLabel>
+        <content src="dummy_split_019.html#filepos440356"/>
+      </navPoint>
+      <navPoint class="chapter" id="6d1b5d6f-e237-47a6-8c96-529bf7434f11" playOrder="44">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_019.html#filepos447839"/>
+      </navPoint>
+      <navPoint class="chapter" id="211e4e3d-5b58-4240-a59d-b311cd78d508" playOrder="45">
+        <navLabel>
+          <text>chapter 5 More SQL: Complex Queries, Triggers, Views, and Schema Modification</text>
+        </navLabel>
+        <content src="dummy_split_020.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="c6ace8b4-e2db-42fa-be17-d0c2691fa143" playOrder="46">
+        <navLabel>
+          <text>5.1 More Complex SQL Retrieval Queries</text>
+        </navLabel>
+        <content src="dummy_split_020.html#filepos450111"/>
+      </navPoint>
+      <navPoint class="chapter" id="ec9efefb-7e0c-4fd1-9fcf-c498c60f5497" playOrder="47">
+        <navLabel>
+          <text>5.2 Specifying Constraints as Assertions and Actions as Triggers</text>
+        </navLabel>
+        <content src="dummy_split_020.html#filepos493918"/>
+      </navPoint>
+      <navPoint class="chapter" id="4f77eb4f-9f22-4fdf-bc90-0e4509d872c4" playOrder="48">
+        <navLabel>
+          <text>5.3 Views (Virtual Tables) in SQL</text>
+        </navLabel>
+        <content src="dummy_split_020.html#filepos503220"/>
+      </navPoint>
+      <navPoint class="chapter" id="704905cc-9f5f-4ec4-a863-f2940964aa73" playOrder="49">
+        <navLabel>
+          <text>5.4 Schema Change Statements in SQL</text>
+        </navLabel>
+        <content src="dummy_split_020.html#filepos515511"/>
+      </navPoint>
+      <navPoint class="chapter" id="1e068c1f-e0f3-4258-8577-d83bcd37eb53" playOrder="50">
+        <navLabel>
+          <text>5.5 Summary</text>
+        </navLabel>
+        <content src="dummy_split_020.html#filepos523097"/>
+      </navPoint>
+      <navPoint class="chapter" id="3a6475ae-adb1-40b2-9cb1-e26b46ff19f8" playOrder="51">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_020.html#filepos525046"/>
+      </navPoint>
+      <navPoint class="chapter" id="76b2fd6e-236a-412f-a074-783b79801666" playOrder="52">
+        <navLabel>
+          <text>Exercises</text>
+        </navLabel>
+        <content src="dummy_split_020.html#filepos527104"/>
+      </navPoint>
+      <navPoint class="chapter" id="d44b9b3f-f533-417d-a83c-e9ecbd8c0b7f" playOrder="53">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_020.html#filepos531539"/>
+      </navPoint>
+      <navPoint class="chapter" id="4cac1cbb-1439-490f-a3b5-a69c2467a696" playOrder="54">
+        <navLabel>
+          <text>chapter 6 The Relational Algebra and Relational Calculus</text>
+        </navLabel>
+        <content src="dummy_split_021.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="5086fa1c-7813-44e0-aeeb-bd24eaa449b5" playOrder="55">
+        <navLabel>
+          <text>6.1 Unary Relational Operations: SELECT and PROJECT</text>
+        </navLabel>
+        <content src="dummy_split_021.html#filepos540268"/>
+      </navPoint>
+      <navPoint class="chapter" id="647d525a-e471-470e-9827-80df5e887027" playOrder="56">
+        <navLabel>
+          <text>6.2 Relational Algebra Operations from Set Theory</text>
+        </navLabel>
+        <content src="dummy_split_021.html#filepos559546"/>
+      </navPoint>
+      <navPoint class="chapter" id="de6d29ec-865e-48d1-9751-4252f1c19ddf" playOrder="57">
+        <navLabel>
+          <text>6.3 Binary Relational Operations: JOIN and DIVISION</text>
+        </navLabel>
+        <content src="dummy_split_021.html#filepos573580"/>
+      </navPoint>
+      <navPoint class="chapter" id="07e7047f-4646-4cab-8c26-b8cb3478a79e" playOrder="58">
+        <navLabel>
+          <text>6.4 Additional Relational Operations</text>
+        </navLabel>
+        <content src="dummy_split_021.html#filepos599356"/>
+      </navPoint>
+      <navPoint class="chapter" id="8769dec0-931e-49d7-bd8b-8bb8b3847aa6" playOrder="59">
+        <navLabel>
+          <text>6.5 Examples of Queries in Relational Algebra</text>
+        </navLabel>
+        <content src="dummy_split_021.html#filepos618898"/>
+      </navPoint>
+      <navPoint class="chapter" id="f9de5aee-76f0-4507-900d-c747a5dd4f94" playOrder="60">
+        <navLabel>
+          <text>6.6 The Tuple Relational Calculus</text>
+        </navLabel>
+        <content src="dummy_split_021.html#filepos631257"/>
+      </navPoint>
+      <navPoint class="chapter" id="d47cdbdf-1394-417f-8ec6-37a8f78c954e" playOrder="61">
+        <navLabel>
+          <text>6.7 The Domain Relational Calculus</text>
+        </navLabel>
+        <content src="dummy_split_021.html#filepos675529"/>
+      </navPoint>
+      <navPoint class="chapter" id="19ed6f61-bf70-4ce8-bbd6-d12ff00fcfbc" playOrder="62">
+        <navLabel>
+          <text>6.8 Summary</text>
+        </navLabel>
+        <content src="dummy_split_021.html#filepos688510"/>
+      </navPoint>
+      <navPoint class="chapter" id="53ae56c5-0536-462b-b584-2607dfa951c5" playOrder="63">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_021.html#filepos692880"/>
+      </navPoint>
+      <navPoint class="chapter" id="a16e2709-18e3-4046-9175-ac9dcd4f2bd6" playOrder="64">
+        <navLabel>
+          <text>Exercises</text>
+        </navLabel>
+        <content src="dummy_split_021.html#filepos696065"/>
+      </navPoint>
+      <navPoint class="chapter" id="29622ceb-9516-42ab-854c-931419212bc6" playOrder="65">
+        <navLabel>
+          <text>Laboratory Exercises</text>
+        </navLabel>
+        <content src="dummy_split_021.html#filepos713862"/>
+      </navPoint>
+      <navPoint class="chapter" id="0adb8cbd-944d-41e2-b855-a87b8925f8e1" playOrder="66">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_021.html#filepos721943"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="a79a9d2c-151f-4b05-ac87-8548ab8171e6" playOrder="67">
+      <navLabel>
+        <text>part 3</text>
+      </navLabel>
+      <content src="dummy_split_022.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="3f7d0542-ef3d-4694-aff7-901c7fdec6bf" playOrder="67">
+      <navLabel>
+        <text>Conceptual Modeling and Database Design</text>
+      </navLabel>
+      <content src="dummy_split_022.html"/>
+      <navPoint class="chapter" id="81ea56f7-a344-4e2b-96ea-fba760c05aa7" playOrder="68">
+        <navLabel>
+          <text>chapter 7 Data Modeling Using the Entity-Relationship (ER) Model</text>
+        </navLabel>
+        <content src="dummy_split_023.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="6b2219c7-6589-494d-b228-71a80b7591c3" playOrder="69">
+        <navLabel>
+          <text>7.1 Using High-Level Conceptual Data Models for Database Design</text>
+        </navLabel>
+        <content src="dummy_split_023.html#filepos729560"/>
+      </navPoint>
+      <navPoint class="chapter" id="1407ceba-ebc7-4203-880f-dc26c5ec3909" playOrder="70">
+        <navLabel>
+          <text>7.2 A Sample Database Application</text>
+        </navLabel>
+        <content src="dummy_split_023.html#filepos734316"/>
+      </navPoint>
+      <navPoint class="chapter" id="641c1816-8a4a-4e50-ad4d-5cf307f326ec" playOrder="71">
+        <navLabel>
+          <text>7.3 Entity Types, Entity Sets, Attributes, and Keys</text>
+        </navLabel>
+        <content src="dummy_split_023.html#filepos737213"/>
+      </navPoint>
+      <navPoint class="chapter" id="c0c0106e-6875-42c3-b816-9dc5f18d8967" playOrder="72">
+        <navLabel>
+          <text>7.4 Relationship Types, Relationship Sets, Roles, and Structural Constraints</text>
+        </navLabel>
+        <content src="dummy_split_023.html#filepos758993"/>
+      </navPoint>
+      <navPoint class="chapter" id="d7d2778b-ba14-4344-8023-528c1a502bca" playOrder="73">
+        <navLabel>
+          <text>7.5 Weak Entity Types</text>
+        </navLabel>
+        <content src="dummy_split_023.html#filepos778861"/>
+      </navPoint>
+      <navPoint class="chapter" id="7b9c1141-ea70-4787-915b-c2c935634a05" playOrder="74">
+        <navLabel>
+          <text>7.6 Refining the ER Design for the COMPANY Database</text>
+        </navLabel>
+        <content src="dummy_split_023.html#filepos783062"/>
+      </navPoint>
+      <navPoint class="chapter" id="1e38d485-b510-4cfb-b8c8-77f68e608913" playOrder="75">
+        <navLabel>
+          <text>7.7 ER Diagrams, Naming Conventions, and Design Issues</text>
+        </navLabel>
+        <content src="dummy_split_023.html#filepos786739"/>
+      </navPoint>
+      <navPoint class="chapter" id="fc9251f5-cf33-474d-b10d-80efcc771410" playOrder="76">
+        <navLabel>
+          <text>7.8 Example of Other Notation: UML Class Diagrams</text>
+        </navLabel>
+        <content src="dummy_split_023.html#filepos798699"/>
+      </navPoint>
+      <navPoint class="chapter" id="9778396c-36f6-421b-9d9a-74b638d5a2a3" playOrder="77">
+        <navLabel>
+          <text>7.9 Relationship Types of Degree Higher than Two</text>
+        </navLabel>
+        <content src="dummy_split_023.html#filepos806439"/>
+      </navPoint>
+      <navPoint class="chapter" id="994d644a-d92d-4824-a545-d6548cace2d4" playOrder="78">
+        <navLabel>
+          <text>7.10 Summary</text>
+        </navLabel>
+        <content src="dummy_split_023.html#filepos818081"/>
+      </navPoint>
+      <navPoint class="chapter" id="350f4aef-59ad-4b52-8a0c-e7494e4a7eca" playOrder="79">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_023.html#filepos822577"/>
+      </navPoint>
+      <navPoint class="chapter" id="c96a3aad-cf72-45b8-abf6-a54a40f545ad" playOrder="80">
+        <navLabel>
+          <text>Exercises</text>
+        </navLabel>
+        <content src="dummy_split_023.html#filepos826079"/>
+      </navPoint>
+      <navPoint class="chapter" id="6f13f37f-7b24-4c25-95bb-e583029f6a1e" playOrder="81">
+        <navLabel>
+          <text>Laboratory Exercises</text>
+        </navLabel>
+        <content src="dummy_split_023.html#filepos842575"/>
+      </navPoint>
+      <navPoint class="chapter" id="9edb62d5-2f5d-4a93-88ed-aadc083b1065" playOrder="82">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_023.html#filepos849099"/>
+      </navPoint>
+      <navPoint class="chapter" id="8336f414-82a2-47ab-aa01-1b54aae031c2" playOrder="83">
+        <navLabel>
+          <text>chapter 8 The Enhanced Entity-Relationship (EER) Model</text>
+        </navLabel>
+        <content src="dummy_split_024.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="4a552521-59d9-437e-b08e-b7df13e0bcda" playOrder="84">
+        <navLabel>
+          <text>8.1 Subclasses, Superclasses, and Inheritance</text>
+        </navLabel>
+        <content src="dummy_split_024.html#filepos855161"/>
+      </navPoint>
+      <navPoint class="chapter" id="f9102052-d8de-4f68-9cf8-cef40fb99424" playOrder="85">
+        <navLabel>
+          <text>8.2 Specialization and Generalization</text>
+        </navLabel>
+        <content src="dummy_split_024.html#filepos861166"/>
+      </navPoint>
+      <navPoint class="chapter" id="e84d234c-4f3f-4d1d-98fc-1bcfdb0aace8" playOrder="86">
+        <navLabel>
+          <text>8.3 Constraints and Characteristics of Specialization and Generalization Hierarchies</text>
+        </navLabel>
+        <content src="dummy_split_024.html#filepos869741"/>
+      </navPoint>
+      <navPoint class="chapter" id="5116137f-0996-43da-b482-96a40059587d" playOrder="87">
+        <navLabel>
+          <text>8.4 Modeling of UNION Types Using Categories</text>
+        </navLabel>
+        <content src="dummy_split_024.html#filepos890200"/>
+      </navPoint>
+      <navPoint class="chapter" id="25136171-bf03-4095-a021-1dba1d176f98" playOrder="88">
+        <navLabel>
+          <text>8.5 A Sample UNIVERSITY EER Schema, Design Choices, and Formal Definitions</text>
+        </navLabel>
+        <content src="dummy_split_024.html#filepos896807"/>
+      </navPoint>
+      <navPoint class="chapter" id="a8b5290e-ce75-4287-85f5-2b60ca42fb07" playOrder="89">
+        <navLabel>
+          <text>8.6 Example of Other Notation: Representing Specialization and Generalization in UML Class Diagrams</text>
+        </navLabel>
+        <content src="dummy_split_024.html#filepos910973"/>
+      </navPoint>
+      <navPoint class="chapter" id="dce6a008-7211-47e6-8560-19946fd53dee" playOrder="90">
+        <navLabel>
+          <text>8.7 Data Abstraction, Knowledge Representation, and Ontology Concepts</text>
+        </navLabel>
+        <content src="dummy_split_024.html#filepos914233"/>
+      </navPoint>
+      <navPoint class="chapter" id="a0008257-983a-452c-9b5f-29f7fbac6a9b" playOrder="91">
+        <navLabel>
+          <text>8.8 Summary</text>
+        </navLabel>
+        <content src="dummy_split_024.html#filepos934815"/>
+      </navPoint>
+      <navPoint class="chapter" id="6c033986-5f9a-4c00-8823-9fdf60f0d2ec" playOrder="92">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_024.html#filepos936908"/>
+      </navPoint>
+      <navPoint class="chapter" id="fc88c1b9-a350-4a7e-8e8e-b81cf6b3ec6c" playOrder="93">
+        <navLabel>
+          <text>Exercises</text>
+        </navLabel>
+        <content src="dummy_split_024.html#filepos940617"/>
+      </navPoint>
+      <navPoint class="chapter" id="d63524bd-eb7c-4b37-a8f5-1c7214c52414" playOrder="94">
+        <navLabel>
+          <text>Laboratory Exercises</text>
+        </navLabel>
+        <content src="dummy_split_024.html#filepos959593"/>
+      </navPoint>
+      <navPoint class="chapter" id="31569035-0cbd-46db-b779-01350120b800" playOrder="95">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_024.html#filepos968961"/>
+      </navPoint>
+      <navPoint class="chapter" id="33a45ab0-d67a-470f-8281-88ad112577d1" playOrder="96">
+        <navLabel>
+          <text>chapter 9 Relational Database Design by ER- and EER-to-Relational Mapping</text>
+        </navLabel>
+        <content src="dummy_split_025.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="ee8a63a9-6a33-47ab-9c8d-77b8609acbb5" playOrder="97">
+        <navLabel>
+          <text>9.1 Relational Database Design Using ER-to-Relational Mapping</text>
+        </navLabel>
+        <content src="dummy_split_025.html#filepos973327"/>
+      </navPoint>
+      <navPoint class="chapter" id="35076abc-bb85-4521-9e11-2008c73425a7" playOrder="98">
+        <navLabel>
+          <text>9.2 Mapping EER Model Constructs to Relations</text>
+        </navLabel>
+        <content src="dummy_split_025.html#filepos997308"/>
+      </navPoint>
+      <navPoint class="chapter" id="5f15e628-2f20-4e41-91da-d9eb991d9958" playOrder="99">
+        <navLabel>
+          <text>9.3 Summary</text>
+        </navLabel>
+        <content src="dummy_split_025.html#filepos1013872"/>
+      </navPoint>
+      <navPoint class="chapter" id="b9607e27-a8f2-450c-a32c-39507ee0e8f7" playOrder="100">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_025.html#filepos1014723"/>
+      </navPoint>
+      <navPoint class="chapter" id="fff3e8b3-0451-4501-ade6-e46b9e455bd0" playOrder="101">
+        <navLabel>
+          <text>Exercises</text>
+        </navLabel>
+        <content src="dummy_split_025.html#filepos1015358"/>
+      </navPoint>
+      <navPoint class="chapter" id="d6e6ac89-9f63-4e5a-8b3c-89e8fc423cd6" playOrder="102">
+        <navLabel>
+          <text>Laboratory Exercises</text>
+        </navLabel>
+        <content src="dummy_split_025.html#filepos1018429"/>
+      </navPoint>
+      <navPoint class="chapter" id="de638aab-2af0-42b5-abad-9f6cc7542cbc" playOrder="103">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_025.html#filepos1020365"/>
+      </navPoint>
+      <navPoint class="chapter" id="13798c6e-39af-416f-883e-bd21d0f35c8a" playOrder="104">
+        <navLabel>
+          <text>chapter 10 Practical Database Design Methodology and Use of UML Diagrams</text>
+        </navLabel>
+        <content src="dummy_split_026.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="14e2cfc8-e18d-40be-bc62-2d406601934d" playOrder="105">
+        <navLabel>
+          <text>10.1 The Role of Information Systems in Organizations</text>
+        </navLabel>
+        <content src="dummy_split_026.html#filepos1025777"/>
+      </navPoint>
+      <navPoint class="chapter" id="f6c0f20e-3c86-458c-8aae-69e89572f080" playOrder="106">
+        <navLabel>
+          <text>10.2 The Database Design and Implementation Process</text>
+        </navLabel>
+        <content src="dummy_split_026.html#filepos1042739"/>
+      </navPoint>
+      <navPoint class="chapter" id="8543272e-6e1c-4a57-90d9-55dad06517c8" playOrder="107">
+        <navLabel>
+          <text>10.3 Use of UML Diagrams as an Aid to Database Design Specification</text>
+        </navLabel>
+        <content src="dummy_split_026.html#filepos1101583"/>
+      </navPoint>
+      <navPoint class="chapter" id="52ef107e-3acf-47b6-ae43-6d0a10f83c79" playOrder="108">
+        <navLabel>
+          <text>10.4 Rational Rose: A UML-Based Design Tool</text>
+        </navLabel>
+        <content src="dummy_split_026.html#filepos1125650"/>
+      </navPoint>
+      <navPoint class="chapter" id="25ec6ee9-c3a8-4548-9e32-967ff6422419" playOrder="109">
+        <navLabel>
+          <text>10.5 Automated Database Design Tools</text>
+        </navLabel>
+        <content src="dummy_split_026.html#filepos1136866"/>
+      </navPoint>
+      <navPoint class="chapter" id="cfa303dc-08e5-4346-a007-e8eeb2eefaba" playOrder="110">
+        <navLabel>
+          <text>10.6 Summary</text>
+        </navLabel>
+        <content src="dummy_split_026.html#filepos1146705"/>
+      </navPoint>
+      <navPoint class="chapter" id="fa60aa44-46de-4720-9305-30561633c4dc" playOrder="111">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_026.html#filepos1149496"/>
+      </navPoint>
+      <navPoint class="chapter" id="aa02b210-db93-4ccd-91ad-ff03cbd70a02" playOrder="112">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_026.html#filepos1155529"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="bd4c33f9-3037-4799-a5e9-1bcc7d07631e" playOrder="113">
+      <navLabel>
+        <text>part 4</text>
+      </navLabel>
+      <content src="dummy_split_027.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="894721c6-7004-4b1c-bea0-d04986f2261d" playOrder="113">
+      <navLabel>
+        <text>Object, Object-Relational, and XML: Concepts, Models, Languages, and Standards</text>
+      </navLabel>
+      <content src="dummy_split_027.html"/>
+      <navPoint class="chapter" id="063f921d-5807-4e0f-81c5-3b52f5927b35" playOrder="114">
+        <navLabel>
+          <text>chapter 11 Object and Object-Relational Databases</text>
+        </navLabel>
+        <content src="dummy_split_028.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="f9bc6641-6eec-43f9-8883-de121426039c" playOrder="115">
+        <navLabel>
+          <text>11.1 Overview of Object Database Concepts</text>
+        </navLabel>
+        <content src="dummy_split_028.html#filepos1167946"/>
+      </navPoint>
+      <navPoint class="chapter" id="29ff666b-939e-4470-b73e-b299306ee200" playOrder="116">
+        <navLabel>
+          <text>11.2 Object-Relational Features: Object Database Extensions to SQL</text>
+        </navLabel>
+        <content src="dummy_split_028.html#filepos1216121"/>
+      </navPoint>
+      <navPoint class="chapter" id="497ea800-d710-429e-8eb6-3443f58c41c8" playOrder="117">
+        <navLabel>
+          <text>11.3 The ODMG Object Model and the Object Definition Language ODL</text>
+        </navLabel>
+        <content src="dummy_split_028.html#filepos1236830"/>
+      </navPoint>
+      <navPoint class="chapter" id="a6c47f02-e1f2-4563-b1d4-97f7d22609a7" playOrder="118">
+        <navLabel>
+          <text>11.4 Object Database Conceptual Design</text>
+        </navLabel>
+        <content src="dummy_split_028.html#filepos1279801"/>
+      </navPoint>
+      <navPoint class="chapter" id="2542cb76-ac47-455a-999b-b151d7509c7b" playOrder="119">
+        <navLabel>
+          <text>11.5 The Object Query Language OQL</text>
+        </navLabel>
+        <content src="dummy_split_028.html#filepos1290920"/>
+      </navPoint>
+      <navPoint class="chapter" id="9651611d-92dd-47da-b9ef-28db8da9fb9c" playOrder="120">
+        <navLabel>
+          <text>11.6 Overview of the C++ Language Binding in the ODMG Standard</text>
+        </navLabel>
+        <content src="dummy_split_028.html#filepos1317811"/>
+      </navPoint>
+      <navPoint class="chapter" id="10977e31-8dd2-4174-93ca-e1e9f9ea9599" playOrder="121">
+        <navLabel>
+          <text>11.7 Summary</text>
+        </navLabel>
+        <content src="dummy_split_028.html#filepos1323822"/>
+      </navPoint>
+      <navPoint class="chapter" id="3bcca18f-2e4a-4365-8f98-7d5e842ba7be" playOrder="122">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_028.html#filepos1327667"/>
+      </navPoint>
+      <navPoint class="chapter" id="cfcf38a5-836e-4573-b820-74bcfbe9e3dd" playOrder="123">
+        <navLabel>
+          <text>Exercises</text>
+        </navLabel>
+        <content src="dummy_split_028.html#filepos1332974"/>
+      </navPoint>
+      <navPoint class="chapter" id="586af5c1-4eed-48e7-9cba-12fd527b8a6c" playOrder="124">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_028.html#filepos1335836"/>
+      </navPoint>
+      <navPoint class="chapter" id="33cb3cef-3dd5-43d7-bfa1-9197674bf03f" playOrder="125">
+        <navLabel>
+          <text>chapter 12 XML: Extensible Markup Language</text>
+        </navLabel>
+        <content src="dummy_split_029.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="e2ff53f9-da15-439d-9d48-482b4b509a90" playOrder="126">
+        <navLabel>
+          <text>12.1 Structured, Semistructured, and Unstructured Data</text>
+        </navLabel>
+        <content src="dummy_split_029.html#filepos1344142"/>
+      </navPoint>
+      <navPoint class="chapter" id="e0bdd128-e30c-4cea-8107-77b7b5217874" playOrder="127">
+        <navLabel>
+          <text>12.2 XML Hierarchical (Tree) Data Model</text>
+        </navLabel>
+        <content src="dummy_split_029.html#filepos1356430"/>
+      </navPoint>
+      <navPoint class="chapter" id="7594b0ac-9a98-4ec2-b3ce-ae4c7d45f8bf" playOrder="128">
+        <navLabel>
+          <text>12.3 XML Documents, DTD, and XML Schema</text>
+        </navLabel>
+        <content src="dummy_split_029.html#filepos1362762"/>
+      </navPoint>
+      <navPoint class="chapter" id="bbed57c1-ed8b-47f6-8d75-bf6389828abf" playOrder="129">
+        <navLabel>
+          <text>12.4 Storing and Extracting XML Documents from Databases</text>
+        </navLabel>
+        <content src="dummy_split_029.html#filepos1382297"/>
+      </navPoint>
+      <navPoint class="chapter" id="d52f9082-40ff-48ec-9bf6-54ff02e3884e" playOrder="130">
+        <navLabel>
+          <text>12.5 XML Languages</text>
+        </navLabel>
+        <content src="dummy_split_029.html#filepos1385955"/>
+      </navPoint>
+      <navPoint class="chapter" id="d061f16d-c553-4129-ad73-90debbdb99f8" playOrder="131">
+        <navLabel>
+          <text>12.6 Extracting XML Documents from Relational Databases</text>
+        </navLabel>
+        <content src="dummy_split_029.html#filepos1401033"/>
+      </navPoint>
+      <navPoint class="chapter" id="d2d3be78-fdd7-4e26-b426-c84e6d28f42f" playOrder="132">
+        <navLabel>
+          <text>12.7 Summary</text>
+        </navLabel>
+        <content src="dummy_split_029.html#filepos1411641"/>
+      </navPoint>
+      <navPoint class="chapter" id="86ae0064-5ed6-4e86-986e-7f073a927f67" playOrder="133">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_029.html#filepos1413085"/>
+      </navPoint>
+      <navPoint class="chapter" id="b4f5ca5e-a074-4c31-9a0d-8b962eb2f064" playOrder="134">
+        <navLabel>
+          <text>Exercises</text>
+        </navLabel>
+        <content src="dummy_split_029.html#filepos1414399"/>
+      </navPoint>
+      <navPoint class="chapter" id="d70e6894-c7c0-44e6-83d5-e8fdfdfa45e0" playOrder="135">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_029.html#filepos1416580"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="6cc56366-d616-41ec-a84c-fb9d1c37ad44" playOrder="136">
+      <navLabel>
+        <text>part 5</text>
+      </navLabel>
+      <content src="dummy_split_030.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="53103454-7406-4805-b4d1-f5ea7f3b8d1b" playOrder="136">
+      <navLabel>
+        <text>Database Programming Techniques</text>
+      </navLabel>
+      <content src="dummy_split_030.html"/>
+      <navPoint class="chapter" id="bf99b600-ed62-4e3e-be4b-3d7acaef673c" playOrder="137">
+        <navLabel>
+          <text>chapter 13 Introduction to SQL Programming Techniques</text>
+        </navLabel>
+        <content src="dummy_split_031.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="dbcf5187-a29b-4032-aada-df09891b949b" playOrder="138">
+        <navLabel>
+          <text>13.1 Database Programming: Techniques and Issues</text>
+        </navLabel>
+        <content src="dummy_split_031.html#filepos1422227"/>
+      </navPoint>
+      <navPoint class="chapter" id="f81e33a6-1780-449e-904a-36c8f13f48ee" playOrder="139">
+        <navLabel>
+          <text>13.2 Embedded SQL, Dynamic SQL, and SQLJ</text>
+        </navLabel>
+        <content src="dummy_split_031.html#filepos1433842"/>
+      </navPoint>
+      <navPoint class="chapter" id="f1eb2417-451e-4c46-bbad-c05550fbeef1" playOrder="140">
+        <navLabel>
+          <text>13.3 Database Programming with Function Calls: SQL/CLI and JDBC</text>
+        </navLabel>
+        <content src="dummy_split_031.html#filepos1471637"/>
+      </navPoint>
+      <navPoint class="chapter" id="7d555438-0557-483b-a1c8-52b73daa7ee6" playOrder="141">
+        <navLabel>
+          <text>13.4 Database Stored Procedures and SQL/PSM</text>
+        </navLabel>
+        <content src="dummy_split_031.html#filepos1504246"/>
+      </navPoint>
+      <navPoint class="chapter" id="7cc63a64-205a-4dcf-bce0-000449575ca4" playOrder="142">
+        <navLabel>
+          <text>13.5 Comparing the Three Approaches</text>
+        </navLabel>
+        <content src="dummy_split_031.html#filepos1514549"/>
+      </navPoint>
+      <navPoint class="chapter" id="d63bd010-fc04-4570-9ac5-1e6b723e20c7" playOrder="143">
+        <navLabel>
+          <text>13.6 Summary</text>
+        </navLabel>
+        <content src="dummy_split_031.html#filepos1517098"/>
+      </navPoint>
+      <navPoint class="chapter" id="bf257bec-5f47-4d5a-9850-3f3edf4db528" playOrder="144">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_031.html#filepos1520002"/>
+      </navPoint>
+      <navPoint class="chapter" id="53aae466-2853-4385-8485-05ede981f4c6" playOrder="145">
+        <navLabel>
+          <text>Exercises</text>
+        </navLabel>
+        <content src="dummy_split_031.html#filepos1521274"/>
+      </navPoint>
+      <navPoint class="chapter" id="aa99977b-6e44-476a-86d5-cc166846ee7c" playOrder="146">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_031.html#filepos1523341"/>
+      </navPoint>
+      <navPoint class="chapter" id="f11820b8-3e2e-4f97-9ae3-11e285ba3e3b" playOrder="147">
+        <navLabel>
+          <text>chapter 14 Web Database Programming Using PHP</text>
+        </navLabel>
+        <content src="dummy_split_032.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="d1bdc5ed-91f5-4b29-9fed-36e350b71676" playOrder="148">
+        <navLabel>
+          <text>14.1 A Simple PHP Example</text>
+        </navLabel>
+        <content src="dummy_split_032.html#filepos1527042"/>
+      </navPoint>
+      <navPoint class="chapter" id="5cd74782-e16b-4603-8d78-2ef1fad8d8c1" playOrder="149">
+        <navLabel>
+          <text>14.2 Overview of Basic Features of PHP</text>
+        </navLabel>
+        <content src="dummy_split_032.html#filepos1536383"/>
+      </navPoint>
+      <navPoint class="chapter" id="d031ceb1-b38b-4dd9-8848-f9f070faaa62" playOrder="150">
+        <navLabel>
+          <text>14.3 Overview of PHP Database Programming</text>
+        </navLabel>
+        <content src="dummy_split_032.html#filepos1560162"/>
+      </navPoint>
+      <navPoint class="chapter" id="c1ef3f07-f575-43c0-bc74-a9885129a3ac" playOrder="151">
+        <navLabel>
+          <text>14.4 Summary</text>
+        </navLabel>
+        <content src="dummy_split_032.html#filepos1577441"/>
+      </navPoint>
+      <navPoint class="chapter" id="fda63b67-3b5f-4a3c-9da0-c2cb56df1799" playOrder="152">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_032.html#filepos1578702"/>
+      </navPoint>
+      <navPoint class="chapter" id="64841326-2620-480b-a120-b4b33484679e" playOrder="153">
+        <navLabel>
+          <text>Exercises</text>
+        </navLabel>
+        <content src="dummy_split_032.html#filepos1580498"/>
+      </navPoint>
+      <navPoint class="chapter" id="7514672b-0fcb-4688-a3c2-e1ac8ec4abaa" playOrder="154">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_032.html#filepos1581307"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="5f84a90b-4939-48cc-9f70-8b90806cc011" playOrder="155">
+      <navLabel>
+        <text>part 6</text>
+      </navLabel>
+      <content src="dummy_split_033.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="428fd325-c9e8-439e-af8b-224590d91070" playOrder="155">
+      <navLabel>
+        <text>Database Design Theory and Normalization</text>
+      </navLabel>
+      <content src="dummy_split_033.html"/>
+      <navPoint class="chapter" id="3155dec2-621b-44dc-8e82-23317fcecfdd" playOrder="156">
+        <navLabel>
+          <text>chapter 15 Basics of Functional Dependencies and Normalization for Relational Databases</text>
+        </navLabel>
+        <content src="dummy_split_034.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="f38529ec-c390-47cf-80d6-f4f3f9b0796e" playOrder="157">
+        <navLabel>
+          <text>15.1 Informal Design Guidelines for Relation Schemas</text>
+        </navLabel>
+        <content src="dummy_split_034.html#filepos1589662"/>
+      </navPoint>
+      <navPoint class="chapter" id="1022ab5f-1174-4ba2-a138-2c63f9a4774f" playOrder="158">
+        <navLabel>
+          <text>15.2 Functional Dependencies</text>
+        </navLabel>
+        <content src="dummy_split_034.html#filepos1613525"/>
+      </navPoint>
+      <navPoint class="chapter" id="8e8de46a-3452-40c3-a2c2-a671152e6032" playOrder="159">
+        <navLabel>
+          <text>15.3 Normal Forms Based on Primary Keys</text>
+        </navLabel>
+        <content src="dummy_split_034.html#filepos1624506"/>
+      </navPoint>
+      <navPoint class="chapter" id="8cf3215f-d331-475d-8886-9433c2251f32" playOrder="160">
+        <navLabel>
+          <text>15.4 General Definitions of Second and Third Normal Forms</text>
+        </navLabel>
+        <content src="dummy_split_034.html#filepos1652219"/>
+      </navPoint>
+      <navPoint class="chapter" id="6e64437e-bb88-4631-aed5-35023b2d2831" playOrder="161">
+        <navLabel>
+          <text>15.5 Boyce-Codd Normal Form</text>
+        </navLabel>
+        <content src="dummy_split_034.html#filepos1661273"/>
+      </navPoint>
+      <navPoint class="chapter" id="bff3285c-a7aa-45e7-ba7b-e11e11ae9316" playOrder="162">
+        <navLabel>
+          <text>15.6 Multivalued Dependency and Fourth Normal Form</text>
+        </navLabel>
+        <content src="dummy_split_034.html#filepos1668725"/>
+      </navPoint>
+      <navPoint class="chapter" id="ca90f91b-29f0-47ce-a3af-6aea1487e016" playOrder="163">
+        <navLabel>
+          <text>15.7 Join Dependencies and Fifth Normal Form</text>
+        </navLabel>
+        <content src="dummy_split_034.html#filepos1678668"/>
+      </navPoint>
+      <navPoint class="chapter" id="69740089-622a-47a6-af35-50d2c0a12024" playOrder="164">
+        <navLabel>
+          <text>15.8 Summary</text>
+        </navLabel>
+        <content src="dummy_split_034.html#filepos1685142"/>
+      </navPoint>
+      <navPoint class="chapter" id="b4c3d6f4-110d-4ab4-8a1b-39dd471b925e" playOrder="165">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_034.html#filepos1688810"/>
+      </navPoint>
+      <navPoint class="chapter" id="7145d9be-49a3-47bf-90d4-1570ccf76fab" playOrder="166">
+        <navLabel>
+          <text>Exercises</text>
+        </navLabel>
+        <content src="dummy_split_034.html#filepos1692740"/>
+      </navPoint>
+      <navPoint class="chapter" id="6294339b-5be3-4f44-89a7-5f80cb579e10" playOrder="167">
+        <navLabel>
+          <text>Laboratory Exercises</text>
+        </navLabel>
+        <content src="dummy_split_034.html#filepos1708441"/>
+      </navPoint>
+      <navPoint class="chapter" id="e2bc1d68-c84d-4ab1-9e9b-e0d90e0196d4" playOrder="168">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_034.html#filepos1709664"/>
+      </navPoint>
+      <navPoint class="chapter" id="c9333528-baa5-4e6f-a388-72653e3707e2" playOrder="169">
+        <navLabel>
+          <text>chapter 16 Relational Database Design Algorithms and Further Dependencies</text>
+        </navLabel>
+        <content src="dummy_split_035.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="4f346fe6-b6c6-4cef-89ff-551aee276a07" playOrder="170">
+        <navLabel>
+          <text>16.1 Further Topics in Functional Dependencies: Inference Rules, Equivalence, and Minimal Cover</text>
+        </navLabel>
+        <content src="dummy_split_035.html#filepos1716560"/>
+      </navPoint>
+      <navPoint class="chapter" id="707b9b0d-ae23-44b4-9de7-5dd4d26968d1" playOrder="171">
+        <navLabel>
+          <text>16.2 Properties of Relational Decompositions</text>
+        </navLabel>
+        <content src="dummy_split_035.html#filepos1746578"/>
+      </navPoint>
+      <navPoint class="chapter" id="33f8685e-8e15-4b21-845e-03d34199a04b" playOrder="172">
+        <navLabel>
+          <text>16.3 Algorithms for Relational Database Schema Design</text>
+        </navLabel>
+        <content src="dummy_split_035.html#filepos1769856"/>
+      </navPoint>
+      <navPoint class="chapter" id="7b1b6b3c-585a-4b1c-8882-06c3d1a22af6" playOrder="173">
+        <navLabel>
+          <text>16.4 About Nulls, Dangling Tuples, and Alternative Relational Designs</text>
+        </navLabel>
+        <content src="dummy_split_035.html#filepos1792399"/>
+      </navPoint>
+      <navPoint class="chapter" id="2e42ede0-b7c4-43c6-834d-3d3a1666059d" playOrder="174">
+        <navLabel>
+          <text>16.5 Further Discussion of Multivalued Dependencies and 4NF</text>
+        </navLabel>
+        <content src="dummy_split_035.html#filepos1801757"/>
+      </navPoint>
+      <navPoint class="chapter" id="06f39185-2ee4-463c-99d1-231dc82a7315" playOrder="175">
+        <navLabel>
+          <text>16.6 Other Dependencies and Normal Forms</text>
+        </navLabel>
+        <content src="dummy_split_035.html#filepos1811818"/>
+      </navPoint>
+      <navPoint class="chapter" id="92aa432e-648d-4df1-b1ea-0c730a14855c" playOrder="176">
+        <navLabel>
+          <text>16.7 Summary</text>
+        </navLabel>
+        <content src="dummy_split_035.html#filepos1823321"/>
+      </navPoint>
+      <navPoint class="chapter" id="1ff59158-2fc2-4a2a-bd6e-46e8647a4095" playOrder="177">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_035.html#filepos1826614"/>
+      </navPoint>
+      <navPoint class="chapter" id="27dd0227-2611-4d81-80dd-6a95a3b007c2" playOrder="178">
+        <navLabel>
+          <text>Exercises</text>
+        </navLabel>
+        <content src="dummy_split_035.html#filepos1830114"/>
+      </navPoint>
+      <navPoint class="chapter" id="15125de4-e5b8-4659-b2b0-36ff77d1bb4d" playOrder="179">
+        <navLabel>
+          <text>Laboratory Exercises</text>
+        </navLabel>
+        <content src="dummy_split_035.html#filepos1836624"/>
+      </navPoint>
+      <navPoint class="chapter" id="fee7415b-e2d6-44e7-a77d-f8dcd0f378ee" playOrder="180">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_035.html#filepos1838387"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="43b2853f-d491-46aa-9492-b9c64e484081" playOrder="181">
+      <navLabel>
+        <text>part 7</text>
+      </navLabel>
+      <content src="dummy_split_036.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="2b931627-c830-4349-8dbb-76244fcbac4f" playOrder="181">
+      <navLabel>
+        <text>File Structures, Indexing, and Hashing</text>
+      </navLabel>
+      <content src="dummy_split_036.html"/>
+      <navPoint class="chapter" id="ccf47b52-2d82-425a-889a-cfd1607df20b" playOrder="182">
+        <navLabel>
+          <text>chapter 17 Disk Storage, Basic File Structures, and Hashing</text>
+        </navLabel>
+        <content src="dummy_split_037.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="9393130c-a480-4d1f-8c6e-cd7374e6b6c0" playOrder="183">
+        <navLabel>
+          <text>17.1 Introduction</text>
+        </navLabel>
+        <content src="dummy_split_037.html#filepos1844296"/>
+      </navPoint>
+      <navPoint class="chapter" id="214eb9f6-a48e-4f5c-b4ab-119eeb418716" playOrder="184">
+        <navLabel>
+          <text>17.2 Secondary Storage Devices</text>
+        </navLabel>
+        <content src="dummy_split_037.html#filepos1857901"/>
+      </navPoint>
+      <navPoint class="chapter" id="4c3f6df0-be5b-4a33-87bc-27025a38a5c2" playOrder="185">
+        <navLabel>
+          <text>17.3 Buffering of Blocks</text>
+        </navLabel>
+        <content src="dummy_split_037.html#filepos1874439"/>
+      </navPoint>
+      <navPoint class="chapter" id="5c31b5a1-1d6c-4ab0-9e26-26b79ad8c398" playOrder="186">
+        <navLabel>
+          <text>17.4 Placing File Records on Disk</text>
+        </navLabel>
+        <content src="dummy_split_037.html#filepos1877196"/>
+      </navPoint>
+      <navPoint class="chapter" id="b17ac8de-87cb-44dd-861a-03fd7c210bd0" playOrder="187">
+        <navLabel>
+          <text>17.5 Operations on Files</text>
+        </navLabel>
+        <content src="dummy_split_037.html#filepos1891907"/>
+      </navPoint>
+      <navPoint class="chapter" id="c3f880d6-84a1-4d0f-a865-98232f861824" playOrder="188">
+        <navLabel>
+          <text>17.6 Files of Unordered Records (Heap Files)</text>
+        </navLabel>
+        <content src="dummy_split_037.html#filepos1903781"/>
+      </navPoint>
+      <navPoint class="chapter" id="d7cccb14-d4c1-452b-88fa-65a57a802c15" playOrder="189">
+        <navLabel>
+          <text>17.7 Files of Ordered Records (Sorted Files)</text>
+        </navLabel>
+        <content src="dummy_split_037.html#filepos1908373"/>
+      </navPoint>
+      <navPoint class="chapter" id="921ed22b-6911-449f-bf18-c82ae9d87327" playOrder="190">
+        <navLabel>
+          <text>17.8 Hashing Techniques</text>
+        </navLabel>
+        <content src="dummy_split_037.html#filepos1916580"/>
+      </navPoint>
+      <navPoint class="chapter" id="aae5bc4f-a2b2-436a-a120-219fa7195a41" playOrder="191">
+        <navLabel>
+          <text>17.9 Other Primary File Organizations</text>
+        </navLabel>
+        <content src="dummy_split_037.html#filepos1944898"/>
+      </navPoint>
+      <navPoint class="chapter" id="c34eb752-a331-4171-8f6b-3870dec55644" playOrder="192">
+        <navLabel>
+          <text>17.10 Parallelizing Disk Access Using RAID Technology</text>
+        </navLabel>
+        <content src="dummy_split_037.html#filepos1949155"/>
+      </navPoint>
+      <navPoint class="chapter" id="de390314-965d-4681-a266-77466bdbd424" playOrder="193">
+        <navLabel>
+          <text>17.11 New Storage Systems</text>
+        </navLabel>
+        <content src="dummy_split_037.html#filepos1962026"/>
+      </navPoint>
+      <navPoint class="chapter" id="2d8f11fa-d8d6-47e6-8fa8-688269b47fd2" playOrder="194">
+        <navLabel>
+          <text>17.12 Summary</text>
+        </navLabel>
+        <content src="dummy_split_037.html#filepos1971854"/>
+      </navPoint>
+      <navPoint class="chapter" id="a81c19ce-0adf-44cc-8415-d2b08cb45123" playOrder="195">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_037.html#filepos1975791"/>
+      </navPoint>
+      <navPoint class="chapter" id="2ca8b647-65b2-4e2e-a09c-590b46dfb4ff" playOrder="196">
+        <navLabel>
+          <text>Exercises</text>
+        </navLabel>
+        <content src="dummy_split_037.html#filepos1980874"/>
+      </navPoint>
+      <navPoint class="chapter" id="b00d9a17-3306-4b84-a940-8b07b03d5d67" playOrder="197">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_037.html#filepos1995814"/>
+      </navPoint>
+      <navPoint class="chapter" id="7173a3ad-f917-4709-8452-d9f6d0760fdd" playOrder="198">
+        <navLabel>
+          <text>chapter 18 Indexing Structures for Files</text>
+        </navLabel>
+        <content src="dummy_split_038.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="0e1faf3d-8c86-41f6-aadd-56f6b02b3d96" playOrder="199">
+        <navLabel>
+          <text>18.1 Types of Single-Level Ordered Indexes</text>
+        </navLabel>
+        <content src="dummy_split_038.html#filepos2002149"/>
+      </navPoint>
+      <navPoint class="chapter" id="7da67755-333f-4eb2-afc0-6d3eaf6c35e1" playOrder="200">
+        <navLabel>
+          <text>18.2 Multilevel Indexes</text>
+        </navLabel>
+        <content src="dummy_split_038.html#filepos2028166"/>
+      </navPoint>
+      <navPoint class="chapter" id="29a500d6-cdcf-41bc-98a8-bf1ea54f4cf2" playOrder="201">
+        <navLabel>
+          <text>18.3 Dynamic Multilevel Indexes Using B-Trees and B + -Trees</text>
+        </navLabel>
+        <content src="dummy_split_038.html#filepos2038466"/>
+      </navPoint>
+      <navPoint class="chapter" id="74822e35-800d-46d8-9d2b-0c5c87ade3e0" playOrder="202">
+        <navLabel>
+          <text>18.4 Indexes on Multiple Keys</text>
+        </navLabel>
+        <content src="dummy_split_038.html#filepos2074002"/>
+      </navPoint>
+      <navPoint class="chapter" id="95c67765-1711-4ad2-8d60-047c09a1b3b8" playOrder="203">
+        <navLabel>
+          <text>18.5 Other Types of Indexes</text>
+        </navLabel>
+        <content src="dummy_split_038.html#filepos2082821"/>
+      </navPoint>
+      <navPoint class="chapter" id="3031b054-9621-4a91-90b4-9935fc6007f6" playOrder="204">
+        <navLabel>
+          <text>18.6 Some General Issues Concerning Indexing</text>
+        </navLabel>
+        <content src="dummy_split_038.html#filepos2097831"/>
+      </navPoint>
+      <navPoint class="chapter" id="cc3d9e1f-d03a-4539-9f6a-f3d1532058d2" playOrder="205">
+        <navLabel>
+          <text>18.7 Summary</text>
+        </navLabel>
+        <content src="dummy_split_038.html#filepos2106814"/>
+      </navPoint>
+      <navPoint class="chapter" id="8a9e0348-c7cc-4633-8b39-6bbc9cb80a3c" playOrder="206">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_038.html#filepos2110314"/>
+      </navPoint>
+      <navPoint class="chapter" id="2c673551-708a-451a-90e8-b3786ca509b3" playOrder="207">
+        <navLabel>
+          <text>Exercises</text>
+        </navLabel>
+        <content src="dummy_split_038.html#filepos2113938"/>
+      </navPoint>
+      <navPoint class="chapter" id="4cc517ce-95cd-413d-bead-2039e1740a12" playOrder="208">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_038.html#filepos2123442"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="18b6f515-a4d1-48ca-91ea-3a9480960028" playOrder="209">
+      <navLabel>
+        <text>part 8</text>
+      </navLabel>
+      <content src="dummy_split_039.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="8a4dade0-f04d-4fe7-b1d4-4cd83479e061" playOrder="209">
+      <navLabel>
+        <text>Query Processing and Optimization, and Database Tuning</text>
+      </navLabel>
+      <content src="dummy_split_039.html"/>
+      <navPoint class="chapter" id="803b9a0f-3cf6-4d0d-b361-15852669a3bf" playOrder="210">
+        <navLabel>
+          <text>chapter 19 Algorithms for Query Processing and Optimization</text>
+        </navLabel>
+        <content src="dummy_split_040.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="8936f3d8-2629-4ccb-a83b-0b5039d1ced0" playOrder="211">
+        <navLabel>
+          <text>19.1 Translating SQL Queries into Relational Algebra</text>
+        </navLabel>
+        <content src="dummy_split_040.html#filepos2133393"/>
+      </navPoint>
+      <navPoint class="chapter" id="e8f47228-a3d9-4145-8fad-850fc13de586" playOrder="212">
+        <navLabel>
+          <text>19.2 Algorithms for External Sorting</text>
+        </navLabel>
+        <content src="dummy_split_040.html#filepos2136598"/>
+      </navPoint>
+      <navPoint class="chapter" id="22cc866a-b1a5-4d0e-bde7-24759dc1e664" playOrder="213">
+        <navLabel>
+          <text>19.3 Algorithms for SELECT and JOIN Operations</text>
+        </navLabel>
+        <content src="dummy_split_040.html#filepos2143441"/>
+      </navPoint>
+      <navPoint class="chapter" id="e1092b87-07e8-4ae9-ba9b-5b1b03ffab06" playOrder="214">
+        <navLabel>
+          <text>19.4 Algorithms for PROJECT and Set Operations</text>
+        </navLabel>
+        <content src="dummy_split_040.html#filepos2182253"/>
+      </navPoint>
+      <navPoint class="chapter" id="3033ac1d-5ae8-4b5c-a6e0-49467c85d7cb" playOrder="215">
+        <navLabel>
+          <text>19.5 Implementing Aggregate Operations and OUTER JOINs</text>
+        </navLabel>
+        <content src="dummy_split_040.html#filepos2187382"/>
+      </navPoint>
+      <navPoint class="chapter" id="d7b6470d-b175-4940-a568-302dbd013baa" playOrder="216">
+        <navLabel>
+          <text>19.6 Combining Operations Using Pipelining</text>
+        </navLabel>
+        <content src="dummy_split_040.html#filepos2195239"/>
+      </navPoint>
+      <navPoint class="chapter" id="381b8e4c-bc75-472b-911c-016669e16196" playOrder="217">
+        <navLabel>
+          <text>19.7 Using Heuristics in Query Optimization</text>
+        </navLabel>
+        <content src="dummy_split_040.html#filepos2197381"/>
+      </navPoint>
+      <navPoint class="chapter" id="22f7f192-80c2-4241-ad3d-fe5fe4513c80" playOrder="218">
+        <navLabel>
+          <text>19.8 Using Selectivity and Cost Estimates in Query Optimization</text>
+        </navLabel>
+        <content src="dummy_split_040.html#filepos2226681"/>
+      </navPoint>
+      <navPoint class="chapter" id="6d546a6f-bb61-48f4-8fba-68b74480cbe0" playOrder="219">
+        <navLabel>
+          <text>19.9 Overview of Query Optimization in Oracle</text>
+        </navLabel>
+        <content src="dummy_split_040.html#filepos2268548"/>
+      </navPoint>
+      <navPoint class="chapter" id="34489da3-2172-45a2-b539-7fd0e31ae767" playOrder="220">
+        <navLabel>
+          <text>19.10 Semantic Query Optimization</text>
+        </navLabel>
+        <content src="dummy_split_040.html#filepos2271962"/>
+      </navPoint>
+      <navPoint class="chapter" id="f33b7cd2-b903-4a40-a5e3-54176d0ea3f5" playOrder="221">
+        <navLabel>
+          <text>19.11 Summary</text>
+        </navLabel>
+        <content src="dummy_split_040.html#filepos2273755"/>
+      </navPoint>
+      <navPoint class="chapter" id="0580220d-b9e7-4d46-8771-58f01e29c0f1" playOrder="222">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_040.html#filepos2275530"/>
+      </navPoint>
+      <navPoint class="chapter" id="9fe8dc2c-914d-4718-822a-84824784ef35" playOrder="223">
+        <navLabel>
+          <text>Exercises</text>
+        </navLabel>
+        <content src="dummy_split_040.html#filepos2278371"/>
+      </navPoint>
+      <navPoint class="chapter" id="7f1adc62-eccb-4288-a23d-165ad2993676" playOrder="224">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_040.html#filepos2281745"/>
+      </navPoint>
+      <navPoint class="chapter" id="80cbe55c-5a2f-4994-b271-1b104260a3da" playOrder="225">
+        <navLabel>
+          <text>chapter 20 Physical Database Design and Tuning</text>
+        </navLabel>
+        <content src="dummy_split_041.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="70c1e025-f6ed-4de6-9d61-81f0e5f2b0b9" playOrder="226">
+        <navLabel>
+          <text>20.1 Physical Database Design in Relational Databases</text>
+        </navLabel>
+        <content src="dummy_split_041.html#filepos2285357"/>
+      </navPoint>
+      <navPoint class="chapter" id="6d24451a-4ff4-4c31-bd9a-50c8a807e9da" playOrder="227">
+        <navLabel>
+          <text>20.2 An Overview of Database Tuning in Relational Systems</text>
+        </navLabel>
+        <content src="dummy_split_041.html#filepos2304901"/>
+      </navPoint>
+      <navPoint class="chapter" id="117c8aec-7f4d-4a7b-97ea-2caa154a2d98" playOrder="228">
+        <navLabel>
+          <text>20.3 Summary</text>
+        </navLabel>
+        <content src="dummy_split_041.html#filepos2329478"/>
+      </navPoint>
+      <navPoint class="chapter" id="c9a306b1-b476-4e9f-9e16-c117fe483e04" playOrder="229">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_041.html#filepos2330198"/>
+      </navPoint>
+      <navPoint class="chapter" id="249917ee-a647-4427-9340-fafec3720772" playOrder="230">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_041.html#filepos2331872"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="747161f2-62f1-45c8-bcdd-60f67921d23e" playOrder="231">
+      <navLabel>
+        <text>part 9</text>
+      </navLabel>
+      <content src="dummy_split_042.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="27b55606-a2c7-4e95-9025-1c054489c028" playOrder="231">
+      <navLabel>
+        <text>Transaction Processing, Concurrency Control, and Recovery</text>
+      </navLabel>
+      <content src="dummy_split_042.html"/>
+      <navPoint class="chapter" id="16d68557-d287-4c85-9930-1fc90f96f63e" playOrder="232">
+        <navLabel>
+          <text>chapter 21 Introduction to Transaction Processing Concepts and Theory</text>
+        </navLabel>
+        <content src="dummy_split_043.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="24dbc5c4-0a01-477c-94bc-f62f1347a7a6" playOrder="233">
+        <navLabel>
+          <text>21.1 Introduction to Transaction Processing</text>
+        </navLabel>
+        <content src="dummy_split_043.html#filepos2336269"/>
+      </navPoint>
+      <navPoint class="chapter" id="224683ed-7305-4c1b-a2c0-10da97a3b2dd" playOrder="234">
+        <navLabel>
+          <text>21.2 Transaction and System Concepts</text>
+        </navLabel>
+        <content src="dummy_split_043.html#filepos2359515"/>
+      </navPoint>
+      <navPoint class="chapter" id="75da9fa6-6248-48ec-9d7a-7a001e08e4e2" playOrder="235">
+        <navLabel>
+          <text>21.3 Desirable Properties of Transactions</text>
+        </navLabel>
+        <content src="dummy_split_043.html#filepos2371342"/>
+      </navPoint>
+      <navPoint class="chapter" id="a48de90a-a337-4167-948c-99267f4218df" playOrder="236">
+        <navLabel>
+          <text>21.4 Characterizing Schedules Based on Recoverability</text>
+        </navLabel>
+        <content src="dummy_split_043.html#filepos2375975"/>
+      </navPoint>
+      <navPoint class="chapter" id="f1df0bf6-6ced-4e89-871f-dd6c643f31ba" playOrder="237">
+        <navLabel>
+          <text>21.5 Characterizing Schedules Based on Serializability</text>
+        </navLabel>
+        <content src="dummy_split_043.html#filepos2394759"/>
+      </navPoint>
+      <navPoint class="chapter" id="05ec9e1c-f6f4-4044-a0f6-06177acc9174" playOrder="238">
+        <navLabel>
+          <text>21.6 Transaction Support in SQL</text>
+        </navLabel>
+        <content src="dummy_split_043.html#filepos2430897"/>
+      </navPoint>
+      <navPoint class="chapter" id="c8bb4beb-2bde-4ec4-8671-cb199fb5e0db" playOrder="239">
+        <navLabel>
+          <text>21.7 Summary</text>
+        </navLabel>
+        <content src="dummy_split_043.html#filepos2438053"/>
+      </navPoint>
+      <navPoint class="chapter" id="ac1e63a3-66b1-43e0-ab15-3b0b3556e2ea" playOrder="240">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_043.html#filepos2440916"/>
+      </navPoint>
+      <navPoint class="chapter" id="903bc07a-69f8-4cf4-a205-1393a45fca84" playOrder="241">
+        <navLabel>
+          <text>Exercises</text>
+        </navLabel>
+        <content src="dummy_split_043.html#filepos2444037"/>
+      </navPoint>
+      <navPoint class="chapter" id="3b8a3752-39d9-4a94-9460-a7b0f2ad3aa7" playOrder="242">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_043.html#filepos2452858"/>
+      </navPoint>
+      <navPoint class="chapter" id="9834fab0-530c-4f80-8f4f-7ac3c1d01c6a" playOrder="243">
+        <navLabel>
+          <text>chapter 22 Concurrency Control Techniques</text>
+        </navLabel>
+        <content src="dummy_split_044.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="c44e694e-d3f0-4b64-926b-5a581dfddbfa" playOrder="244">
+        <navLabel>
+          <text>22.1 Two-Phase Locking Techniques for Concurrency Control</text>
+        </navLabel>
+        <content src="dummy_split_044.html#filepos2457175"/>
+      </navPoint>
+      <navPoint class="chapter" id="e8c65b7e-1083-48b3-ac93-834480537b06" playOrder="245">
+        <navLabel>
+          <text>22.2 Concurrency Control Based on Timestamp Ordering</text>
+        </navLabel>
+        <content src="dummy_split_044.html#filepos2493255"/>
+      </navPoint>
+      <navPoint class="chapter" id="2cf7b092-8806-4633-9e75-deef3e986d0a" playOrder="246">
+        <navLabel>
+          <text>22.3 Multiversion Concurrency Control Techniques</text>
+        </navLabel>
+        <content src="dummy_split_044.html#filepos2504143"/>
+      </navPoint>
+      <navPoint class="chapter" id="6ed003a5-cc26-4f76-a7c8-f5c1de054960" playOrder="247">
+        <navLabel>
+          <text>22.4 Validation (Optimistic) Concurrency Control Techniques</text>
+        </navLabel>
+        <content src="dummy_split_044.html#filepos2514640"/>
+      </navPoint>
+      <navPoint class="chapter" id="7da241d5-9ffd-401e-81f2-f9c97a3d7575" playOrder="248">
+        <navLabel>
+          <text>22.5 Granularity of Data Items and Multiple Granularity Locking</text>
+        </navLabel>
+        <content src="dummy_split_044.html#filepos2520822"/>
+      </navPoint>
+      <navPoint class="chapter" id="47263100-07a5-40aa-9457-dfcfd452fb6b" playOrder="249">
+        <navLabel>
+          <text>22.6 Using Locks for Concurrency Control in Indexes</text>
+        </navLabel>
+        <content src="dummy_split_044.html#filepos2533449"/>
+      </navPoint>
+      <navPoint class="chapter" id="4df48bd2-ff8b-4bc5-9074-13b94a16c64f" playOrder="250">
+        <navLabel>
+          <text>22.7 Other Concurrency Control Issues</text>
+        </navLabel>
+        <content src="dummy_split_044.html#filepos2537857"/>
+      </navPoint>
+      <navPoint class="chapter" id="e120b172-4b5f-45e9-9871-cc196766831d" playOrder="251">
+        <navLabel>
+          <text>22.8 Summary</text>
+        </navLabel>
+        <content src="dummy_split_044.html#filepos2544069"/>
+      </navPoint>
+      <navPoint class="chapter" id="0b629f89-8f39-4de6-840a-671214ebe90d" playOrder="252">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_044.html#filepos2546897"/>
+      </navPoint>
+      <navPoint class="chapter" id="383e3e77-b39f-41ed-8a28-d64cff4274c9" playOrder="253">
+        <navLabel>
+          <text>Exercises</text>
+        </navLabel>
+        <content src="dummy_split_044.html#filepos2550733"/>
+      </navPoint>
+      <navPoint class="chapter" id="963a1c79-d90e-4808-b64a-2e6bdabe0604" playOrder="254">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_044.html#filepos2553505"/>
+      </navPoint>
+      <navPoint class="chapter" id="d4e9f80f-2ea9-4b6d-a71e-4935aa7200e4" playOrder="255">
+        <navLabel>
+          <text>chapter 23 Database Recovery Techniques</text>
+        </navLabel>
+        <content src="dummy_split_045.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="905339f5-ac40-4de4-a655-1ea668f273a5" playOrder="256">
+        <navLabel>
+          <text>23.1 Recovery Concepts</text>
+        </navLabel>
+        <content src="dummy_split_045.html#filepos2558378"/>
+      </navPoint>
+      <navPoint class="chapter" id="e4afd16d-c44f-4773-8816-5f970beaacce" playOrder="257">
+        <navLabel>
+          <text>23.2 NO-UNDO/REDO Recovery Based on Deferred Update</text>
+        </navLabel>
+        <content src="dummy_split_045.html#filepos2583709"/>
+      </navPoint>
+      <navPoint class="chapter" id="b7c53f25-cb8e-4da9-8e75-0fc28f79a8d9" playOrder="258">
+        <navLabel>
+          <text>23.3 Recovery Techniques Based on Immediate Update</text>
+        </navLabel>
+        <content src="dummy_split_045.html#filepos2591792"/>
+      </navPoint>
+      <navPoint class="chapter" id="c8ff4e6d-34eb-463d-8459-8b1d9fa23ce6" playOrder="259">
+        <navLabel>
+          <text>23.4 Shadow Paging</text>
+        </navLabel>
+        <content src="dummy_split_045.html#filepos2597971"/>
+      </navPoint>
+      <navPoint class="chapter" id="5a49d482-0bae-4454-9501-9e8b17846d05" playOrder="260">
+        <navLabel>
+          <text>23.5 The ARIES Recovery Algorithm</text>
+        </navLabel>
+        <content src="dummy_split_045.html#filepos2601896"/>
+      </navPoint>
+      <navPoint class="chapter" id="5f7036e1-40ba-4711-b21d-22b585a8f21a" playOrder="261">
+        <navLabel>
+          <text>23.6 Recovery in Multidatabase Systems</text>
+        </navLabel>
+        <content src="dummy_split_045.html#filepos2614129"/>
+      </navPoint>
+      <navPoint class="chapter" id="6bc01617-6407-413a-ada9-028fbd31c779" playOrder="262">
+        <navLabel>
+          <text>23.7 Database Backup and Recovery from Catastrophic Failures</text>
+        </navLabel>
+        <content src="dummy_split_045.html#filepos2618291"/>
+      </navPoint>
+      <navPoint class="chapter" id="5a0b925c-8fb5-41c4-9194-ba8f13b5187a" playOrder="263">
+        <navLabel>
+          <text>23.8 Summary</text>
+        </navLabel>
+        <content src="dummy_split_045.html#filepos2621091"/>
+      </navPoint>
+      <navPoint class="chapter" id="6c7643b7-396f-4f5d-8428-0ea2a7a45dec" playOrder="264">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_045.html#filepos2624166"/>
+      </navPoint>
+      <navPoint class="chapter" id="26be03f2-2972-47f0-9a45-0ed13fb89721" playOrder="265">
+        <navLabel>
+          <text>Exercises</text>
+        </navLabel>
+        <content src="dummy_split_045.html#filepos2628769"/>
+      </navPoint>
+      <navPoint class="chapter" id="699220cd-98ea-4900-aec4-af1e7048c0c1" playOrder="266">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_045.html#filepos2639164"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="46c141a0-6260-4bf0-9027-2f55b1b32432" playOrder="267">
+      <navLabel>
+        <text>part 10</text>
+      </navLabel>
+      <content src="dummy_split_046.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="26069515-657c-4bce-9f13-30f2c5f62d86" playOrder="267">
+      <navLabel>
+        <text>Additional Database Topics: Security and Distribution</text>
+      </navLabel>
+      <content src="dummy_split_046.html"/>
+      <navPoint class="chapter" id="475effb6-1520-46ae-8701-75a551dc8045" playOrder="268">
+        <navLabel>
+          <text>chapter 24 Database Security</text>
+        </navLabel>
+        <content src="dummy_split_047.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="4b5db7bb-a415-416c-bf12-c42347c94052" playOrder="269">
+        <navLabel>
+          <text>24.1 Introduction to Database Security Issues</text>
+        </navLabel>
+        <content src="dummy_split_047.html#filepos2643917"/>
+      </navPoint>
+      <navPoint class="chapter" id="3247acba-47a1-4963-b1d1-3f110459512d" playOrder="270">
+        <navLabel>
+          <text>24.2 Discretionary Access Control Based on Granting and Revoking Privileges</text>
+        </navLabel>
+        <content src="dummy_split_047.html#filepos2668816"/>
+      </navPoint>
+      <navPoint class="chapter" id="f30112b2-3954-4316-bca6-c257ad5fedd3" playOrder="271">
+        <navLabel>
+          <text>24.3 Mandatory Access Control and Role-Based Access Control for Multilevel Security</text>
+        </navLabel>
+        <content src="dummy_split_047.html#filepos2688469"/>
+      </navPoint>
+      <navPoint class="chapter" id="aa66597c-87da-48a5-b258-d69cdbee9c68" playOrder="272">
+        <navLabel>
+          <text>24.4 SQL Injection</text>
+        </navLabel>
+        <content src="dummy_split_047.html#filepos2717076"/>
+      </navPoint>
+      <navPoint class="chapter" id="81841f74-e379-493d-8938-b7e6ef95e9ec" playOrder="273">
+        <navLabel>
+          <text>24.5 Introduction to Statistical Database Security</text>
+        </navLabel>
+        <content src="dummy_split_047.html#filepos2730557"/>
+      </navPoint>
+      <navPoint class="chapter" id="8515cea5-adbe-4f5b-b62b-7e566954fb8b" playOrder="274">
+        <navLabel>
+          <text>24.6 Introduction to Flow Control</text>
+        </navLabel>
+        <content src="dummy_split_047.html#filepos2736325"/>
+      </navPoint>
+      <navPoint class="chapter" id="9a70042b-c5fe-4e23-a667-354d79dfe240" playOrder="275">
+        <navLabel>
+          <text>24.7 Encryption and Public Key Infrastructures</text>
+        </navLabel>
+        <content src="dummy_split_047.html#filepos2744025"/>
+      </navPoint>
+      <navPoint class="chapter" id="aa417dd6-3b2a-4e4b-bbea-ca1342db1920" playOrder="276">
+        <navLabel>
+          <text>24.8 Privacy Issues and Preservation</text>
+        </navLabel>
+        <content src="dummy_split_047.html#filepos2759538"/>
+      </navPoint>
+      <navPoint class="chapter" id="ef3093bf-1608-46c6-a789-148fd324637a" playOrder="277">
+        <navLabel>
+          <text>24.9 Challenges of Database Security</text>
+        </navLabel>
+        <content src="dummy_split_047.html#filepos2762146"/>
+      </navPoint>
+      <navPoint class="chapter" id="9c05ecbb-e38b-4f02-9712-a9e28241e887" playOrder="278">
+        <navLabel>
+          <text>24.10 Oracle Label-Based Security</text>
+        </navLabel>
+        <content src="dummy_split_047.html#filepos2767237"/>
+      </navPoint>
+      <navPoint class="chapter" id="bf9b3fb2-129e-47ea-8155-966fc746cd92" playOrder="279">
+        <navLabel>
+          <text>24.11 Summary</text>
+        </navLabel>
+        <content src="dummy_split_047.html#filepos2774466"/>
+      </navPoint>
+      <navPoint class="chapter" id="fa8800f7-0948-4bfd-aabe-e4655e4206d5" playOrder="280">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_047.html#filepos2778040"/>
+      </navPoint>
+      <navPoint class="chapter" id="1036c96d-99a6-4cd0-9fe0-a2bc36316ae6" playOrder="281">
+        <navLabel>
+          <text>Exercises</text>
+        </navLabel>
+        <content src="dummy_split_047.html#filepos2783698"/>
+      </navPoint>
+      <navPoint class="chapter" id="6d12ced9-12ac-4335-854e-7c446880817b" playOrder="282">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_047.html#filepos2786660"/>
+      </navPoint>
+      <navPoint class="chapter" id="6cc43d47-090c-482c-8f07-e3bce3c33c93" playOrder="283">
+        <navLabel>
+          <text>chapter 25 Distributed Databases</text>
+        </navLabel>
+        <content src="dummy_split_048.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="45f2da85-500d-4c04-b0a6-e326a4569703" playOrder="284">
+        <navLabel>
+          <text>25.1 Distributed Database Concepts</text>
+        </navLabel>
+        <content src="dummy_split_048.html#filepos2795020"/>
+      </navPoint>
+      <navPoint class="chapter" id="20cb0d83-2a6e-4fb0-9685-381c0dc57367" playOrder="285">
+        <navLabel>
+          <text>25.2 Types of Distributed Database Systems</text>
+        </navLabel>
+        <content src="dummy_split_048.html#filepos2813272"/>
+      </navPoint>
+      <navPoint class="chapter" id="82308fb7-0912-436b-afc2-eea56bea1e60" playOrder="286">
+        <navLabel>
+          <text>25.3 Distributed Database Architectures</text>
+        </navLabel>
+        <content src="dummy_split_048.html#filepos2824216"/>
+      </navPoint>
+      <navPoint class="chapter" id="b0089806-5285-4667-ac2b-1a9b139a48eb" playOrder="287">
+        <navLabel>
+          <text>25.4 Data Fragmentation, Replication, and Allocation Techniques for Distributed Database Design</text>
+        </navLabel>
+        <content src="dummy_split_048.html#filepos2839734"/>
+      </navPoint>
+      <navPoint class="chapter" id="c8164220-5244-4aed-8b32-2dfe2380b665" playOrder="288">
+        <navLabel>
+          <text>25.5 Query Processing and Optimization in Distributed Databases</text>
+        </navLabel>
+        <content src="dummy_split_048.html#filepos2861197"/>
+      </navPoint>
+      <navPoint class="chapter" id="8a62ab99-98f8-4b90-8940-7406de5401a1" playOrder="289">
+        <navLabel>
+          <text>25.6 Overview of Transaction Management in Distributed Databases</text>
+        </navLabel>
+        <content src="dummy_split_048.html#filepos2881363"/>
+      </navPoint>
+      <navPoint class="chapter" id="5cf9aada-4db9-4772-91a4-c78361961b14" playOrder="290">
+        <navLabel>
+          <text>25.7 Overview of Concurrency Control and Recovery in Distributed Databases</text>
+        </navLabel>
+        <content src="dummy_split_048.html#filepos2889654"/>
+      </navPoint>
+      <navPoint class="chapter" id="b106c312-cd1a-42c7-b8bd-a30dc08b57b3" playOrder="291">
+        <navLabel>
+          <text>25.8 Distributed Catalog Management</text>
+        </navLabel>
+        <content src="dummy_split_048.html#filepos2902392"/>
+      </navPoint>
+      <navPoint class="chapter" id="d6fe8bf3-8de6-4481-95ef-ca2f0944d876" playOrder="292">
+        <navLabel>
+          <text>25.9 Current Trends in Distributed Databases</text>
+        </navLabel>
+        <content src="dummy_split_048.html#filepos2905618"/>
+      </navPoint>
+      <navPoint class="chapter" id="9789d618-11a8-45b1-bdb9-0b44a9d42aa2" playOrder="293">
+        <navLabel>
+          <text>25.10 Distributed Databases in Oracle</text>
+        </navLabel>
+        <content src="dummy_split_048.html#filepos2911922"/>
+      </navPoint>
+      <navPoint class="chapter" id="b47bed30-3653-411d-84ce-b8de61c6d0b4" playOrder="294">
+        <navLabel>
+          <text>25.11 Summary</text>
+        </navLabel>
+        <content src="dummy_split_048.html#filepos2925353"/>
+      </navPoint>
+      <navPoint class="chapter" id="e84fb093-51fa-4d94-988e-556b886d9bd9" playOrder="295">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_048.html#filepos2928499"/>
+      </navPoint>
+      <navPoint class="chapter" id="f146acd2-0c4b-4cc4-bcbe-467c0fd58a9c" playOrder="296">
+        <navLabel>
+          <text>Exercises</text>
+        </navLabel>
+        <content src="dummy_split_048.html#filepos2934669"/>
+      </navPoint>
+      <navPoint class="chapter" id="25bc76a3-33ce-4b14-80d8-582a07de9b28" playOrder="297">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_048.html#filepos2941167"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="3c68d83f-9a81-4f7d-8371-5fd9865200e6" playOrder="298">
+      <navLabel>
+        <text>part 11</text>
+      </navLabel>
+      <content src="dummy_split_049.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="eac4ffd7-97d2-49a5-91ea-cec6f981d8d8" playOrder="298">
+      <navLabel>
+        <text>Advanced Database Models, Systems, and Applications</text>
+      </navLabel>
+      <content src="dummy_split_049.html"/>
+      <navPoint class="chapter" id="c86c5366-5efa-48d7-b458-8a72958d028e" playOrder="299">
+        <navLabel>
+          <text>chapter 26 Enhanced Data Models for Advanced Applications</text>
+        </navLabel>
+        <content src="dummy_split_050.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="d8f1757c-9ceb-46a0-979e-266309f09551" playOrder="300">
+        <navLabel>
+          <text>26.1 Active Database Concepts and Triggers</text>
+        </navLabel>
+        <content src="dummy_split_050.html#filepos2956109"/>
+      </navPoint>
+      <navPoint class="chapter" id="57bf82ae-3b06-46c1-9b74-f0fa5a533d83" playOrder="301">
+        <navLabel>
+          <text>26.2 Temporal Database Concepts</text>
+        </navLabel>
+        <content src="dummy_split_050.html#filepos2988735"/>
+      </navPoint>
+      <navPoint class="chapter" id="9b9ce101-382d-499c-a1eb-1a9432c2b1e7" playOrder="302">
+        <navLabel>
+          <text>26.3 Spatial Database Concepts</text>
+        </navLabel>
+        <content src="dummy_split_050.html#filepos3031535"/>
+      </navPoint>
+      <navPoint class="chapter" id="60f521aa-f738-4882-a7a3-d484d0659199" playOrder="303">
+        <navLabel>
+          <text>26.4 Multimedia Database Concepts</text>
+        </navLabel>
+        <content src="dummy_split_050.html#filepos3059089"/>
+      </navPoint>
+      <navPoint class="chapter" id="31bd37ce-44dc-4e81-831e-d65ff7add4ca" playOrder="304">
+        <navLabel>
+          <text>26.5 Introduction to Deductive Databases</text>
+        </navLabel>
+        <content src="dummy_split_050.html#filepos3077418"/>
+      </navPoint>
+      <navPoint class="chapter" id="5b32288b-2551-4118-98d7-c3308779e913" playOrder="305">
+        <navLabel>
+          <text>26.6 Summary</text>
+        </navLabel>
+        <content src="dummy_split_050.html#filepos3120265"/>
+      </navPoint>
+      <navPoint class="chapter" id="8f8f70df-aa5b-439d-9a08-0bf7ceea9b98" playOrder="306">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_050.html#filepos3125074"/>
+      </navPoint>
+      <navPoint class="chapter" id="7011c857-212a-4aee-a453-7a7647db047c" playOrder="307">
+        <navLabel>
+          <text>Exercises</text>
+        </navLabel>
+        <content src="dummy_split_050.html#filepos3131329"/>
+      </navPoint>
+      <navPoint class="chapter" id="1c7e1ed1-ee40-4420-93d3-92a6d16e3bbe" playOrder="308">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_050.html#filepos3144226"/>
+      </navPoint>
+      <navPoint class="chapter" id="7ce617f6-19b0-4a67-90ba-9b281dde0d6d" playOrder="309">
+        <navLabel>
+          <text>chapter 27 Introduction to Information Retrieval and Web Search</text>
+        </navLabel>
+        <content src="dummy_split_051.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="10174674-4b0b-4a52-9a5b-de245c45677b" playOrder="310">
+        <navLabel>
+          <text>27.1 Information Retrieval (IR) Concepts</text>
+        </navLabel>
+        <content src="dummy_split_051.html#filepos3154396"/>
+      </navPoint>
+      <navPoint class="chapter" id="158362ee-b621-47c8-bdd2-4dcde2005638" playOrder="311">
+        <navLabel>
+          <text>27.2 Retrieval Models</text>
+        </navLabel>
+        <content src="dummy_split_051.html#filepos3180210"/>
+      </navPoint>
+      <navPoint class="chapter" id="12764c52-2312-4b7b-b4f2-b959fbf78d70" playOrder="312">
+        <navLabel>
+          <text>27.3 Types of Queries in IR Systems</text>
+        </navLabel>
+        <content src="dummy_split_051.html#filepos3198404"/>
+      </navPoint>
+      <navPoint class="chapter" id="3b828c8a-2fc2-4864-a2a5-ae36b6220910" playOrder="313">
+        <navLabel>
+          <text>27.4 Text Preprocessing</text>
+        </navLabel>
+        <content src="dummy_split_051.html#filepos3206286"/>
+      </navPoint>
+      <navPoint class="chapter" id="8412146f-9322-483e-b0bc-b8cee38df3ca" playOrder="314">
+        <navLabel>
+          <text>27.5 Inverted Indexing</text>
+        </navLabel>
+        <content src="dummy_split_051.html#filepos3215604"/>
+      </navPoint>
+      <navPoint class="chapter" id="d0b3456a-db03-48d8-a65f-7129d69a9df7" playOrder="315">
+        <navLabel>
+          <text>27.6 Evaluation Measures of Search Relevance</text>
+        </navLabel>
+        <content src="dummy_split_051.html#filepos3221922"/>
+      </navPoint>
+      <navPoint class="chapter" id="a2de7b99-1c93-4ed2-89f5-821bc427752a" playOrder="316">
+        <navLabel>
+          <text>27.7 Web Search and Analysis</text>
+        </navLabel>
+        <content src="dummy_split_051.html#filepos3231635"/>
+      </navPoint>
+      <navPoint class="chapter" id="815f2061-1193-4e52-928a-c7d563eeb774" playOrder="317">
+        <navLabel>
+          <text>27.8 Trends in Information Retrieval</text>
+        </navLabel>
+        <content src="dummy_split_051.html#filepos3271366"/>
+      </navPoint>
+      <navPoint class="chapter" id="093dce02-71cd-47ff-9d24-b800659a0dad" playOrder="318">
+        <navLabel>
+          <text>27.9 Summary</text>
+        </navLabel>
+        <content src="dummy_split_051.html#filepos3277352"/>
+      </navPoint>
+      <navPoint class="chapter" id="5be4f185-028b-4e92-9818-3d382a824688" playOrder="319">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_051.html#filepos3280666"/>
+      </navPoint>
+      <navPoint class="chapter" id="017136b5-808a-4e50-91f8-df0798337079" playOrder="320">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_051.html#filepos3288963"/>
+      </navPoint>
+      <navPoint class="chapter" id="bd5b6130-a801-46ae-a51b-4aacecd292f7" playOrder="321">
+        <navLabel>
+          <text>chapter 28 Data Mining Concepts</text>
+        </navLabel>
+        <content src="dummy_split_052.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="9fb4878a-d286-43fb-a543-903ca9ad8a2c" playOrder="322">
+        <navLabel>
+          <text>28.1 Overview of Data Mining Technology</text>
+        </navLabel>
+        <content src="dummy_split_052.html#filepos3296146"/>
+      </navPoint>
+      <navPoint class="chapter" id="01356284-2240-4e58-ba56-004efe73cb2b" playOrder="323">
+        <navLabel>
+          <text>28.2 Association Rules</text>
+        </navLabel>
+        <content src="dummy_split_052.html#filepos3310806"/>
+      </navPoint>
+      <navPoint class="chapter" id="0c06ad6d-d65e-4766-a0c1-a33e5c205755" playOrder="324">
+        <navLabel>
+          <text>28.3 Classification</text>
+        </navLabel>
+        <content src="dummy_split_052.html#filepos3346372"/>
+      </navPoint>
+      <navPoint class="chapter" id="ed488c75-4eda-4f46-b64a-acf89380630d" playOrder="325">
+        <navLabel>
+          <text>28.4 Clustering</text>
+        </navLabel>
+        <content src="dummy_split_052.html#filepos3355332"/>
+      </navPoint>
+      <navPoint class="chapter" id="f8ea0605-bccc-41da-adbc-58d7558ba4fb" playOrder="326">
+        <navLabel>
+          <text>28.5 Approaches to Other Data Mining Problems</text>
+        </navLabel>
+        <content src="dummy_split_052.html#filepos3363711"/>
+      </navPoint>
+      <navPoint class="chapter" id="7d8078c2-da48-45fc-a55d-1e811e84c33a" playOrder="327">
+        <navLabel>
+          <text>28.6 Applications of Data Mining</text>
+        </navLabel>
+        <content src="dummy_split_052.html#filepos3374948"/>
+      </navPoint>
+      <navPoint class="chapter" id="1ab469bf-93d2-455f-a7fe-8b0ae1cfa9b8" playOrder="328">
+        <navLabel>
+          <text>28.7 Commercial Data Mining Tools</text>
+        </navLabel>
+        <content src="dummy_split_052.html#filepos3377097"/>
+      </navPoint>
+      <navPoint class="chapter" id="167aec5e-251d-4782-a7a4-a69e06303e6a" playOrder="329">
+        <navLabel>
+          <text>28.8 Summary</text>
+        </navLabel>
+        <content src="dummy_split_052.html#filepos3382667"/>
+      </navPoint>
+      <navPoint class="chapter" id="4abf7e5b-c7f2-48b3-94bb-ccc9b74c8895" playOrder="330">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_052.html#filepos3383928"/>
+      </navPoint>
+      <navPoint class="chapter" id="2862d886-8f08-44fe-9912-6a7f1cd7e1e9" playOrder="331">
+        <navLabel>
+          <text>Exercises</text>
+        </navLabel>
+        <content src="dummy_split_052.html#filepos3386765"/>
+      </navPoint>
+      <navPoint class="chapter" id="afeb2e37-0140-4044-8586-f865484ed28f" playOrder="332">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_052.html#filepos3390100"/>
+      </navPoint>
+      <navPoint class="chapter" id="0c85387d-4612-4fe3-8013-ba6c93a2d1b8" playOrder="333">
+        <navLabel>
+          <text>chapter 29 Overview of Data Warehousing and OLAP</text>
+        </navLabel>
+        <content src="dummy_split_053.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="8673c5ce-d7f7-45df-bd48-9cd4207eed07" playOrder="334">
+        <navLabel>
+          <text>29.1 Introduction, Definitions, and Terminology</text>
+        </navLabel>
+        <content src="dummy_split_053.html#filepos3395017"/>
+      </navPoint>
+      <navPoint class="chapter" id="5f1b18b1-459c-4446-8788-d2d33c1be74d" playOrder="335">
+        <navLabel>
+          <text>29.2 Characteristics of Data Warehouses</text>
+        </navLabel>
+        <content src="dummy_split_053.html#filepos3399013"/>
+      </navPoint>
+      <navPoint class="chapter" id="7ce4e2a5-415f-4c35-82df-6a2c8b3b3037" playOrder="336">
+        <navLabel>
+          <text>29.3 Data Modeling for Data Warehouses</text>
+        </navLabel>
+        <content src="dummy_split_053.html#filepos3404844"/>
+      </navPoint>
+      <navPoint class="chapter" id="605d6c13-6717-4edd-ba85-917e0863f2bc" playOrder="337">
+        <navLabel>
+          <text>29.4 Building a Data Warehouse</text>
+        </navLabel>
+        <content src="dummy_split_053.html#filepos3414005"/>
+      </navPoint>
+      <navPoint class="chapter" id="23083dde-8089-4508-9ea7-c1cb90b05c3e" playOrder="338">
+        <navLabel>
+          <text>29.5 Typical Functionality of a Data Warehouse</text>
+        </navLabel>
+        <content src="dummy_split_053.html#filepos3425733"/>
+      </navPoint>
+      <navPoint class="chapter" id="f6066417-ad1c-4b15-9af4-5024ebdbd3a4" playOrder="339">
+        <navLabel>
+          <text>29.6 Data Warehouse versus Views</text>
+        </navLabel>
+        <content src="dummy_split_053.html#filepos3429910"/>
+      </navPoint>
+      <navPoint class="chapter" id="a6ee7b18-56e7-4b7d-a99c-a0db97680db3" playOrder="340">
+        <navLabel>
+          <text>29.7 Difficulties of Implementing Data Warehouses</text>
+        </navLabel>
+        <content src="dummy_split_053.html#filepos3431933"/>
+      </navPoint>
+      <navPoint class="chapter" id="9abc69d6-1eaa-475d-914f-c48496b68b54" playOrder="341">
+        <navLabel>
+          <text>29.8 Summary</text>
+        </navLabel>
+        <content src="dummy_split_053.html#filepos3436783"/>
+      </navPoint>
+      <navPoint class="chapter" id="5c26a8e6-f24a-494d-b652-649657845ded" playOrder="342">
+        <navLabel>
+          <text>Review Questions</text>
+        </navLabel>
+        <content src="dummy_split_053.html#filepos3437630"/>
+      </navPoint>
+      <navPoint class="chapter" id="5f21660d-fd33-4a95-a4ea-886aac0a4ff5" playOrder="343">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_053.html#filepos3440160"/>
+      </navPoint>
+      <navPoint class="chapter" id="78a81643-2469-4cd8-a3f1-91cf92da666e" playOrder="344">
+        <navLabel>
+          <text>appendix A Alternative Diagrammatic Notations for ER Models</text>
+        </navLabel>
+        <content src="dummy_split_054.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="82f9b014-27a1-415d-b642-0b7d2799ba71" playOrder="345">
+        <navLabel>
+          <text>appendix B Parameters of Disks</text>
+        </navLabel>
+        <content src="dummy_split_055.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="d3e04645-cb45-455e-beec-aee46dc5c91f" playOrder="346">
+        <navLabel>
+          <text>appendix C Overview of the QBE Language</text>
+        </navLabel>
+        <content src="dummy_split_056.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="e72ae725-9ffa-4adb-9132-34ae3438cf3a" playOrder="347">
+        <navLabel>
+          <text>C.1 Basic Retrievals in QBE</text>
+        </navLabel>
+        <content src="dummy_split_056.html#filepos3457347"/>
+      </navPoint>
+      <navPoint class="chapter" id="8e509fa6-1b0a-4005-95b2-4fb4f668369a" playOrder="348">
+        <navLabel>
+          <text>C.2 Grouping, Aggregation, and Database Modification in QBE</text>
+        </navLabel>
+        <content src="dummy_split_056.html#filepos3466662"/>
+      </navPoint>
+      <navPoint class="chapter" id="3bc3ef10-d690-4802-ad3b-98a421a85a79" playOrder="349">
+        <navLabel>
+          <text>Selected Bibliography</text>
+        </navLabel>
+        <content src="dummy_split_057.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="cc276f51-d0b2-4e07-b5f6-3b175ec9c0fc" playOrder="350">
+        <navLabel>
+          <text>Index</text>
+        </navLabel>
+        <content src="dummy_split_058.html"/>
+      </navPoint>
+    </navPoint>
+  </navMap>
+</ncx>
